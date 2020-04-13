@@ -1,8 +1,8 @@
 This repository contains the source code for the experiments in the following three papers
 
-** [SRDS 2019: Improved Fast Rerouting Using Postprocessing](https://www.univie.ac.at/ct/stefan/srds19failover.pdf)
-** [DSN 2019: Bonsai: Efficient Fast Failover Routing Using Small Arborescences](https://www.univie.ac.at/ct/stefan/dsn19.pdf)
-** [Infocom 2019: CASA: Congestion and Stretch Aware Static Fast Rerouting](https://www.univie.ac.at/ct/stefan/infocom2019e.pdf)
+* [SRDS 2019: Improved Fast Rerouting Using Postprocessing](https://www.univie.ac.at/ct/stefan/srds19failover.pdf)
+* [DSN 2019: Bonsai: Efficient Fast Failover Routing Using Small Arborescences](https://www.univie.ac.at/ct/stefan/dsn19.pdf)
+* [Infocom 2019: CASA: Congestion and Stretch Aware Static Fast Rerouting](https://www.univie.ac.at/ct/stefan/infocom2019e.pdf)
 
 by Klaus-Tycho Foerster, Andrzej Kamisinski, Yvonne-Anne Pignolet, Stefan Schmid, Gilles Tredan
 
