@@ -12,12 +12,14 @@ http://www.dia.uniroma3.it/~compunet/www/docs/chiesa/Resiliency-ToN.pdf) we base
 If you use this code, please cite the corresponding paper(s).
 
 ## Bibtex
+```
 @INPROCEEDINGS{srds19foerster,
   author = {Klaus-Tycho Foerster and Andrzej Kamisinski and Yvonne-Anne Pignolet and Stefan Schmid and Gilles Tredan},
   title = {Improved Fast Rerouting Using Postprocessing},
   booktitle = {Proc. 38th International Symposium on Reliable Distributed Systems (SRDS)},
   year = {2019},
 }
+
 @INPROCEEDINGS{dsn19foerster,
   author = {Klaus-Tycho Foerster and Andrzej Kamisinski and
   Yvonne-Anne Pignolet and Stefan Schmid and Gilles Tredan},
@@ -25,13 +27,14 @@ If you use this code, please cite the corresponding paper(s).
   booktitle = {Proc. 49th IEEE/IFIP International Conference on Dependable Systems and Networks (DSN)},
   year = {2019},
 }
+
 @INPROCEEDINGS{infocom19foerster,
   author = {Klaus-Tycho Foerster and Yvonne-Anne Pignolet and Stefan Schmid and Gilles Tredan},
   title = {CASA: Congestion and Stretch Aware Static Fast Rerouting},
   booktitle = {Proc. IEE INFOCOM},
   year = {2019},
 }
-
+```
 ## Overview
 
 * benchmark_graphs: directory to be filled with network topologies used in the experiments
