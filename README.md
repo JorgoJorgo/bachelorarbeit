@@ -47,7 +47,7 @@ If you use this code, please cite the corresponding paper(s).
 * dsn2019_experiments.py: experiments for DSN 2019 paper
 * infocom2019_experiments.py: experiments for Infocom 2019 paper
 
-For some experiments topologies from [Rocketfuel]{https://research.cs.washington.edu/networking/rocketfuel/} and the [Internet topology zoo]{http://www.topology-zoo.org/} networks need to downloaded and copied into the benchmark_graphs directory.
+For some experiments topologies from [Rocketfuel](https://research.cs.washington.edu/networking/rocketfuel/) and the [Internet topology zoo](http://www.topology-zoo.org/) networks need to downloaded and copied into the benchmark_graphs directory.
 
 To run the experiments for the SRDS paper, execute the corresponding python file:
 ```
