@@ -31,7 +31,7 @@ If you use this code, please cite the corresponding paper(s).
 @INPROCEEDINGS{infocom19foerster,
   author = {Klaus-Tycho Foerster and Yvonne-Anne Pignolet and Stefan Schmid and Gilles Tredan},
   title = {CASA: Congestion and Stretch Aware Static Fast Rerouting},
-  booktitle = {Proc. IEE INFOCOM},
+  booktitle = {Proc. IEEE INFOCOM},
   year = {2019},
 }
 ```
