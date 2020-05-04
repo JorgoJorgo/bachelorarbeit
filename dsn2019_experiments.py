@@ -81,6 +81,8 @@ def run_AS(outstretch=None, outtime=None, seed=0, rep=5):
                       (comp/count, np.mean(t), np.max(t)))
         print()
         sys.stdout.flush()
+        if rep == 1:
+            return
 
 
 # run experiments with regular graphs (pre-generated)
@@ -163,7 +165,7 @@ def dsn_experiments(switch="all", seed=0, short=None):
             rep = short
         else:
             rep = 1000
-        filename = "results/dsn-as_seed_"+str(seed)
+        filename = "results/dsn2019-as_seed_"+str(seed)
         outstretch = open(filename+"_stretch.txt", 'a')
         outstretch.write(
             "#graph, size, connectivity, algorithm, index, stretch\n")
@@ -182,7 +184,7 @@ def dsn_experiments(switch="all", seed=0, short=None):
     if switch in ["connectivity", "all"]:
         n = 100
         for k in [5, 10, 15, 20, 25, 30]:  # ,200]:
-            filename = "results/dsn-regular_nodes_grow_connectivity"+str(k)
+            filename = "results/dsn2019-regular_nodes_grow_connectivity"+str(k)
             outstretch = open(filename+"_stretch.txt", 'a')
             outstretch.write(
                 "#graph, size, connectivity, algorithm, index, stretch\n")
@@ -197,10 +199,12 @@ def dsn_experiments(switch="all", seed=0, short=None):
                         outtime=outtime, seed=seed)
             outstretch.close()
             outtime.close()
+            if short:
+                break
     if switch in ["size", "all"]:
         k = 5
         for n in [10, 20, 50, 100, 200, 500, 1000]:  # ,200]:
-            filename = "results/dsn-regular_nodes_grow_size"+str(n)
+            filename = "results/dsn2019-regular_nodes_grow_size"+str(n)
             outstretch = open(filename+"_stretch.txt", 'a')
             outstretch.write(
                 "#graph, size, connectivity, algorithm, index, stretch\n")
@@ -215,6 +219,8 @@ def dsn_experiments(switch="all", seed=0, short=None):
                         outtime=outtime, seed=seed)
             outstretch.close()
             outtime.close()
+            if short:
+                break
 
 
 if __name__ == "__main__":
@@ -230,6 +236,8 @@ if __name__ == "__main__":
         seed = int(sys.argv[2])
     if len(sys.argv) > 3:
         short = int(sys.argv[3])
+    if len(sys.argv) > 4:
+        n = int(sys.argv[4])
     dsn_experiments(switch=switch, seed=seed, short=short)
     end = time.time()
     print("time elapsed", end-start)

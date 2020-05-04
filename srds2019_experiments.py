@@ -12,24 +12,23 @@ def run_experiments():
     print('generated graphs')
     for (method, name) in [(Trees, 'Greedy'), (RR_swap, 'RR-swap')]:
         if switch in ['zoo', 'all']:
-            original_params = [n, rep, k, samplesize, f_num, seed, "srds-"]
+            original_params = [n, rep, k, samplesize, f_num, seed, "srds2019-"]
             zoo_count = 0
             for i in range(261):
-                rep = 2
                 samplesize = 10
                 f_num= 5
                 n = 20
-                set_parameters([n, rep, k, samplesize, f_num, seed, "zoo-srds-"])
-                g = read_zoo(i)
-                if g == None or len(g.nodes) > n:
+                set_parameters([n, rep, k, samplesize, f_num, seed, "zoo-srds2019-"])
+                g = read_zoo(i, 4)
+                if g == None:
                     continue
                 k = nx.edge_connectivity(g)
                 n = len(g.nodes())
                 m = len(g.edges())
-                print('i, nodes, edges, k', i, n, m, k)
+                print('nodes, edges, connectivity', n, m, k)
                 samplesize = min(int(n/2), samplesize)
                 f_num = min(int(m/4), f_num)
-                set_parameters([n, rep, k, samplesize, f_num, seed, "zoo-srds-"])
+                set_parameters([n, rep, k, samplesize, f_num, seed, "zoo-srds2019-"])
                 experiment_objective_subset(measure_stretch, method, str(
                     f_num)+"_stretch_for_subset_"+name, seed=i, gml=True)
                 experiment_objective_subset(measure_load, method, str(
@@ -67,8 +66,16 @@ if __name__ == "__main__":
         seed = int(sys.argv[2])
     if len(sys.argv) > 3:
         rep = int(sys.argv[3])
+    if len(sys.argv) > 4:
+        n = int(sys.argv[4])
+        if n < 20:
+            k = 5
+    if len(sys.argv) >5:
+        k= int(sys.argv[5])
+    samplesize = min(int(n/2), samplesize)
+    f_num = min(n, f_num)
     random.seed(seed)
-    set_parameters([n, rep, k, samplesize, f_num, seed, "srds-"])
+    set_parameters([n, rep, k, samplesize, f_num, seed, "srds2019-"])
     run_experiments()
     end = time.time()
     print(end-start, 'seconds')

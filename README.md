@@ -46,6 +46,7 @@ If you use this code, please cite the corresponding paper(s).
 * srds2019_experiments.py: experiments for SRDS 2019 paper
 * dsn2019_experiments.py: experiments for DSN 2019 paper
 * infocom2019_experiments.py: experiments for Infocom 2019 paper
+* benchmark_template.py: template to compare algorithms
 
 For some experiments topologies from [Rocketfuel](https://research.cs.washington.edu/networking/rocketfuel/) and the [Internet topology zoo](http://www.topology-zoo.org/) networks need to downloaded and copied into the benchmark_graphs directory.
 
@@ -57,4 +58,8 @@ With additional arguments the experiments can be customised (see main function o
 ```
 python srds2019_experiments.py all 6 1
 ```
-executes 1 repetition of all SRDS experiments with seed 6. Similarly, the experiments for the other papers can be executed. In case of questions please send an email to Yvonne-Anne Pignolet, ya at last name dot ch.
+executes 1 repetition of all SRDS experiments with seed 6. Similarly, the experiments for the other papers can be executed. 
+
+If you want to implement and compare additional algorithms, check out benchmark_template.py. It contains examples on how to compare different algorithms and assigns them a score.
+
+In case of questions please send an email to Yvonne-Anne Pignolet, ya at last name dot ch.

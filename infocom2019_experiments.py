@@ -42,7 +42,13 @@ if __name__ == "__main__":
 		seed = sys.argv[2]
 	if len(sys.argv) > 3:
 		rep = int(sys.argv[3])
-	set_parameters([n, rep, k, samplesize, f_num, seed, "infocom-"])
+	if len(sys.argv) > 4:
+		n = int(sys.argv[4])
+		if n < 20:
+			k = 5
+	samplesize = min(int(n/2), samplesize)
+	f_num = min(n, f_num)
+	set_parameters([n, rep, k, samplesize, f_num, seed, "infocom2019-"])
 	infocom_experiments(switch)
 	end = time.time()
 	print(end-start)

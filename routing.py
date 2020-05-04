@@ -14,7 +14,7 @@ rep = 1
 k = 8
 f_num = 40
 samplesize=20
-name = "experiment"
+name = "experiment-routing"
 
 #set global variables
 def set_params(params):
@@ -329,7 +329,7 @@ def Route_Stretch(s, d, fails, T):
 # samplesize: number of nodes from which we route towards the root
 # dest: nodes to exclude from using in sample
 # tree: arborescence decomposition to use
-def SimulateGraph(g, RANDOM, stats, f, samplesize, dest=None, tree=None):
+def SimulateGraph(g, RANDOM, stats, f, samplesize, precomputation=None, dest=None, tree=None):
     edg = list(g.edges())
     fails = g.graph['fails']
     if fails != None:
@@ -339,11 +339,12 @@ def SimulateGraph(g, RANDOM, stats, f, samplesize, dest=None, tree=None):
     d = g.graph['root']
     nodes = list(g.nodes()-set([dest]))
     g.graph['k'] = k
-    T = tree
-    if T is None:
-        T = Trees(g)
-    if T is None:
-        return -1
+    if precomputation is None:
+        precomputation = tree
+        if precomputation is None:
+            precomputation = Trees(g)
+            if precomputation is None:
+                return -1
     if RANDOM:
         fails = edg[:f]
     failures1 = {(u, v): g[u][v]['arb'] for (u, v) in fails}
@@ -353,7 +354,7 @@ def SimulateGraph(g, RANDOM, stats, f, samplesize, dest=None, tree=None):
         if (s == d) or (not s in dist):
             continue
         for stat in stats:
-            (fail, hops) = stat.update(s, d, fails, T, dist[s])
+            (fail, hops) = stat.update(s, d, fails, precomputation, dist[s])
             if fail:
                 stat.hops = stat.hops[:-1]
                 stat.stretch = stat.stretch[:-1]
