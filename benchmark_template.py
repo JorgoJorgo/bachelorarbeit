@@ -82,7 +82,7 @@ def one_experiment(g, seed, out, algo):
 # seed is used for pseudorandom number generation in this run
 # rep denotes the number of repetitions in the shuffle for loop
 def run_AS(out=None, seed=0, rep=5):
-    for i in range(4, 8):
+    for i in range(4, 5):
         generate_trimmed_AS(i)
     files = glob.glob('./benchmark_graphs/AS*.csv')
     original_params = [n, rep, k, samplesize, f_num, seed, name]

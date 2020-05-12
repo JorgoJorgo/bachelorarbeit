@@ -25,7 +25,7 @@ def run_experiments():
                 k = nx.edge_connectivity(g)
                 n = len(g.nodes())
                 m = len(g.edges())
-                print('nodes, edges, connectivity', n, m, k)
+                #print('nodes, edges, connectivity', n, m, k)
                 samplesize = min(int(n/2), samplesize)
                 f_num = min(int(m/4), f_num)
                 set_parameters([n, rep, k, samplesize, f_num, seed, "zoo-srds2019-"])
@@ -44,8 +44,7 @@ def run_experiments():
             experiment_objective_subset(measure_load, method, str(
                 f_num)+"_load_for_subset_"+name, seed=seed)
         if switch in ['independent', 'all']:
-            experiment_objective(num_independent_paths_in_arbs, method, str(
-                f_num)+"_independent_paths_"+name, seed=seed)
+            experiment_objective(num_independent_paths_in_arbs, method, "independent_paths_"+name, seed=seed)
         if switch in ['SRLG', 'all']:
             experiment_SRLG(method, str(f_num)+"_"+name, seed=seed)
             experiment_SRLG_node_failures(

@@ -186,9 +186,9 @@ def in_sp_to_r(g, v, u):
 
 # swap greedily while a pair of nodes with a better objective function evaluation
 # after the swap can be found
-
-
-def greedy_swap_minobj(g, obj):
+# default is to minimize the objective function, passing along max=True will
+# maximize it
+def greedy_swap_obj(g, obj, max=False):
     arbs = get_arborescence_dict(g)
     o = obj(g)
     new_o = 0
@@ -198,28 +198,29 @@ def greedy_swap_minobj(g, obj):
     count = 0
     while swapped:
         swapped = False
-        #print('count, o', count,o)
         for (u, v1) in test:
             for v2 in [nbr for nbr in g[u] if nbr != v1]:
-                #        print(u, v1, v2, g[u][v1]['arb'], g[u][v2]['arb'])
                 if swappable(u, v1, v2, arbs[g[u][v1]['arb']], arbs[g[u][v2]['arb']]):
-                 #           print('swappable')
                     swap(g, u, v1, u, v2)
                     new_o = obj(g)
-                    if new_o < o:
-                      #              print('new o', new_o)
-                       #             sys.exit()
-                        o = new_o
-                        swapped = True
-                        count += 1
+                    if max:
+                        if new_o> o:
+                            o = new_o
+                            swapped = True
+                            count += 1
+                        else:
+                            swap(g, u, v1, u, v2)
                     else:
-                        swap(g, u, v1, u, v2)
+                        if new_o < o:
+                            o = new_o
+                            swapped = True
+                            count += 1
+                        else:
+                            swap(g, u, v1, u, v2)
     return count
 
 # return the stretch of the arborescence with index i on g (how much longer the
 # path to the root is in the arborescence than in the original graph)
-
-
 def stretch_index(g, index):
     arbs = get_arborescence_list(g)
     dist = nx.shortest_path_length(g, target=g.graph['root'])
@@ -431,8 +432,6 @@ def find_best_swap(g):
     return e1, e2
 
 # recursively swap best edges found (with respect to stretch) in g
-
-
 def best_swap(g):
     (e1, e2) = find_best_swap(g)
     while e1 != None:
@@ -440,14 +439,10 @@ def best_swap(g):
         (e1, e2) = find_best_swap(g)
 
 # return the edge connectivity of g between s and t
-
-
 def TestCut(g, s, t):
     return nx.edge_connectivity(g, s, t)
 
 # return a random arborescence rooted at the root
-
-
 def FindRandomTree(g, k):
     T = nx.DiGraph()
     T.add_node(g.graph['root'])
@@ -482,8 +477,6 @@ def FindRandomTree(g, k):
     return T
 
 # associate random trees as arborescences with g
-
-
 def RandomTrees(g):
     gg = g.to_directed()
     K = g.graph['k']
@@ -498,8 +491,6 @@ def RandomTrees(g):
         k = k-1
 
 # compute the k^th arborescence of g greedily
-
-
 def FindTree(g, k):
     T = nx.DiGraph()
     T.add_node(g.graph['root'])
@@ -533,9 +524,41 @@ def FindTree(g, k):
         sys.stdout.flush()
     return T
 
+# compute the k^th arborescence of g greedily without checking for remaining connectivity
+def FindTreeNoTestCut(g, k):
+    T = nx.DiGraph()
+    T.add_node(g.graph['root'])
+    R = {g.graph['root']}
+    dist = dict()
+    dist[g.graph['root']] = 0
+    # heap of all border edges in form [(edge metric, (e[0], e[1])),...]
+    h = []
+    preds = sorted(g.predecessors(
+        g.graph['root']), key=lambda k: random.random())
+    for x in preds:
+        heappush(h, (0, (x, g.graph['root'])))
+        if k > 1:
+            continue
+    while len(h) > 0:
+        (d, e) = heappop(h)
+        g.remove_edge(*e)
+        if e[0] not in R:
+            dist[e[0]] = d+1
+            R.add(e[0])
+            preds = sorted(g.predecessors(e[0]), key=lambda k: random.random())
+            for x in preds:
+                if x not in R:
+                    heappush(h, (d+1, (x, e[0])))
+            T.add_edge(*e)
+        else:
+            g.add_edge(*e)
+    if len(R) < len(g.nodes()):
+        print(
+            "Couldn't find next edge for tree with g.graph['root']")
+        sys.stdout.flush()
+    return T
+
 # associate a greedy arborescence decomposition with g
-
-
 def Trees(g):
     reset_arb_attribute(g)
     gg = g.to_directed()
@@ -549,10 +572,9 @@ def Trees(g):
             g[u][v]['arb'] = K-k
         gg.remove_edges_from(T.edges())
         k = k-1
+    return get_arborescence_list(g)
 
-# XXX
-
-
+# run one iteration for a greedy arborescence and then round robin
 def BalanceLater(g):
     reset_arb_attribute(g)
     gg = g.to_directed()
@@ -569,6 +591,7 @@ def BalanceLater(g):
     round_robin(gg, swap=True)
     for (u, v) in gg.edges():
         g[u][v]['arb'] = gg[u][v]['arb']
+    return get_arborescence_list(g)
 
 
 # associate a greedy arborescence decomposition with g and then swap edges
@@ -576,27 +599,24 @@ def BalanceLater(g):
 def OptimizeGreedyStretch(g):
     Trees(g)
     greedy_swap(g, stretchi=True)
+    return get_arborescence_list(g)
 
 # associate a greedy arborescence decomposition with g and then swap edges
 # greedily to optimize Depth
-
-
 def OptimizeGreedyDepth(g):
     Trees(g)
     greedy_swap(g, stretchi=False)
+    return get_arborescence_list(g)
 
 # associate a greedy arborescence decomposition with g and then swap edges
 # trying to find the best swap to optimize stretch
-
-
 def BestSwap(g):
     Trees(g)
     best_swap(g)
+    return get_arborescence_list(g)
 
 # Helper class (some algorithms work with Network, others without),
 # methods as above
-
-
 class Network:
     # initialize variables
     def __init__(self, g, K, root):
@@ -716,8 +736,6 @@ class Network:
         return self.g.predecessors(v)
 
 # set up network data structures before using them
-
-
 def prepareDS(n, h, dist):
     reset_arb_attribute(n.g)
     for i in range(n.K):
@@ -730,8 +748,6 @@ def prepareDS(n, h, dist):
         n.arbs[i].add_node(n.root)
 
 # try to swap an edge on arborescence index for network with heap h
-
-
 def trySwap(n, h, index):
     ni = list(n.nodes_index(index))
     for v1 in ni:
@@ -756,8 +772,6 @@ def trySwap(n, h, index):
     return False
 
 # add a new items to the heap
-
-
 def update_heap(n, h, index):
     new = []
     for (d, e) in list(h[index]):
@@ -767,8 +781,6 @@ def update_heap(n, h, index):
     h[index] = new
 
 # add neighbors to heap
-
-
 def add_neighbors_heap(n, h, nodes):
     n.build_arbs()
     for index in range(n.K):
@@ -791,8 +803,6 @@ def add_neighbors_heap_index(n, h, index, nodes):
                 heappush(h[index], (stretch, (x, v)))
 
 # Round robin version without testing for cuts and swaps
-
-
 def RR(g):
     return (round_robin(g, cut=False, swap=False))
 
@@ -814,9 +824,7 @@ def RR_swap(g):
 def RR_con_swap(g):
     return (round_robin(g, cut=True, swap=True))
 
-# basic round robin implementation of constructing arborences
-
-
+# basic round robin implementation of constructing arborescences
 def round_robin(g, cut=False, swap=False):
     global swappy
     reset_arb_attribute(g)
@@ -843,7 +851,7 @@ def round_robin(g, cut=False, swap=False):
                 #drawArborescences(g, "balanced")
                 # sys.stdout.flush()
                 # plt.show()
-                return
+                return -1
         (d, e) = heappop(h[index])
         while e != None and n.g[e[0]][e[1]]['arb'] > -1:  # in used_edges:
             if len(h[index]) == 0:
@@ -860,7 +868,7 @@ def round_robin(g, cut=False, swap=False):
                     #drawArborescences(g, "balanced")
                     # sys.stdout.flush()
                     # plt.show()
-                    return
+                    return -1
             else:
                 (d, e) = heappop(h[index])
         ni = n.nodes_index(index)
@@ -877,3 +885,4 @@ def round_robin(g, cut=False, swap=False):
             index = (index + 1) % K
     swappy.append(swaps)
     g = n.g
+    return get_arborescence_list(g)

@@ -133,11 +133,11 @@ def experiment_objective_subset(obj_func, method, objstr=None, seed=11, gml=Fals
             before = obj_func(g)
             T1 = get_arborescence_list(g)
             t_swap = time.time()
-            greedy_swap_minobj(g, obj_func)
+            count = greedy_swap_obj(g, obj_func)
             t_swap = time.time() - t_swap
             outtime.write("%i, %.6f, %.6f\n" % (n, t_arb, t_swap))
             after = obj_func(g)
-            print(objstr, j, before, after)
+            print("objective",objstr, "repetition",j, "before", before, "after", after, "t_swap",t_swap, "number of swaps", count)
             if before < after:
                 print('has not been optimized, line 119')
                 sys.exit()
@@ -202,8 +202,12 @@ def experiment_objective(obj_func, method, objstr=None, seed=1):
     outstretch = open(filename, 'a')
     outstretch.write(
         "#n= %d, connectivity= %d, repetitions= %d\n" % (n, k, rep))
-    outstretch.write(
-        "#graph, before/after, intensity, 'objective', success rate, switches, max load, mean load, max stretch, mean stretch, max hops, mean hops\n")
+    if "independent" in objstr:
+        outstretch.write(
+            "graph type, before, objective, after, objective\n")
+    else:
+        outstretch.write(
+            "#graph, before/after, intensity, 'objective', success rate, switches, max load, mean load, max stretch, mean stretch, max hops, mean hops\n")
     stat = Statistic(RouteDetCirc, "DetCirc")
     failure_range = [int(n / 10 * i) for i in range(1, 5 * k)]
     data = {i: {'before': {'succ': [], 'hops': []}, 'after': {
@@ -214,10 +218,16 @@ def experiment_objective(obj_func, method, objstr=None, seed=1):
         if num_complete_nodes(g) == n:
             before = obj_func(g)
             T1 = get_arborescence_list(g)
-            greedy_swap_minobj(g, obj_func)
+            if "independent" in objstr:
+                greedy_swap_obj(g, obj_func, max=True)
+            else:
+                greedy_swap_obj(g, obj_func)
             after = obj_func(g)
             T2 = get_arborescence_list(g)
-            print(j, before, after)
+            print(j, before, after, obj_func)
+            if "independent" in objstr:
+                outstretch.write("regular, before, %d, after, %d\n" % (before, after))
+                continue
             for f in failure_range:
                 stat.reset(g.nodes())
                 # , fails=fails) #replace True by False to use fails
@@ -250,20 +260,23 @@ def experiment_objective(obj_func, method, objstr=None, seed=1):
             print(objstr, j, before, after)
             sys.stdout.flush()
             outstretch.flush()
-    for f in failure_range:
-        brs = np.mean(data[f]['before']['succ'])
-        bsh = np.mean(data[f]['before']['hops'])
-        ars = np.mean(data[f]['after']['succ'])
-        arh = np.mean(data[f]['after']['hops'])
-        print('%d failures, avg before success hops, after success hops %.2f, %.2f, %.2f, %.2f' % (
-            f, brs, bsh, ars, arh))
-        brs = np.min(data[f]['before']['succ'])
-        bsh = np.min(data[f]['before']['hops'])
-        ars = np.min(data[f]['after']['succ'])
-        arh = np.min(data[f]['after']['hops'])
-        print('%d failures, min before success hops, after success hops %.2f, %.2f, %.2f, %.2f' % (
-            f, brs, bsh, ars, arh))
-        sys.stdout.flush()
+
+    if "independent" not in objstr:
+        for f in failure_range:
+            brs = np.mean(data[f]['before']['succ'])
+            bsh = np.mean(data[f]['before']['hops'])
+            ars = np.mean(data[f]['after']['succ'])
+            arh = np.mean(data[f]['after']['hops'])
+            print('%d failures, avg before success hops, after success hops %.2f, %.2f, %.2f, %.2f' % (
+                f, brs, bsh, ars, arh))
+            brs = np.min(data[f]['before']['succ'])
+            bsh = np.min(data[f]['before']['hops'])
+            ars = np.min(data[f]['after']['succ'])
+            arh = np.min(data[f]['after']['hops'])
+            print('%d failures, min before success hops, after success hops %.2f, %.2f, %.2f, %.2f' % (
+                f, brs, bsh, ars, arh))
+            sys.stdout.flush()
+            
     outstretch.close()
 
 
@@ -305,8 +318,8 @@ def experiment_SRLG(method, name, seed=11):
                     index = g[u][v]['arb']
                     if index in range(k - 2) and v != g.graph['root']:
                         for vv in g[u]:
-                            if vv != g.graph['root'] and (u, vv) not in SRLG and (vv, u) not in SRLG and g[u][vv][
-                                'arb'] in [k - 1, k - 2]:
+                            if vv != g.graph['root'] and (u, vv) not in SRLG and (vv, u) not in SRLG \
+                                    and g[u][vv]['arb'] in [k - 1, k - 2]:
                                 swap(g, u, v, u, vv)
 
                 after = count_SRLG(g, k, SRLG)
@@ -517,7 +530,7 @@ def read_zoo(j, min_connectivity):
     if len(zoo_list) <= j:
         return None
     g1 = nx.Graph(nx.read_graphml(zoo_list[j]))
-    g2 = nx.convert_node_labels_to_integers(g1)
+    g2 = nx.convert_node_labels_to_integers(g1).to_directed()
     # print(nx.edge_connectivity(g2),',', len(g2.nodes))
     n_before = len(g2.nodes)
     degree = 3
@@ -529,8 +542,8 @@ def read_zoo(j, min_connectivity):
         degree += 1
     if len(g2.nodes) < 10:
         return None
-    # print(zoo_list[j],n_before, len(g2.nodes), len(g2.edges), nx.edge_connectivity(g2),degree)
     g = g2.to_directed()
+    #print(zoo_list[j],n_before, len(g.nodes), len(g.edges), nx.edge_connectivity(g2),degree)
     g = nx.convert_node_labels_to_integers(g)
     for (u, v) in g.edges():
         g[u][v]['arb'] = -1
