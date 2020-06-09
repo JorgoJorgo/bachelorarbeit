@@ -8,6 +8,7 @@ import random
 import time
 import glob
 from objective_function_experiments import *
+DEBUG = False
 
 # Data structure containing the algorithms under
 # scrutiny. Each entry contains a name and a pair
@@ -29,7 +30,8 @@ from objective_function_experiments import *
 # In this example we compare Bonsai and Greedy. You can add more
 # algorithms to this data structure to compare the performance
 # of additional algorithms.
-algos = {'Bonsai': [RR_swap, RouteDetCirc], 'Greedy': [Trees, RouteDetCirc]}
+#algos = {'Bonsai': [RR_swap, RouteDetCirc], 'Greedy': [Trees, RouteDetCirc], 'Adhoc': [AdHocExtraLinks, RouteDetCirc]}
+algos = {'Greedy': [Trees, RouteDetCirc], 'Adhoc': [AdHocExtraLinks, RouteDetCirc]}
 
 
 # run one experiment with graph g
@@ -41,6 +43,7 @@ algos = {'Bonsai': [RR_swap, RouteDetCirc], 'Greedy': [Trees, RouteDetCirc]}
 #       otherwise (2 - success_ratio) * (stretch + load)
 def one_experiment(g, seed, out, algo):
     [precomputation_algo, routing_algo] = algo[:2]
+    if DEBUG: print('experiment for ', algo[0])
 
     # precomputation
     reset_arb_attribute(g)
@@ -64,6 +67,7 @@ def one_experiment(g, seed, out, algo):
     success_ratio = stat.succ/ samplesize
     # write results
     if stat.succ > 0:
+        if DEBUG: print('success', stat.succ, algo[0])
         # stretch, load, hops, success, routing time, precomputation time
         out.write(', %i, %i, %i, %f, %f, %f\n' %
                   (np.max(stat.stretch), stat.load, np.max(stat.hops),
@@ -71,6 +75,7 @@ def one_experiment(g, seed, out, algo):
         score = (2 - success_ratio) * (np.max(stat.stretch) + stat.load)
 
     else:
+        if DEBUG: print('no success_ratio', algo[0])
         out.write(', %f, %f, %f, %f, %f, %f\n' %
                   (float('inf'), float('inf'), float('inf'), 0, rt, pt))
         score = 1000*1000
@@ -121,6 +126,7 @@ def run_zoo(out=None, seed=0, rep=5):
         set_parameters([nn, rep, kk, ss, fn, seed, name + "zoo-"])
         shuffle_and_run(g, out, seed, rep, str(i))
         set_parameters(original_params)
+        #return #TODO remove this line
 
 # shuffle root nodes and run algorithm
 def shuffle_and_run(g, out, seed, rep, x):
@@ -183,8 +189,10 @@ def experiments(switch="all", seed=0, rep=100):
         run_AS(out=out, seed=seed, rep=rep)
         out.close()
 
+    print()
     for (algoname, algo) in algos.items():
-        print(algoname, np.mean(algo[2:]))
+        print('%s \t %.5E' % (algoname, np.mean(algo[2:])))
+    print("\nlower is better")
 
 
 
@@ -208,6 +216,8 @@ if __name__ == "__main__":
         rep = int(sys.argv[3])
     if len(sys.argv) > 4:
         n = int(sys.argv[4])
+    if len(sys.argv) > 4:
+        samplesize = int(sys.argv[5])
     random.seed(seed)
     set_parameters([n, rep, k, samplesize, f_num, seed, "benchmark-"])
     experiments(switch=switch, seed=seed, rep=rep)

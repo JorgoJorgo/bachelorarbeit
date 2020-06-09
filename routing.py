@@ -34,6 +34,11 @@ def RouteDetCirc(s, d, fails, T):
     n = len(T[0].nodes())
     k = len(T)
     while (s != d):
+        while (s not in T[curT].nodes()) and switches < k*n:
+            curT = (curT+1) % k
+            switches += 1
+        if switches >= k*n:
+            break
         nxt = list(T[curT].neighbors(s))
         if len(nxt) != 1:
             print("Bug: too many or to few neighbours")
