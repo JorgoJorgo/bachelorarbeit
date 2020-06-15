@@ -5,7 +5,6 @@ import itertools
 import random
 import time
 from arborescences import *
-from extra_links import *
 import glob
 
 #global variables in this file

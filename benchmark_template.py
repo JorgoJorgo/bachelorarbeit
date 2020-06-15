@@ -30,9 +30,7 @@ DEBUG = False
 # In this example we compare Bonsai and Greedy. You can add more
 # algorithms to this data structure to compare the performance
 # of additional algorithms.
-#algos = {'Bonsai': [RR_swap, RouteDetCirc], 'Greedy': [GreedyArborescenceDecomposition, RouteDetCirc], 'Adhoc': [AdHocExtraLinks, RouteDetCirc]}
-algos = {'Greedy': [GreedyArborescenceDecomposition, RouteDetCirc], 'Adhoc': [AdHocExtraLinks, RouteDetCirc]}
-
+algos = {'Bonsai': [RR_swap, RouteDetCirc], 'Greedy': [GreedyArborescenceDecomposition, RouteDetCirc]}
 
 # run one experiment with graph g
 # out denotes file handle to write results to
