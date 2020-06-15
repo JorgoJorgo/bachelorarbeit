@@ -481,7 +481,7 @@ def write_graphs():
         g.graph['seed'] = 0
         g.graph['k'] = k
         g.graph['root'] = 0
-        Trees(g)
+        GreedyArborescenceDecomposition(g)
         d.append(depth(g))
         ecc.append(nx.eccentricity(g, 0))
         sp.append(nx.average_shortest_path_length(g))
@@ -533,7 +533,7 @@ def read_zoo(j, min_connectivity):
     g2 = nx.convert_node_labels_to_integers(g1).to_directed()
     # print(nx.edge_connectivity(g2),',', len(g2.nodes))
     n_before = len(g2.nodes)
-    degree = 3
+    degree = min(3, min_connectivity)
     while nx.edge_connectivity(g2) < min_connectivity:
         g2 = trim2(g2, degree)
         if len(g2.nodes) == 0:
@@ -543,7 +543,7 @@ def read_zoo(j, min_connectivity):
     if len(g2.nodes) < 10:
         return None
     g = g2.to_directed()
-    #print(zoo_list[j],n_before, len(g.nodes), len(g.edges), nx.edge_connectivity(g2),degree)
+    print(zoo_list[j],n_before, len(g.nodes), len(g.edges), nx.edge_connectivity(g2),degree)
     g = nx.convert_node_labels_to_integers(g)
     for (u, v) in g.edges():
         g[u][v]['arb'] = -1

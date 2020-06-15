@@ -12,7 +12,7 @@ from objective_function_experiments import *
 def infocom_experiments(switch):
 	write_graphs()
 	print('generated graphs')
-	for (method, name) in [(RandomTrees, 'Random'), (Trees, 'Greedy')]:
+	for (method, name) in [(RandomTrees, 'Random'), (GreedyArborescenceDecomposition, 'Greedy')]:
 		if switch in ['subset', 'all']:
 			experiment_objective_subset(
 			    measure_stretch, method, "stretch_for_subset_"+name)

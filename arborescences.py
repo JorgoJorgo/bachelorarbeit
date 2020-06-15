@@ -559,7 +559,7 @@ def FindTreeNoTestCut(g, k):
     return T
 
 # associate a greedy arborescence decomposition with g
-def Trees(g):
+def GreedyArborescenceDecomposition(g):
     reset_arb_attribute(g)
     gg = g.to_directed()
     K = g.graph['k']
@@ -597,21 +597,21 @@ def BalanceLater(g):
 # associate a greedy arborescence decomposition with g and then swap edges
 # greedily to optimize stretch
 def OptimizeGreedyStretch(g):
-    Trees(g)
+    GreedyArborescenceDecomposition(g)
     greedy_swap(g, stretchi=True)
     return get_arborescence_list(g)
 
 # associate a greedy arborescence decomposition with g and then swap edges
 # greedily to optimize Depth
 def OptimizeGreedyDepth(g):
-    Trees(g)
+    GreedyArborescenceDecomposition(g)
     greedy_swap(g, stretchi=False)
     return get_arborescence_list(g)
 
 # associate a greedy arborescence decomposition with g and then swap edges
 # trying to find the best swap to optimize stretch
 def BestSwap(g):
-    Trees(g)
+    GreedyArborescenceDecomposition(g)
     best_swap(g)
     return get_arborescence_list(g)
 
@@ -887,39 +887,4 @@ def round_robin(g, cut=False, swap=False, reset=True):
             index = (index + 1) % K
     swappy.append(swaps)
     g = n.g
-    return get_arborescence_list(g)
-
-
-# associate a greedy arborescence decomposition with g
-# and the continue adding arborescences pieces as long as possible
-def AdHocExtraLinks(g):
-    reset_arb_attribute(g)
-    gg = g.to_directed()
-    # K is set to degree of root
-    K = len(g.in_edges(g.graph['root']))
-    k = K
-    while k > 0:
-        T = FindTree(gg, k)
-        if T is None or len(T.edges()) == 0:
-            #print("no edges")
-            K = K-1
-            k = k-1
-            continue
-        for (u, v) in T.edges():
-            g[u][v]['arb'] = K-k
-        gg.remove_edges_from(T.edges())
-        k = k-1
-    #print('complete', num_complete_nodes(g))
-
-    count = 0
-    for (u, v) in g.edges():
-        if g[u][v]['arb'] == -1:
-            from_u = [d['arb'] for (i, j, d) in g.edges(data=True) if i == u]
-            for i in range(K):
-                if not (i in from_u):
-                    g[u][v]['arb'] == i
-                    count += 1
-                    continue
-    #print('added edges', count)
-    #print('complete', num_complete_nodes(g))
     return get_arborescence_list(g)

@@ -30,8 +30,8 @@ DEBUG = False
 # In this example we compare Bonsai and Greedy. You can add more
 # algorithms to this data structure to compare the performance
 # of additional algorithms.
-#algos = {'Bonsai': [RR_swap, RouteDetCirc], 'Greedy': [Trees, RouteDetCirc], 'Adhoc': [AdHocExtraLinks, RouteDetCirc]}
-algos = {'Greedy': [Trees, RouteDetCirc], 'Adhoc': [AdHocExtraLinks, RouteDetCirc]}
+#algos = {'Bonsai': [RR_swap, RouteDetCirc], 'Greedy': [GreedyArborescenceDecomposition, RouteDetCirc], 'Adhoc': [AdHocExtraLinks, RouteDetCirc]}
+algos = {'Greedy': [GreedyArborescenceDecomposition, RouteDetCirc], 'Adhoc': [AdHocExtraLinks, RouteDetCirc]}
 
 
 # run one experiment with graph g
@@ -113,6 +113,8 @@ def run_AS(out=None, seed=0, rep=5):
 def run_zoo(out=None, seed=0, rep=5):
     min_connectivity = 4
     original_params = [n, rep, k, samplesize, f_num, seed, name]
+    if DEBUG:
+        print('n_before, n_after, m_after, connectivity, degree')
     for i in range(261):
         random.seed(seed)
         g = read_zoo(i, min_connectivity)
@@ -124,9 +126,13 @@ def run_zoo(out=None, seed=0, rep=5):
         ss = min(int(nn / 2), samplesize)
         fn = min(int(mm / 4), f_num)
         set_parameters([nn, rep, kk, ss, fn, seed, name + "zoo-"])
+        #print('parameters', nn, rep, kk, ss, fn, seed)
         shuffle_and_run(g, out, seed, rep, str(i))
         set_parameters(original_params)
-        #return #TODO remove this line
+        for (algoname, algo) in algos.items():
+            index_1 = len(algo) - rep
+            index_2 = len(algo)
+            print('intermediate result: %s \t %.5E' % (algoname, np.mean(algo[index_1:index_2])))
 
 # shuffle root nodes and run algorithm
 def shuffle_and_run(g, out, seed, rep, x):

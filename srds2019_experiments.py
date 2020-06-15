@@ -10,7 +10,7 @@ def run_experiments():
     global name, n, rep, k, samplesize, f_num, seed
     write_graphs()
     print('generated graphs')
-    for (method, name) in [(Trees, 'Greedy'), (RR_swap, 'RR-swap')]:
+    for (method, name) in [(GreedyArborescenceDecomposition, 'Greedy'), (RR_swap, 'RR-swap')]:
         if switch in ['zoo', 'all']:
             original_params = [n, rep, k, samplesize, f_num, seed, "srds2019-"]
             zoo_count = 0

@@ -14,7 +14,7 @@ import glob
 def run_AS(outstretch=None, outtime=None, seed=0, rep=5):
     global swappy
     astr = ['RR-swap']  # , 'Greedy', 'Random']
-    algos = {'RR-swap': RR_swap, 'Greedy': Trees, 'Random': RandomTrees}
+    algos = {'RR-swap': RR_swap, 'Greedy': GreedyArborescenceDecomposition, 'Random': RandomTrees}
     swappy = [0]
     files = glob.glob('./benchmark_graphs/AS*.csv')
     for x in files:
@@ -97,7 +97,7 @@ def run_regular(k=4, n=50, rep=100, outstretch=None, outtime=None, seed=0):
     edge_labels[-1] = {}
     astr = ['RR', 'RR-con', 'RR-swap', 'RR-swap-con', 'Greedy', 'random']
     astr = ['RR', 'RR-swap', 'Greedy', 'random']
-    algos = {'Later': BalanceLater, 'RR': RR, 'RR-con': RR_con, 'RR-swap': RR_swap, 'RR-swap-con': RR_con_swap, 'Greedy': Trees,
+    algos = {'Later': BalanceLater, 'RR': RR, 'RR-con': RR_con, 'RR-swap': RR_swap, 'RR-swap-con': RR_con_swap, 'Greedy': GreedyArborescenceDecomposition,
              'Greedy-swap-stretch': OptimizeGreedyStretch, 'Greedy-swap-depth': OptimizeGreedyDepth, 'bestSw': BestSwap, 'random': RandomTrees}
     data = {v: {'complete': 0, 'stretch': [0 for i in range(rep)], 'depth': [0 for i in range(
         rep)], 'time': [0.0 for i in range(rep)]} for (v, k) in algos.items()}
