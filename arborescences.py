@@ -411,6 +411,7 @@ def drawArborescences(g, pngname="results/weighted_graph.png"):
         nx.draw_networkx_edges(g, pos, edgelist=edge_j, width=1,
                                alpha=0.5, edge_color=colors[j])  # , arrowsize=20)
         plt.savefig(pngname+str(j)+'.png')  # save as png
+        plt.close()
 
 # return best edges to swap for stretch in g
 
