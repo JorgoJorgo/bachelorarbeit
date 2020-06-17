@@ -28,6 +28,8 @@ def init_k_graph(k, n):
     for (u, v) in g.edges():
         g[u][v]['arb'] = -1
     g.graph['k'] = k
+    if 'root' not in g.graph.keys():
+        g.graph['root'] = 0 #set root node to be 0
     return g
 
 # reset the arb attribute for all edges to -1, i.e., no arborescence assigned yet
