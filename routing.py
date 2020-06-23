@@ -63,7 +63,7 @@ def Bounce(s, d, T, cur):
     else:
         return (cur+1) % len(T)
 
-# Route with bouncing as described by Chiesa et al.
+# Route with bouncing for 3-connected graph by Chiesa et al.
 # source s
 # destination d
 # link failure set fails
@@ -153,7 +153,7 @@ def PrepareSQ1(G, d):
                 G, u, d, auxiliary=H, residual=R)), key=len)
             SQ1[u][d] = k
 
-# Route with bouncing as described by Chiesa et al.
+# Route with Square One algorithm
 # source s
 # destination d
 # link failure set fails
@@ -190,7 +190,7 @@ def RouteSQ1(s, d, fails, T):
     return (False, hops, switches, detour_edges)
 
 
-# Route with randomixation as described by Chiesa et al.
+# Route with randomization as described by Chiesa et al.
 # source s
 # destination d
 # link failure set fails
@@ -259,7 +259,7 @@ def RoutePRNB(s, d, fails, T):
             return (True, hops, switches, detour_edges)
     return (False, hops, switches, detour_edges)
 
-# Route with bouncing variant as described by Chiesa et al.
+# Route with bouncing variant by Chiesa et al.
 # source s
 # destination d
 # link failure set fails
