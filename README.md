@@ -63,3 +63,7 @@ executes 1 repetition of all SRDS experiments with seed 6. Similarly, the experi
 If you want to implement and compare additional algorithms, check out benchmark_template.py. It contains examples on how to compare different algorithms and assigns them a score.
 
 In case of questions please send an email to Yvonne-Anne Pignolet, ya at last name dot ch.
+
+##Addendum
+
+August 2020: Ioan Marian Dan, Diana-Alexandra Deac, Daniel Alejandro Robles, Alhamzeh Ismail provided an improved version of a randomized algorithm in RouteTryLinkToDestinationFirstPR.py.
