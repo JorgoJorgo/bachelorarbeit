@@ -67,3 +67,5 @@ In case of questions please send an email to Yvonne-Anne Pignolet, ya at last na
 ##Addendum
 
 August 2020: Ioan Marian Dan, Diana-Alexandra Deac, Daniel Alejandro Robles, Alhamzeh Ismail provided an improved version of a randomized algorithm in RouteTryLinkToDestinationFirstPR.py.
+
+December 2020: Paula-Elena Gheorghe added an implementation of the algorithm described in https://cpsc.yale.edu/sites/default/files/files/tr1454.pdf, see FeigenbaumAlgo.py
