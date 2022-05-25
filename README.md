@@ -75,10 +75,10 @@ If you use this code, please cite the corresponding paper(s).
 * arborescence.py: arborescence decomposition and helper algorithms
 * routing_stats.py: routing algorithms, simulation and statistic framework
 * objective_function_experiments.py: objective functions, independence and SRLG experiments
-* srds2019_experiments.py: experiments for SRDS 2019 paper
+* srds2019_experiments.py: experiments for SRDS 2019 / TSDC 2022 paper
 * dsn2019_experiments.py: experiments for DSN 2019 paper
-* infocom2019_experiments.py: experiments for Infocom 2019 paper
-* infocom2021_experiments.py: experiments for Infocom 2019 paper
+* infocom2019_experiments.py: experiments for INFOCOM 2019 paper
+* infocom2021_experiments.py: experiments for INFOCOM 2021 paper
 * benchmark_template.py: template to compare algorithms
 
 For some experiments topologies from [Rocketfuel](https://research.cs.washington.edu/networking/rocketfuel/) and the [Internet topology zoo](http://www.topology-zoo.org/) networks need to downloaded and copied into the benchmark_graphs directory.
