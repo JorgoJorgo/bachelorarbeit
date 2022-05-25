@@ -18,12 +18,16 @@ name = "experiment-objective-function"
 
 # set global parameters in this file and in routing_stats
 def set_parameters(params):
+    set_objective_parameters(params)
+
+# set global parameters in this file and in routing_stats
+def set_objective_parameters(params):
     global seed, n, rep, k, samplesize, name, f_num
     [n, rep, k, samplesize, f_num, seed, name] = params
-    set_params(params)
+    set_routing_params(params)
 
 # print global parameters in this file and in routing_stats
-def print_parameters():
+def print_objective_parameters():
     print(n, rep, k, samplesize, f_num, seed, name)
 
 # objective functions
@@ -137,18 +141,18 @@ def experiment_objective_subset(obj_func, method, objstr=None, seed=11, gml=Fals
             t_swap = time.time() - t_swap
             outtime.write("%i, %.6f, %.6f\n" % (n, t_arb, t_swap))
             after = obj_func(g)
-            print("objective",objstr, "repetition",j, "before", before, "after", after, "t_swap",t_swap, "number of swaps", count)
             if before < after:
-                print('has not been optimized, line 119')
-                sys.exit()
+                print("objective",objstr, "repetition",j, "before", before, "after", after, "t_swap",t_swap, "number of swaps", count, 'has not been optimized')
+                sys.exit(-1)
             T2 = get_arborescence_list(g)
             stat.reset(g.nodes())
             fails = g.graph['fails']
-            SimulateGraph(g, True, [stat], f_num, samplesize, tree=T1)
+            ss = min(samplesize,len(set(connected_component_nodes_with_d_after_failures(g,fails[:f_num],g.graph['root'])))- 1)
+            SimulateGraph(g, True, [stat], f_num, ss, tree=T1)
             for f1 in failure_range:
                 stat.reset(g.nodes())
                 random.seed(j)
-                SimulateGraph(g, True, [stat], f1, samplesize, tree=T1)
+                SimulateGraph(g, True, [stat], f1, ss, tree=T1)
                 brs = int(stat.succ) / samplesize
                 brh = (stat.totalSwitches)
                 data[f1]['before']['succ'].append(brs)
@@ -170,7 +174,7 @@ def experiment_objective_subset(obj_func, method, objstr=None, seed=11, gml=Fals
                     sys.exit()
                 stat.reset(g.nodes())
                 random.seed(g.graph['seed'])
-                SimulateGraph(g, True, [stat], f1, samplesize, tree=T2)
+                SimulateGraph(g, True, [stat], f1, ss, tree=T2)
                 ars = int(stat.succ) / samplesize
                 arh = (stat.totalSwitches)
                 data[f1]['after']['succ'].append(ars)
@@ -228,10 +232,11 @@ def experiment_objective(obj_func, method, objstr=None, seed=1):
             if "independent" in objstr:
                 outstretch.write("regular, before, %d, after, %d\n" % (before, after))
                 continue
+            ss = min(samplesize,len(set(connected_component_nodes_with_d_after_failures(g,fails[:max(failure_range)],g.graph['root'])))- 1)
             for f in failure_range:
                 stat.reset(g.nodes())
                 # , fails=fails) #replace True by False to use fails
-                SimulateGraph(g, True, [stat], f, n, tree=T1)
+                SimulateGraph(g, True, [stat], f, ss, tree=T1)
                 brs = int(stat.succ) / n
                 brh = (stat.totalSwitches)
                 data[f]['before']['succ'].append(brs)
@@ -242,7 +247,7 @@ def experiment_objective(obj_func, method, objstr=None, seed=1):
                     np.max(stat.hops), np.mean(stat.hops)))
 
                 stat.reset(g.nodes())
-                SimulateGraph(g, True, [stat], f, n, tree=T2)  # , fails=fails)
+                SimulateGraph(g, True, [stat], f, ss, tree=T2)  # , fails=fails)
                 ars = int(stat.succ) / n
                 arh = (stat.totalSwitches)
                 data[f]['after']['succ'].append(ars)
@@ -328,7 +333,8 @@ def experiment_SRLG(method, name, seed=11):
                 fails = random.sample(edg, f)
                 g.graph['fails'] = fails
                 stat.reset(g.nodes())
-                SimulateGraph(g, False, [stat], f, n, tree=T1)
+                samplessize = len(set(connected_component_nodes_with_d_after_failures(g,fails[:f],g.graph['root'])))- 1
+                SimulateGraph(g, False, [stat], f, samplessize, tree=T1)
                 brs = int(stat.succ) / n
                 brh = (stat.totalSwitches)
                 outstretch.write("regular, before, True, %d, %.2f, %.2f, %.2f, %.2f, %.2f, %.2f, %.2f, %.2f, %.2f\n" % (
@@ -338,7 +344,8 @@ def experiment_SRLG(method, name, seed=11):
 
                 stat.reset(g.nodes())
                 g.graph['fails'] = SRLG
-                SimulateGraph(g, False, [stat], f, n, tree=T1)
+                samplessize = len(set(connected_component_nodes_with_d_after_failures(g,fails[:f],g.graph['root'])))- 1
+                SimulateGraph(g, False, [stat], f, samplessize, tree=T1)
                 bss = int(stat.succ) / n
                 bsh = (stat.totalSwitches)
                 outstretch.write(
@@ -349,7 +356,8 @@ def experiment_SRLG(method, name, seed=11):
 
                 stat.reset(g.nodes())
                 g.graph['fails'] = fails
-                SimulateGraph(g, False, [stat], f, n, tree=T2)
+                samplessize = len(set(connected_component_nodes_with_d_after_failures(g,fails[:f],g.graph['root'])))- 1
+                SimulateGraph(g, False, [stat], f, samplessize, tree=T2)
                 ars = int(stat.succ)
                 arh = (stat.totalSwitches)
                 outstretch.write("regular, after, True, %d, %.2f, %.2f, %.2f, %.2f, %.2f, %.2f, %.2f, %.2f, %.2f\n" % (
@@ -359,7 +367,8 @@ def experiment_SRLG(method, name, seed=11):
 
                 stat.reset(g.nodes())
                 g.graph['fails'] = SRLG
-                SimulateGraph(g, False, [stat], f, n, tree=T2)
+                samplessize = len(set(connected_component_nodes_with_d_after_failures(g,fails[:f],g.graph['root'])))- 1
+                SimulateGraph(g, False, [stat], f, samplessize, tree=T2)
 
                 ass = int(stat.succ) / n
                 ash = (stat.totalSwitches)
@@ -434,12 +443,14 @@ def experiment_SRLG_node_failures(method, name, seed=11):
                 T2 = get_arborescence_list(g)
 
                 stat.reset(g.nodes())
-                SimulateGraph(g, False, [stat], f, n, tree=T1)
+
+                samplessize = len(set(connected_component_nodes_with_d_after_failures(g,SRLG,g.graph['root'])))- 1
+                SimulateGraph(g, False, [stat], f, samplessize, tree=T1)
                 brs = int(stat.succ) / n
                 brh = (stat.totalSwitches)
 
                 stat.reset(g.nodes())
-                SimulateGraph(g, False, [stat], f, n, tree=T2)
+                SimulateGraph(g, False, [stat], f, samplessize, tree=T2)
                 ars = int(stat.succ) / n
                 arh = (stat.totalSwitches)
 
@@ -466,9 +477,7 @@ def experiment_SRLG_node_failures(method, name, seed=11):
 
     outstretch.close()
 
-    # generate rep random k-regular graphs with connectivity k using seed and
-
-
+# generate rep random k-regular graphs with connectivity k using seed and
 # write them to file
 def write_graphs():
     d = []
@@ -478,21 +487,13 @@ def write_graphs():
         g = nx.random_regular_graph(k, n).to_directed()
         while nx.edge_connectivity(g) < k:
             g = nx.random_regular_graph(k, n).to_directed()
-        g.graph['seed'] = 0
-        g.graph['k'] = k
-        g.graph['root'] = 0
+        prepare_graph(g,k,0)
         GreedyArborescenceDecomposition(g)
         d.append(depth(g))
         ecc.append(nx.eccentricity(g, 0))
         sp.append(nx.average_shortest_path_length(g))
-        # print(i, "depth", np.mean(d), np.min(d), np.median(d), np.max(d))
-        # print(i, "eccentricity", np.mean(ecc), np.min(
-        #    ecc), np.median(ecc), np.max(ecc))
-        # print(i, "avg sp", np.mean(sp), np.min(sp), np.median(sp), np.max(sp))
-        edges = list(g.edges())
-        random.shuffle(edges)
         s = ''
-        for e in edges:
+        for e in g.graph['fails']:
             s = s + str(e[0]) + ' ' + str(e[1]) + '\n'
         f = open('results/' + name + str(seed) + '_graph_' +
                  str(n) + '_' + str(i) + '.txt', 'w')
@@ -519,6 +520,76 @@ def read_graph(i):
     g.graph['fails'] = fails
     return g
 
+# generate random ring of clique graphs with n nodes and connectivity k1-1
+# in cliques and k2 between neighboring cliques
+def create_ring_of_cliques(l,k1, k2, seed):
+    #print('l', l, 'k1', k1, 'k2', k2)
+    if k2 >= k1*k1:
+        print('k2 must be at most k1*k1 for create_ring_of_cliques')
+        sys.exit()
+    n = l*(k1)
+    m = l*(k1*(k1-1)/2+k2)
+    random.seed(seed)
+    g = nx.Graph()
+    g.add_nodes_from(range(n))
+    for i in range(l):
+        ## wire inside each clique
+        for u in range(i*k1, (i+1)*k1):
+            for v in range(u,(i+1)*k1):
+                g.add_edge(u,v)
+        ## wire between cliques
+        if i>0:
+            for j in range(k2):
+                u = random.choice(range(i*k1, (i+1)*k1))
+                v = random.choice(range((i-1)*k1, (i)*k1))
+                while (u,v) in g.edges():
+                    u = random.choice(range(i*k1, (i+1)*k1))
+                    v = random.choice(range((i-1)*k1, (i)*k1))
+                g.add_edge(u,v)
+        else:
+            for j in range(k2):
+                u = random.choice(range(0, k1))
+                v = random.choice(range((l-1)*k1, (l)*k1))
+                while (u,v) in g.edges():
+                    u = random.choice(range(0,k1))
+                    v = random.choice(range((l-1)*k1, (l)*k1))
+                g.add_edge(u,v)
+    # n selfloops to be removed
+    g.remove_edges_from(nx.selfloop_edges(g))
+    if (len(g.edges())!= m):
+        print("Bug in ring of clique generation")
+        sys.exit()
+    g = g.to_directed()
+    prepare_graph(g,2*k2,seed)
+    return g
+
+# set attributes for algorithms
+def prepare_graph(g,k,seed):
+    g.graph['seed'] = seed
+    g.graph['k'] = k
+    g.graph['root'] = 0
+    g2 = g.to_undirected()
+    g2.remove_edges_from(nx.selfloop_edges(g2))
+    fails = list(g2.edges())
+    random.seed(seed)
+
+    good = False
+    count = 0
+    while not good:
+        count += 1
+        random.shuffle(fails)
+        G = g.to_undirected()
+        n = len(g.nodes())
+        G.remove_edges_from(fails[:n])
+        Gcc = sorted(nx.connected_components(G), key=len, reverse=True)
+        if 0 in Gcc[0]:
+            good = True
+        elif count > 10:
+            g.graph['root'] = list(Gcc[0])[0]
+            good = True
+        #else:
+        #    print('reshuffle in prepare graph', count)
+    g.graph['fails'] = fails
 
 # return j th zoo graph if it can be trimmed into a graph of connectivity at least 4 and at
 # least 10 nodes
@@ -526,32 +597,31 @@ def read_zoo(j, min_connectivity):
     zoo_list = list(glob.glob("./benchmark_graphs/*.graphml"))
     if len(zoo_list) == 0:
         print("Add Internet Topology Zoo graphs (*.graphml files) to directory benchmark_graphs")
+        print("(download them from http://www.topology-zoo.org/dataset.html")
         sys.exit()
     if len(zoo_list) <= j:
         return None
     g1 = nx.Graph(nx.read_graphml(zoo_list[j]))
-    g2 = nx.convert_node_labels_to_integers(g1).to_directed()
+    g2 = nx.convert_node_labels_to_integers(g1)
+    g2.remove_edges_from(nx.selfloop_edges(g2))
+    g2 = g2.to_directed()
     # print(nx.edge_connectivity(g2),',', len(g2.nodes))
     n_before = len(g2.nodes)
     degree = min(3, min_connectivity)
+    degree = min(1, min_connectivity)
     while nx.edge_connectivity(g2) < min_connectivity:
         g2 = trim2(g2, degree)
         if len(g2.nodes) == 0:
             # print(zoo_list[j],"too sparse",len(g1.nodes), len(g1.edges))
             return None
         degree += 1
-    if len(g2.nodes) < 10:
-        return None
+    #if len(g2.nodes) <= 10:
+    #    return None
     g = g2.to_directed()
-    print(zoo_list[j],n_before, len(g.nodes), len(g.edges), nx.edge_connectivity(g2),degree)
-    g = nx.convert_node_labels_to_integers(g)
+    print(j, zoo_list[j],'n_before=', n_before, 'n_after=', len(g.nodes), 'm_after=', len(g.edges), 'connectivity=', nx.edge_connectivity(g2), 'degree=', degree)
     for (u, v) in g.edges():
         g[u][v]['arb'] = -1
-    g.graph['seed'] = seed
-    g.graph['k'] = nx.edge_connectivity(g)
-    g.graph['root'] = list(random.sample(list(g.nodes()), 1))[0]
-    fails = random.sample(list(g.edges()), f_num)
-    g.graph['fails'] = fails
+    prepare_graph(g, nx.edge_connectivity(g), seed)
     g.graph['undirected failures'] = False
     g.graph['pos'] = nx.spring_layout(g)
     return g

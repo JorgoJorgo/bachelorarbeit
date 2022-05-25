@@ -5,6 +5,7 @@ import itertools
 import random
 import time
 from arborescences import *
+from extra_links import *
 import glob
 
 #global variables in this file
@@ -18,8 +19,12 @@ name = "experiment-routing"
 
 #set global variables
 def set_params(params):
+    set_routing_params(params)
+
+def set_routing_params(params):
     global seed, n, rep, k, samplesize, name, f_num
     [n, rep, k, samplesize, f_num, seed, name] = params
+
 
 # Route according to deterministic circular routing as described by Chiesa et al.
 # source s
@@ -327,6 +332,7 @@ def Route_Stretch(s, d, fails, T):
             return (True, hops, switches, detour_edges)
     return (False, hops, switches, detour_edges)
 
+
 # run routing algorithm on graph g
 # RANDOM: don't use failset associated with g, but construct one at random
 # stats: statistics object to fill
@@ -334,31 +340,55 @@ def Route_Stretch(s, d, fails, T):
 # samplesize: number of nodes from which we route towards the root
 # dest: nodes to exclude from using in sample
 # tree: arborescence decomposition to use
-def SimulateGraph(g, RANDOM, stats, f, samplesize, precomputation=None, dest=None, tree=None):
+def SimulateGraph(g, RANDOM, stats, f, samplesize, precomputation=None, dest=None, tree=None, targeted=False):
     edg = list(g.edges())
     fails = g.graph['fails']
     if fails != None:
+        if len(fails) < f:
+            fails = fails + edg[:f - len(fails) + 1]
         edg = fails
     if f > len(edg):
+        print('more failures than edges')
+        print('simulate', len(g.edges()), len(fails), f)
         return -1
     d = g.graph['root']
-    nodes = list(g.nodes()-set([dest]))
     g.graph['k'] = k
     if precomputation is None:
         precomputation = tree
         if precomputation is None:
             precomputation = GreedyArborescenceDecomposition(g)
-            if precomputation is None:
-                return -1
-    if RANDOM:
-        fails = edg[:f]
+            #if precomputation is None:
+             #   return -1
+    fails = edg[:f]
+    if targeted:
+        fails = []
     failures1 = {(u, v): g[u][v]['arb'] for (u, v) in fails}
+    failures1.update({(v, u): g[u][v]['arb'] for (u, v) in fails})
+
+    g = g.copy(as_view=False)
     g.remove_edges_from(failures1.keys())
-    dist = nx.shortest_path_length(g, d)
-    for s in range(1, min(len(nodes), samplesize+1)):
-        if (s == d) or (not s in dist):
-            continue
+    nodes = list(set(connected_component_nodes_with_d_after_failures(g,[],d))-set([dest, d]))
+    dist = nx.shortest_path_length(g, target=d)
+    #if len(nodes) < samplesize:
+    #    print('Not enough nodes in connected component of destination (%i nodes, %i sample size), adapting it' % (len(nodes), samplesize))
+    #    samplesize = len(nodes)
+    nodes = list(set(g.nodes())-set([dest, d]))
+    random.shuffle(nodes)
+    count = 0
+    for s in nodes[:samplesize]:
+        count += 1
         for stat in stats:
+            if targeted:
+                fails = list(nx.minimum_edge_cut(g,s=s,t=d))[1:]
+                random.shuffle(fails)
+                failures1 = {(u, v): g[u][v]['arb'] for (u, v) in fails}
+                g.remove_edges_from(failures1.keys())
+                x = dist[s]
+                dist[s] = nx.shortest_path_length(g,source=s,target=d)
+                #print(len(fails),x,dist[s]) #DEBUG
+            if (s == d) or (not s in dist):
+                stat.fails += 1
+                continue
             (fail, hops) = stat.update(s, d, fails, precomputation, dist[s])
             if fail:
                 stat.hops = stat.hops[:-1]
@@ -367,9 +397,19 @@ def SimulateGraph(g, RANDOM, stats, f, samplesize, precomputation=None, dest=Non
                 stat.hops = stat.hops[:-1]
                 stat.stretch = stat.stretch[:-1]
                 stat.succ = stat.succ - 1
-    for ((u, v), i) in failures1.items():
-        g.add_edge(u, v)
-        g[u][v]['arb'] = i
+            if targeted:
+                for ((u, v), i) in failures1.items():
+                    g.add_edge(u, v)
+                    g[u][v]['arb'] = i
+            if stat.succ + stat.fails != count:
+                print('problem, success and failures do not add up', stat.succ, stat.fails, count)
+                print('source', s)
+                if stat.has_graph:
+                    drawGraphWithLabels(stat.graph, "results/problem.png")
+    if not targeted:
+        for ((u, v), i) in failures1.items():
+            g.add_edge(u, v)
+            g[u][v]['arb'] = i
     for stat in stats:
         stat.finalize()
     sys.stdout.flush()
@@ -377,9 +417,12 @@ def SimulateGraph(g, RANDOM, stats, f, samplesize, precomputation=None, dest=Non
 
 # class to collect statistics on routing simulation
 class Statistic:
-    def __init__(self, routeFunction, name):
+    def __init__(self, routeFunction, name, g=None):
         self.funct = routeFunction
         self.name = name
+        self.has_graph = g is not None
+        if g is not None:
+            self.graph = g
 
     def reset(self, nodes):
         self.totalHops = 0
@@ -396,9 +439,12 @@ class Statistic:
     # despite the failures in fails, using arborescences T and the shortest
     # path length is captured in shortest
     def update(self, s, d, fails, T, shortest):
-        (fail, hops, switches, detour_edges_used) = self.funct(s, d, fails, T)
-        if switches == 0:
-            fail = False
+        if not self.has_graph:
+            (fail, hops, switches, detour_edges_used) = self.funct(s, d, fails, T)
+        else:
+            (fail, hops, switches, detour_edges_used) = self.funct(s, d, fails, T, self.graph)
+        #if switches == 0:
+        #    fail = False
         if fail:
             self.fails += 1
             self.lastsuc = False

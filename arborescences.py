@@ -127,7 +127,8 @@ def get_arborescence_dict(g):
 
 def get_arborescence_list(g):
     arbs = get_arborescence_dict(g)
-    return [arbs[i] for i in range(len(arbs)-1)]
+    sorted_indices = sorted([i for i in arbs.keys() if i >= 0])
+    return [arbs[i] for i in sorted_indices]
 
 # given a graph g, check if the associated graphs derived from the arb attribute
 # are indeed acyclic
@@ -372,6 +373,27 @@ def shortest_path_length(g, index, u, v):
     arbs = get_arborescence_dict(g)
     return nx.shortest_path_length(arbs[index], u, v)
 
+
+
+# return nodes in giant connected component after failures
+
+
+def giant_connected_component_nodes_after_failures(g, failures):
+    G =g.to_undirected()
+    G.remove_edges_from(failures)
+    Gcc = sorted(nx.connected_components(G), key=len, reverse=True)
+    return list(Gcc[0])
+
+# return nodes in connected component with node d (after failures have been removed)
+
+def connected_component_nodes_with_d_after_failures(g, failures, d):
+    G =g.to_undirected()
+    G.remove_edges_from(failures)
+    Gcc = sorted(nx.connected_components(G), key=len, reverse=True)
+    for i in range(len(Gcc)):
+        if d in Gcc[i]:
+            return list(Gcc[i])
+
 # save png of arborescence embeddings
 
 
@@ -415,6 +437,19 @@ def drawArborescences(g, pngname="results/weighted_graph.png"):
 
 # return best edges to swap for stretch in g
 
+def drawGraphWithLabels(g, pngname):
+    plt.clf()
+    if 'pos' not in g.graph:
+        g.graph['pos'] = nx.spring_layout(g)
+    pos = g.graph['pos']
+    nx.draw_networkx_labels(g, pos)
+    nx.draw_networkx_edges(g, pos, edgelist=list(g.edges()), style='solid',
+                           width=2)
+    nx.draw_networkx_nodes(g, pos, nodelist=list(g.nodes()), node_color='blue', alpha=1)
+    nx.draw_networkx_nodes(g, pos, nodelist=[g.graph['root']], node_color='yellow', alpha=1)
+    plt.axis('off')
+    plt.savefig(pngname)  # save as png
+    plt.close()
 
 def find_best_swap(g):
     s = stretch(g)
