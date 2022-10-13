@@ -9,6 +9,7 @@ import glob
 from objective_function_experiments import *
 DEBUG = False
 
+
 # Data structure containing the algorithms under
 # scrutiny. Each entry contains a name and a pair
 # of algorithms.

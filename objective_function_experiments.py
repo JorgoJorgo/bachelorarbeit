@@ -94,7 +94,7 @@ def num_independent_paths_in_arbs(g):
             return 0
     return count
 
-
+#hier wird in die results  result reingeschrieben
 # run experiment for the objective function with the decomposition method,
 # string for the method and parameters over a subset only
 def experiment_objective_subset(obj_func, method, objstr=None, seed=11, gml=False, torus=False):
@@ -476,7 +476,7 @@ def experiment_SRLG_node_failures(method, name, seed=11):
                 print(method, name, seed, f)
 
     outstretch.close()
-
+# erstellt die graphen
 # generate rep random k-regular graphs with connectivity k using seed and
 # write them to file
 def write_graphs():
