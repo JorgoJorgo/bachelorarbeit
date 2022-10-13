@@ -56,11 +56,12 @@ def one_experiment(g, seed, out, algo):
         score = 1000*1000*1000
         return score
 
-    # routing simulation
+    # routing simulation (hier gebe ich den routing algorithmus mit)#################################################################################################################################
     stat = Statistic(routing_algo, str(routing_algo))
     stat.reset(g.nodes())
     random.seed(seed)
     t = time.time()
+    #hier sage ich dass ich den routing algorithmus simulieren soll (in stat steht welchen routing algorithmus ich ausführen will))#################################################################################################################################
     SimulateGraph(g, True, [stat], f_num, samplesize, precomputation=precomputation)
     rt = (time.time() - t)/samplesize
     success_ratio = stat.succ/ samplesize

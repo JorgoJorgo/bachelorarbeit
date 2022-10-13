@@ -26,6 +26,11 @@ def set_routing_params(params):
     [n, rep, k, samplesize, f_num, seed, name] = params
 
 
+#################################################################################################################################
+#TODO
+# hier fehlt noch mein routingalgorithmus
+#################################################################################################################################
+
 # Route according to deterministic circular routing as described by Chiesa et al.
 # source s
 # destination d

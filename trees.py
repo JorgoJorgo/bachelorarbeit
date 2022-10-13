@@ -15,15 +15,23 @@ DEBUG = False
 #TODO : redundante Paths entfernen
 #        testen
 #        die trees in one_tree_pre speichern
+#
+#       datenstruktur um die trees zu speichern
+#       routing
+#
+#
+#
 ######################################################
 
 
 #methode um für jedes source destination paar einen baum zu bauen
 def one_tree_pre(graph):
+    paths = [graph.order()][graph.order()]
     for source in graph.nodes:
         for destination in graph.nodes:
             if source != destination:
-                one_tree(source,destination,graph)
+                paths[source][destination] = one_tree(source,destination,graph)
+    return paths
 
 
 #den baum bauen indem man jeden knoten von der source aus mitnimmt der mit einem knoten aus dem baum benachbart ist
@@ -40,13 +48,14 @@ def one_tree(source, destination, graph):
     #print("Source :" + str(source))
     #print("Destination :" + str(destination))
     #print("EDP :" + str(pathToExtend))
-    for i in range(0,len(pathToExtend)-1):
+    for i in range(0,len(pathToExtend)-1): # i max 7
         nodes = pathToExtend
         it = 0
         while it < len(nodes):
+            #print("node = : " + nodes[i])
             neighbors = list(nx.neighbors(graph, nodes[i]))
-            print("nachbarn von " + str(nodes[i]) + " : ")
-            print(neighbors)
+            #print("nachbarn von " + str(nodes[i]) + " : ")
+            #print(neighbors)
             for j in range (0, len(neighbors)):
                 if not tree.has_node(neighbors[j]): #not part of tree already
                     nodes.append(neighbors[j])
@@ -76,6 +85,7 @@ def one_tree(source, destination, graph):
     input("press enter")
     #print("fertiger tree")
     #print(tree)
+    return tree
 
         
 #löscht die blätter die keine direkte kante zum destination haben
