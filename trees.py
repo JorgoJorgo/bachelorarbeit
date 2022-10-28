@@ -30,17 +30,20 @@ def one_tree_pre(graph):
     # und alle weglängen zur destination in 'distance'
     paths = [[0 for x in range(graph.order())] for y in range(graph.order())]
     for source in graph.nodes:
+        #print("source : ", source)
         for destination in graph.nodes:
             if source != destination:
+                #print('Computing edps for ', source, ' ', destination)
                 edps = all_edps(source, destination, graph)
                 edps.sort(key=len)
                 longest_edp = edps[len(edps)-1]
 
+                #print('Computing tree for ', source, ' ', destination)
                 tree = one_tree(source,destination,graph,longest_edp)
-                distance = compute_distance_to_dest(tree, destination)
+                #distance = compute_distance_to_dest(tree, destination)
 
-                paths[source][destination] = { 'tree': tree, 'edps': edps, 'distance': distance }
-                print(paths[source][destination])
+                paths[source][destination] = { 'tree': tree, 'edps': edps}
+                #print(paths[source][destination])
     return paths
 
 #hilfsfunktion damit man die weglänge von jedem node zur distance hat , das braucht man um die reihenfolge festzulegen die man bei den verzweigungen nimmt 
@@ -54,6 +57,7 @@ def compute_distance_to_dest(tree, destination):
 def one_tree(source, destination, graph, longest_edp):
     #print("Source :" + str(source))
     #print("Destination :" + str(destination))
+    #print(longest_edp)
     tree = nx.DiGraph()
     tree.add_node(source)
 
@@ -63,43 +67,46 @@ def one_tree(source, destination, graph, longest_edp):
     #print("Destination :" + str(destination))
     #print("EDP :" + str(pathToExtend))
     for i in range(0,len(pathToExtend)-1): # i max 7
-        nodes = pathToExtend
-        it = 0
+        #print("Tree building at node:", i , "of edp")
+        nodes = pathToExtend[:len(pathToExtend) -2]
+        it = 0 # um die nachbarn der nachbarn zu bekommen
         while it < len(nodes):
             #print("node = : " + nodes[i])
-            neighbors = list(nx.neighbors(graph, nodes[i]))
+            neighbors = list(nx.neighbors(graph, nodes[it]))
             #print("nachbarn von " + str(nodes[i]) + " : ")
             #print(neighbors)
             for j in neighbors:
-                if not tree.has_node(j) and j!= destination: #not part of tree already and not the destiantion
+                if (not tree.has_node(j)) and (j!= destination): #not part of tree already and not the destiantion
                     nodes.append(j)
                     #print(nodes)
                     #print("Knoten " + str(neighbors[j]) + " wurde hinzugefügt")
                     tree.add_node(j) #add neighbors[j] to tree
-                    tree.add_edge(nodes[i], j) # add edge to new node
+                    tree.add_edge(nodes[it], j) # add edge to new node
                 #end if
             
             #end for
             it = it+1
         #end while
     #end for
-    PG = nx.nx_pydot.write_dot(tree , "./graphen/tree_all")
+    
+    #PG = nx.nx_pydot.write_dot(tree , "./graphen/tree_all")
     changed = True 
     while changed == True: #solange versuchen zu kürzen bis nicht mehr gekürzt werden kann 
         old_tree = tree.copy()
         remove_redundant_paths(source, destination, tree, graph)
         changed = tree.order() != old_tree.order() # order returns the number of nodes in the graph.
-        #print("91:", changed)
-        time.sleep(1)
+    #PG = nx.nx_pydot.write_dot(tree , "./graphen/tree_unranked"+ str(source) + str(destination))
 
     rank_tree(tree , source)
     connect_leaf_to_destination(tree, source, destination)
 
-    print("Source: " + str(source))
-    print("Destination: " + str(destination))
-    OG = nx.nx_pydot.write_dot(graph , "./graphen/graph")
-    PG = nx.nx_pydot.write_dot(tree , "./graphen/tree")
-    input("press enter")
+    #add 'rank' property to the added destinaton, -1 for highest priorty in routing
+    tree.nodes[destination]["rank"] = -1
+
+
+    #OG = nx.nx_pydot.write_dot(graph , "./graphen/graph")
+    #PG = nx.nx_pydot.write_dot(tree , "./graphen/tree"+ str(source) + str(destination))
+    #input("press enter")
     #print("fertiger tree")
     #print(tree)
     return tree
@@ -123,7 +130,7 @@ def rank_tree(tree , source):
         to_add = []
         for node in done_nodes:
             parent = get_parent_node(tree, node)
-            if parent in done_nodes:
+            if parent in done_nodes or parent in to_add:
                 continue # parent already labled  by child with shorter distance
             else: #parent not labeled 
                 children= list(nx.neighbors(tree, parent)) #get ranks of children

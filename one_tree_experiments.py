@@ -9,6 +9,7 @@ import time
 import glob
 from objective_function_experiments import *
 from trees import one_tree_pre
+from routing import RouteOneTree
 DEBUG = True
 
 # Data structure containing the algorithms under
@@ -31,7 +32,8 @@ DEBUG = True
 # In this example we compare Bonsai and Greedy. You can add more
 # algorithms to this data structure to compare the performance
 # of additional algorithms.
-algos = {'One Tree': [one_tree_pre, RouteDetCirc], 'Greedy': [GreedyArborescenceDecomposition, RouteDetCirc]}
+#algos = {'One Tree': [one_tree_pre, RouteOneTree], 'Greedy': [GreedyArborescenceDecomposition, RouteDetCirc]}
+algos = {'One Tree': [one_tree_pre, RouteOneTree]}
 
 # run one experiment with graph g
 # out denotes file handle to write results to
@@ -49,6 +51,7 @@ def one_experiment(g, seed, out, algo):
     random.seed(seed)
     t = time.time()
     precomputation = precomputation_algo(g)
+    print('Done with precomputation algo')
     pt = time.time() - t
     if precomputation == -1:  # error...
         out.write(', %f, %f, %f, %f, %f, %f\n' %
@@ -57,6 +60,7 @@ def one_experiment(g, seed, out, algo):
         return score
 
     # routing simulation (hier gebe ich den routing algorithmus mit)#################################################################################################################################
+    print("Start routing")
     stat = Statistic(routing_algo, str(routing_algo))
     stat.reset(g.nodes())
     random.seed(seed)
