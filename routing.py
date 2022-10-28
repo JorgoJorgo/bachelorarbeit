@@ -31,6 +31,102 @@ def set_routing_params(params):
 # hier fehlt noch mein routingalgorithmus
 #################################################################################################################################
 
+#wir fangen an alle edps nach aufsteigender länge durchzugehen
+#am ende wenn wir alle edps durchhaben probieren wir den tree durchzugehen da dieser der längste ist und somit die meisten möglichkeiten drin hat zusätzlich zum längsten edp
+
+#source s 
+#destination d
+#failures fails edge (u,v)
+#paths [source][destination]{'trees':{graph}], 'edps':[[]] , 'distance':[distanzen von allen nodes zur destination]}
+#die edps sind dabei in aufsteigender Reihenfolge sortiert
+def RouteOneTree(s,d,fails,paths):
+    currentNode = -1
+    edpIndex = 0
+    detour_edges = []
+    hops = 0
+    switches = 0
+    tree = paths[s][d]['tree']
+    edps_for_s_d = paths[s][d]['edps']
+    distance = paths[s][d]['distance']
+
+    #anhand der edps (außer dem längsten, also dem letzten) mit dfs versuchen zu routen
+    for edp in edps_for_s_d:
+        if edp != edps_for_s_d[len(edps_for_s_d) -1]:
+            currentNode = edp[edpIndex]
+            while (currentNode != d):
+                if (edp[edpIndex], edp[edpIndex +1]) in fails or (edp[edpIndex +1], edp[edpIndex]) in fails:
+                    # wir schalten zum nächsten pfad
+                    switches += 1
+                    #die kanten die wir wieder zurückgehen sind die kanten die wir schon in dem edp gelaufen sind
+                    detour_edges += edpIndex
+                    #wir fangen beim neuen edp ganz am anfang an
+                    edpIndex = 0
+                    break;
+                else :#die kante gehen und zum nächsten knoten schalten
+                    edpIndex += 1
+                    hops += 1
+                    currentNode = edp[edpIndex]
+            #endwhile
+            if currentNode == d : #wir haben die destination mit einem der edps erreicht
+                return (False, hops, switches, detour_edges)
+    #endfor
+    # wenn wir es nicht geschafft haben anhand der edps allein zum ziel zu routen dann geht es am längsten edp weiter
+    edp = edps_for_s_d[len(edps_for_s_d) -1]
+    #hier speichert  man die nodes die man schon durchlaufen hat, damit man nachher beim route_in_tree weiß welche kante man nicht gehen soll
+    visitedNodes = []
+    route_in_tree = False
+    currentNode = edp[edpIndex]
+    while (currentNode != d):
+        if not route_in_tree:
+            if (edp[edpIndex], edp[edpIndex +1]) in fails or (edp[edpIndex +1], edp[edpIndex]) in fails:
+                # wir schalten zum nächsten pfad
+                switches += 1
+                #die kanten die wir wieder zurückgehen sind die kanten die wir schon in dem edp gelaufen sind
+                detour_edges += 1
+                route_in_tree = True
+            else :#die kante gehen und zum nächsten knoten schalten
+                edpIndex += 1
+                hops += 1
+                visitedNodes.append(currentNode)
+                currentNode = edp[edpIndex]
+        else:
+            # wir könnnen den edp nicht entlang und gehen jetzt durch den Baum
+            #und starten ab dem knoten im edp der eine kaputte kante hat
+            back_node = 0
+            possibleNodes = []
+            for n in nx.neighbours(tree, currentNode):
+                if n not in visitedNodes:
+                    possibleNodes.append(n)
+                else: 
+                    back_node = n
+            #minimums suche da man bei verzweigungen, die wege priorisieren soll die am kürzesten zum distance sind
+            choosenNode = possibleNodes[0]
+            pathLenght = distance[choosenNode]
+
+            for node in possibleNodes:
+                if distance[node] < pathLenght:
+                    choosenNode = node
+                    pathLenght = distance[node]
+            
+            # choosen node enthält den node den wir langehen wollen (kleinster abstand zur destination)
+
+            if (currentNode, choosenNode) in fails or (choosenNode, currentNode) in fails:
+                visitedNodes.append(choosenNode)
+                # choose another node next time, this path is broken
+            
+
+            
+             
+            #ausweichpfade probieren dabei müssen wir die ausweichpfade in der reihenfolge durchgehen , wie diese abstand zum destination haben 
+            # wenn klappt dann gut
+            # wenn nicht klappt dann die position im edp array suchen und die kante gehen die vor unserem currentNode ist
+            print("hallo")
+            
+    #endwhile
+    if currentNode == d : #wir haben die destination mit einem der edps erreicht
+        return (False, hops, switches, detour_edges)
+
+
 # Route according to deterministic circular routing as described by Chiesa et al.
 # source s
 # destination d
