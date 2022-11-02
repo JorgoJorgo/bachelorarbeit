@@ -28,11 +28,20 @@ DEBUG = False
 def one_tree_pre(graph):
     #die paths struktur besteht daraus : für jeden source (1. index) zu jeder destination (2. index) gibt es 1 Objekt dass den Baum drin hat (Attribut 'tree') und alle EDPs (Attribut 'edps')
     # und alle weglängen zur destination in 'distance'
+    
     paths = [[0 for x in range(graph.order())] for y in range(graph.order())]
+    print("Anzahl Knoten: " , graph.order())
+    print("Knoten : " , list(graph.nodes))
+    #source_index = 0
+    #destination_index = 0
     for source in graph.nodes:
-        #print("source : ", source)
+        #print("Source Index : ", source_index)
+        #print("Source : ", source)
         for destination in graph.nodes:
+            
             if source != destination:
+                #print("Destination : " , destination)
+                #print("Destination Index : ", destination_index)
                 #print('Computing edps for ', source, ' ', destination)
                 edps = all_edps(source, destination, graph)
                 edps.sort(key=len)
@@ -41,9 +50,18 @@ def one_tree_pre(graph):
                 #print('Computing tree for ', source, ' ', destination)
                 tree = one_tree(source,destination,graph,longest_edp)
                 #distance = compute_distance_to_dest(tree, destination)
+                print("Versuche auf index ", source , " und ", destination ," zuzugreifen ")
+                
+                if(source == 5 and destination == 7): #um zu debuggen warum es abstürzt
+                    OG = nx.nx_pydot.write_dot(graph , "./graphen/graph_of_fail")
+                    PG = nx.nx_pydot.write_dot(tree , "./graphen/tree_of_fail"+ str(source) + str(destination))
 
                 paths[source][destination] = { 'tree': tree, 'edps': edps}
+                
                 #print(paths[source][destination])
+                
+            #destination_index = destination_index + 1
+        #source_index = source_index + 1
     return paths
 
 #hilfsfunktion damit man die weglänge von jedem node zur distance hat , das braucht man um die reihenfolge festzulegen die man bei den verzweigungen nimmt 

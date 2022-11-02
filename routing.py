@@ -107,10 +107,12 @@ def RouteOneTree(s,d,fails,paths):
             #possibleNextNodes = list(nx.neighbors(tree, currentNode)) #alle nachbarn holen
             #input(" vor jetziger node ... ")
             print("Jetziger Node : " , currentNode)
-            print("Mögliche Nachbarn vor der Kürzung : " , possibleNextNodes)
+            
             # alle kinder entfernen, bei denen wir schon waren
             #da wir immer die kinder zu visited nodes hinzufügen wird die liste immer kleiner und die nächste iteration merkt dass man alle kinder schon "probiert"
             #hat und man muss dann einen knoten hoch gehen
+            possibleNextNodes = list(nx.neighbors(tree, currentNode))
+            print("Mögliche Nachbarn vor der Kürzung : " , possibleNextNodes)
             tmp = []
             for el in possibleNextNodes:
                 if el in visitedNodes:
@@ -119,6 +121,7 @@ def RouteOneTree(s,d,fails,paths):
                     tmp.append(el)
 
             possibleNextNodes = tmp
+            
             print("Mögliche Nachbarn nach der Kürzung : " , possibleNextNodes)
             print("VisitedNodes : " , visitedNodes)
 
