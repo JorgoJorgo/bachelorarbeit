@@ -1,0 +1,22 @@
+success 20 <function one_tree_pre at 0x7fe0ae8585e0>
+n_before, n_after, m_after, connectivity, degree
+38 ./benchmark_graphs/Tinet.graphml n_before= 53 n_after= 8 m_after= 44 connectivity= 4 degree= 10
+experiment for  <function one_tree_pre at 0x7fe0ae8585e0>
+Anzahl Knoten:  8
+Knoten :  [4, 5, 8, 34, 35, 37, 39, 41]
+Versuche auf index  4  und  5  zuzugreifen 
+Versuche auf index  4  und  8  zuzugreifen 
+Traceback (most recent call last):
+  File "/home/jorgo/Desktop/fast-failover/one_tree_experiments.py", line 233, in <module>
+    experiments(switch=switch, seed=seed, rep=rep)
+  File "/home/jorgo/Desktop/fast-failover/one_tree_experiments.py", line 194, in experiments
+    run_zoo(out=out, seed=seed, rep=rep)
+  File "/home/jorgo/Desktop/fast-failover/one_tree_experiments.py", line 134, in run_zoo
+    shuffle_and_run(g, out, seed, rep, str(i))
+  File "/home/jorgo/Desktop/fast-failover/one_tree_experiments.py", line 151, in shuffle_and_run
+    algos[algoname] += [one_experiment(g, seed + count, out, algo)]
+  File "/home/jorgo/Desktop/fast-failover/one_tree_experiments.py", line 53, in one_experiment
+    precomputation = precomputation_algo(g)
+  File "/home/jorgo/Desktop/fast-failover/trees.py", line 59, in one_tree_pre
+    paths[source][destination] = { 'tree': tree, 'edps': edps}
+IndexError: list assignment index out of range
