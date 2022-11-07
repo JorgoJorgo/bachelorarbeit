@@ -4,3 +4,4 @@ __pycache__/
 benchmark_graphs_all/
 *.graphml
 *.gml
+*ml
