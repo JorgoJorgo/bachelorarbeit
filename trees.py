@@ -28,8 +28,10 @@ DEBUG = False
 def one_tree_pre(graph):
     #die paths struktur besteht daraus : für jeden source (1. index) zu jeder destination (2. index) gibt es 1 Objekt dass den Baum drin hat (Attribut 'tree') und alle EDPs (Attribut 'edps')
     # und alle weglängen zur destination in 'distance'
-    
-    paths = [[0 for x in range(graph.order())] for y in range(graph.order())]
+
+    paths = {}
+
+    #paths = [[0 for x in range(graph.order())] for y in range(graph.order())]
     print("Anzahl Knoten: " , graph.order())
     print("Knoten : " , list(graph.nodes))
     #source_index = 0
@@ -56,7 +58,12 @@ def one_tree_pre(graph):
                     OG = nx.nx_pydot.write_dot(graph , "./graphen/graph_of_fail")
                     PG = nx.nx_pydot.write_dot(tree , "./graphen/tree_of_fail"+ str(source) + str(destination))
 
-                paths[source][destination] = { 'tree': tree, 'edps': edps}
+                if source in paths:
+                    paths[source][destination] = { 'tree': tree, 'edps': edps}
+                else:
+                    paths[source] = {}
+                    paths[source][destination] = {'tree': tree, 'edps': edps}
+
                 
                 #print(paths[source][destination])
                 
@@ -150,7 +157,7 @@ def rank_tree(tree , source):
             parent = get_parent_node(tree, node)
             if parent in done_nodes or parent in to_add:
                 continue # parent already labled  by child with shorter distance
-            else: #parent not labeled 
+            else: #parent not labeled paths[source][destination] = { 'tree': tree, 'edps': edps}
                 children= list(nx.neighbors(tree, parent)) #get ranks of children
                 children_rank = []
                 for child in children:

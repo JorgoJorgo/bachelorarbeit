@@ -2,3 +2,5 @@ results/
 graphen/
 __pycache__/
 benchmark_graphs_all/
+*.graphml
+*.gml
