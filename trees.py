@@ -12,17 +12,75 @@ from arborescences import *
 DEBUG = False
 
 ######################################################
-#TODO : redundante Paths entfernen
-#        testen
-#        die trees in one_tree_pre speichern
-#
-#       datenstruktur um die trees zu speichern
-#       routing
-#
-#
+#TODO : 
+# - trees kürzen
+# - trees ranken  
+# - trees im tree array speichern
+# - multipletrees routen
 #
 ######################################################
 
+
+def multiple_trees_pre(graph):
+    paths = {}
+
+    for source in graph.nodes:
+
+        for destination in graph.nodes:
+            
+            if source != destination:
+                
+                edps = all_edps(source, destination, graph)
+                edps.sort(key=len, reverse=True)
+
+                trees = multiple_trees(source,destination,graph,edps)
+                
+
+                if source in paths:
+                    paths[source][destination] = { 'trees': trees, 'edps': edps}
+                else:
+                    paths[source] = {}
+                    paths[source][destination] = {'trees': trees, 'edps': edps}
+
+                
+    return paths
+
+#gibt für ein source-destination paar alle trees zurück
+def multiple_trees(source, destination, graph, all_edps):
+    trees = [] #hier werden alle trees gespeichert
+    for i in range(0,len(all_edps)-1): #um zu versuchen aus jedem edp einen Baum zu bauen
+        tree = nx.DiGraph()
+        tree.add_node(source)
+        pathToExtend = all_edps[i]
+
+        for j in range(1,len(pathToExtend)-2): #alle knoten durchgehen und deren nachbarn suchen, angefangen mit den knoten aus dem edp
+            nodes = pathToExtend[:len(pathToExtend) -2]#in nodes stehen dann alle knoten drin die wir schon besucht haben
+                                                       # -2 damit die destination nicht mit drin steht
+            it = 0
+            while it < len(nodes):
+                neighbors = list(nx.neighbors(graph, nodes[j]))
+
+                for k in range(0,len(neighbors)-1): #jedend der nachbarn einfügen der noch nicht zu einem tree gehört
+                    #if edge to neighbors[k] not part of any tree already
+                    for tree_to_check in trees: 
+                        if tree_to_check.has_edge(nodes[j],neighbors[k]):
+                            nodes.append(neighbors[k])
+                            tree_to_check.add_edge(nodes[j], neighbors[k])
+                        #endif
+                    #endfor
+                it = it + 1
+            #endwhile
+        #endfor
+        changed = True 
+        while changed == True: #solange versuchen zu kürzen bis nicht mehr gekürzt werden kann 
+            old_tree = tree.copy()
+            remove_redundant_paths(source, destination, tree, graph)
+            changed = tree.order() != old_tree.order() # order returns the number of nodes in the graph.
+        rank_tree(tree , source)
+        connect_leaf_to_destination(tree, source,destination)
+        trees.append(tree)
+    #endfor
+    return trees
 
 #methode um für jedes source destination paar einen baum zu bauen
 def one_tree_pre(graph):
@@ -37,27 +95,18 @@ def one_tree_pre(graph):
     #source_index = 0
     #destination_index = 0
     for source in graph.nodes:
-        #print("Source Index : ", source_index)
-        #print("Source : ", source)
+
         for destination in graph.nodes:
             
-            if source != destination:
-                #print("Destination : " , destination)
-                #print("Destination Index : ", destination_index)
-                #print('Computing edps for ', source, ' ', destination)
+            if source != destination: #and source == 28 and destination == 13:                
                 edps = all_edps(source, destination, graph)
                 edps.sort(key=len)
                 longest_edp = edps[len(edps)-1]
 
-                #print('Computing tree for ', source, ' ', destination)
-                tree = one_tree(source,destination,graph,longest_edp)
-                #distance = compute_distance_to_dest(tree, destination)
-                print("Versuche auf index ", source , " und ", destination ," zuzugreifen ")
                 
-                if(source == 5 and destination == 7): #um zu debuggen warum es abstürzt
-                    OG = nx.nx_pydot.write_dot(graph , "./graphen/graph_of_fail")
-                    PG = nx.nx_pydot.write_dot(tree , "./graphen/tree_of_fail"+ str(source) + str(destination))
+                tree = one_tree(source,destination,graph,longest_edp)
 
+                #print("Versuche auf index ", source , " und ", destination ," zuzugreifen ")
                 if source in paths:
                     paths[source][destination] = { 'tree': tree, 'edps': edps}
                 else:
@@ -65,10 +114,6 @@ def one_tree_pre(graph):
                     paths[source][destination] = {'tree': tree, 'edps': edps}
 
                 
-                #print(paths[source][destination])
-                
-            #destination_index = destination_index + 1
-        #source_index = source_index + 1
     return paths
 
 #hilfsfunktion damit man die weglänge von jedem node zur distance hat , das braucht man um die reihenfolge festzulegen die man bei den verzweigungen nimmt 
@@ -80,31 +125,24 @@ def compute_distance_to_dest(tree, destination):
 # am ende löscht man noch die pfade die nicht zum destination führen
 # der baum ist ein gerichteter graph , damit man im tree die struktur zwischen parent/children erkennen kann anhand eingehender/ausgehender kanten
 def one_tree(source, destination, graph, longest_edp):
-    #print("Source :" + str(source))
-    #print("Destination :" + str(destination))
-    #print(longest_edp)
+    #print("EDP aus dem der Tree gebaut wird für ", source , " nach " , destination ," : " , longest_edp)
     tree = nx.DiGraph()
     tree.add_node(source)
 
     pathToExtend = longest_edp
-    #print("nach dem EDP Algorithmus")
-    #print("Source :" + str(source))
-    #print("Destination :" + str(destination))
-    #print("EDP :" + str(pathToExtend))
+    
     for i in range(0,len(pathToExtend)-1): # i max 7
-        #print("Tree building at node:", i , "of edp")
+        
         nodes = pathToExtend[:len(pathToExtend) -2]
         it = 0 # um die nachbarn der nachbarn zu bekommen
         while it < len(nodes):
-            #print("node = : " + nodes[i])
+
             neighbors = list(nx.neighbors(graph, nodes[it]))
-            #print("nachbarn von " + str(nodes[i]) + " : ")
-            #print(neighbors)
+
             for j in neighbors:
                 if (not tree.has_node(j)) and (j!= destination): #not part of tree already and not the destiantion
                     nodes.append(j)
-                    #print(nodes)
-                    #print("Knoten " + str(neighbors[j]) + " wurde hinzugefügt")
+                    
                     tree.add_node(j) #add neighbors[j] to tree
                     tree.add_edge(nodes[it], j) # add edge to new node
                 #end if
@@ -114,13 +152,13 @@ def one_tree(source, destination, graph, longest_edp):
         #end while
     #end for
     
-    #PG = nx.nx_pydot.write_dot(tree , "./graphen/tree_all")
+    PG = nx.nx_pydot.write_dot(tree , "./graphen/tree_all")
     changed = True 
     while changed == True: #solange versuchen zu kürzen bis nicht mehr gekürzt werden kann 
         old_tree = tree.copy()
         remove_redundant_paths(source, destination, tree, graph)
         changed = tree.order() != old_tree.order() # order returns the number of nodes in the graph.
-    #PG = nx.nx_pydot.write_dot(tree , "./graphen/tree_unranked"+ str(source) + str(destination))
+    PG = nx.nx_pydot.write_dot(tree , "./graphen/tree_unranked"+ str(source) + str(destination))
 
     rank_tree(tree , source)
     connect_leaf_to_destination(tree, source, destination)
