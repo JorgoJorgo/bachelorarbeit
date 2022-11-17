@@ -9,7 +9,7 @@ import time
 import glob
 from objective_function_experiments import *
 from trees import multiple_trees_pre
-from routing import RouteOneTree
+from routing import RouteMultipleTrees
 DEBUG = True
 
 # Data structure containing the algorithms under
@@ -33,7 +33,7 @@ DEBUG = True
 # algorithms to this data structure to compare the performance
 # of additional algorithms.
 #algos = {'One Tree': [one_tree_pre, RouteOneTree], 'Greedy': [GreedyArborescenceDecomposition, RouteDetCirc]}
-algos = {'MultipleTrees Tree': [multiple_trees_pre, RouteOneTree]}
+algos = {'MultipleTrees Tree': [multiple_trees_pre, RouteMultipleTrees]}
 
 # run one experiment with graph g
 # out denotes file handle to write results to
@@ -103,7 +103,7 @@ def run_AS(out=None, seed=0, rep=5):
         nn = len(g.nodes())
         mm = len(g.edges())
         ss = min(int(nn / 2), samplesize)
-        fn = min(int(mm / 4), f_num)
+        fn = min(int(mm / 2), f_num)
         fails = random.sample(list(g.edges()), fn)
         g.graph['fails'] = fails
         set_parameters([nn, rep, kk, ss, fn, seed, name + "AS-"])
@@ -183,6 +183,8 @@ def start_file(filename):
 # run experiments
 # seed is used for pseudorandom number generation in this run
 # switch determines which experiments are run
+
+#hier kann rep geändert werden
 def experiments(switch="all", seed=0, rep=100):
     if switch in ["regular", "all"]:
         out = start_file("results/benchmark-regular-" + str(n) + "-" + str(k))

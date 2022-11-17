@@ -30,6 +30,9 @@ def set_routing_params(params):
 
 #################################################################################################################################
 #TODO
+# - Routing in MultipleTrees : 
+#   -> dabei muss das routing in 1 tree erst funktionieren
+#   -> wenn es dann in dem tree nicht geklappt hat dann muss man an die source zurück und weiter routen
 #################################################################################################################################
 
 
@@ -37,71 +40,209 @@ def set_routing_params(params):
 def RouteMultipleTrees(s,d,fails,paths):
 
     #alle EDPS entlang routen
-    currentNode = -1
+    currentNode = s
     edpIndex = 0
     detour_edges = []
     hops = 0
     switches = 0
-    tree = paths[s][d]['trees']
-    edps_for_s_d = paths[s][d]['edps'].sort(key=len) # Sort edps ASC
-
+    trees = paths[s][d]['trees']
+    #print("Paths edp : " ,sorted(paths[s][d]['edps'],key=len))
+    edps_for_s_d = sorted(paths[s][d]['edps'],key=len) # Aufsteigend die EDPs sortieren damit man den größten als letztes hat
+    longest_edp = edps_for_s_d[len(edps_for_s_d) -1]
+    visitedEdges = []
+    print(" ")
     print('Routing started for ' , s , " to " , d )
 
-    for edp in edps_for_s_d:
-        print("EDP in der EDP Schleife : " , edp)
-        if edp != edps_for_s_d[len(edps_for_s_d) -1]:
-            currentNode = edp[edpIndex]
-            while (currentNode != d):
-                if (edp[edpIndex], edp[edpIndex +1]) in fails or (edp[edpIndex +1], edp[edpIndex]) in fails:
-                    # wir schalten zum nächsten pfad
-                    switches += 1
-                    #die kanten die wir wieder zurückgehen sind die kanten die wir schon in dem edp gelaufen sind
-                    detour_edges.append( (edp[edpIndex], edp[edpIndex +1]) )
-                    #wir fangen beim neuen edp ganz am anfang an
-                    edpIndex = 0
-                    break
-                else :#die kante gehen und zum nächsten knoten schalten
-                    edpIndex += 1
-                    hops += 1
-                    currentNode = edp[edpIndex]
-            #endwhile
-            if currentNode == d : #wir haben die destination mit einem der edps erreicht
-                print('Routing done via EDP')
+    #########################################   FOR DEBUG ONLY                #####################################################
+    skip_edps = True
+    skip_trees = False
+    if(skip_edps):
+        print("Skipping the EDPs")
+    #endif
+    if(skip_trees):
+        print("Skipping Trees")
+    #endif
+    ###############################################################################################################################
+
+
+    if( not skip_edps ):
+        for edp in edps_for_s_d:
+            print("EDP in der EDP Schleife : " , edp)
+            if edp != edps_for_s_d[len(edps_for_s_d) -1]:
+                currentNode = edp[edpIndex]
+                while (currentNode != d):
+                    if (edp[edpIndex], edp[edpIndex +1]) in fails or (edp[edpIndex +1], edp[edpIndex]) in fails:
+                        print("Kante kaputt : (" , edp[edpIndex] , ",", edp[edpIndex+1] , ") in fails ")
+                        # wir schalten zum nächsten pfad
+                        switches += 1
+                        #die kanten die wir wieder zurückgehen, um wieder zur source zu kommen,  sind die kanten die wir schon in dem edp gelaufen sind
+                        detour_edges.append( (edp[edpIndex], edp[edpIndex +1]) )
+                        #wir fangen beim neuen edp ganz am anfang an
+                        edpIndex = 0
+                        break
+                    else :#die kante gehen und zum nächsten knoten schalten
+                        edpIndex += 1
+                        hops += 1
+                        currentNode = edp[edpIndex]
+                #endwhile
+                if currentNode == d : #wir haben die destination mit einem der edps erreicht
+                    print('Routing done via EDP')
+                    print('------------------------------------------------------')
+                    #input("Press key to continue...")
+                    return (False, hops, switches, detour_edges)
+        #endfor
+
+        #keiner der edps hat uns zum ziel gebracht
+
+
+        #den letzten EDP so weit gehen wie möglich
+        
+        edpIndex = 0
+
+        print("Longest EDP : ", longest_edp )
+        #fails.append( (longest_edp[len(longest_edp)-1],longest_edp[len(longest_edp)-2]))
+        print("Fails : " , fails)
+        while((longest_edp[edpIndex],longest_edp[edpIndex+1])not in fails or  (longest_edp[edpIndex +1 ],longest_edp[edpIndex])  not in fails ):
+            print("Checking if : (" , longest_edp[edpIndex] , ",", longest_edp[edpIndex+1] , ") in fails ")
+            print("Or check if : (" , longest_edp[edpIndex+1] , ",", longest_edp[edpIndex] , ") in fails ")
+            #wenn man in die schleife reingekommen ist, dann bedeutet dies, dass man die kante gehen kann
+            #daher wird zum nächsten node geschaltet, indem man currentnode neu setzt 
+
+            edpIndex += 1
+            hops += 1
+            currentNode = longest_edp[edpIndex]
+            print("Current Node : " , currentNode)
+            #falls wir mit dem letzten edp ans ziel gekommen sind
+            if(currentNode == d):
+                print("Routing done via last EDP")
                 print('------------------------------------------------------')
-                #input("Press key to continue...")
                 return (False, hops, switches, detour_edges)
+            
+            if (edpIndex > len(list(longest_edp))-1):
+                print("Out of Bounds im letzten EDP")
+                break
+        #endwhile
+    #endif
+    if(not skip_trees):
+        print(" ")
+        print("Routing via Tree started")
 
-    #endfor
+        print("Erster Tree in dem geroutet wird : " , list(trees[0].nodes))
+        print(" ")
+        print("CurrentNode bevor in den Tree rein : ", currentNode)
+        #wir müssen prüfen ob der node auch wirklich im tree drin ist
+        while(not trees[0].has_node(currentNode)): #wenn der jetzige node nicht drin ist dann gehen wir einen node zurück und im worst case sind wir in der wurzel
+                edpIndex = edpIndex -1
+                hops += 1
+                visitedEdges.append((currentNode,longest_edp[edpIndex+1]))
+                detour_edges.append((longest_edp[edpIndex], longest_edp[edpIndex -1]))
+                currentNode = longest_edp[edpIndex]
+                print("CurrentNode nicht im Tree , nächster CurrentNode : ", currentNode)
+                continue; # skip loop and try with previous node again
+        #endwhile
 
-    #keiner der edps hat uns zum ziel gebracht
+        #jetzt ist in currentNode ein Node drin der im Tree ist
 
-    #  IDEE : den letzten edp so weit wie möglich entlang gehen und dann auf sein tree switchen und wenn tree auch nicht klappt , dann zu anderen trees
+        for tree in trees:
+            #in currentnode ist jetzt der node von dem wir das routen im tree starten wollen
+            visitedEdges = []
+            print("Baum der probiert wird : ", list(tree.nodes))
+            
 
-    #den letzten EDP so weit gehen wie möglich
-    longest_edp = edps_for_s_d[len(edps_for_s_d) -1]
-    edpIndex = 0
-    while((longest_edp[edpIndex],longest_edp[edpIndex+1])not in fails or  (longest_edp[edpIndex +1 ],longest_edp[edpIndex])  not in fails ):
+            #nun muss im tree geroutet werden
+            while (currentNode != d):
+                
 
-        #falls wir mit dem letzten edp ans ziel gekommen sind
-        if(currentNode == d):
-            return (False, hops, switches, detour_edges)
+                #alle möglichen nächsten Kanten des jetzigen nodes herausfinden
+                possibleNextEdges = list(tree.out_edges(currentNode) )
+                print("Mögliche Kanten vor der Kürzung : " , possibleNextEdges)
+                tmp = []
+                for el in possibleNextEdges:
+                    if el in visitedEdges:
+                        continue
+                    #endif
+                    else:
+                        tmp.append(el)
+                    #endelse
+                #endfor
 
-        edpIndex += 1
-        hops += 1
-        currentNode = longest_edp[edpIndex]
-    #endwhile
+                possibleNextEdges = tmp
+                
+                print("Mögliche Kanten nach der Kürzung : " , possibleNextEdges)
+                print("VisitedEdges : " , visitedEdges)
 
-    #in currentnode ist jetzt der node von dem wir das routen im tree starten wollen
-    visitedEdges = []
-    #wir müssen prüfen ob der node auch wirklich im tree drin ist
-    while(not tree.has_node(currentNode)):
-        edpIndex = edpIndex -1
-        hops += 1
-        visitedEdges.append((currentNode,longest_edp[edpIndex+1]))
-        detour_edges.append((edp[edpIndex], edp[edpIndex -1]))
-        currentNode = edp[edpIndex]
-        continue; # skip loop and try with previous node again
+                if len(possibleNextEdges) == 0: # Es können keine kinder als nächster knoten mehr genutzt werden
+                    
+                    if currentNode == s: #das würde bedeuten dass es keine ausweichmöglichkeiten von der wurzel aus gibt, also muss der Tree gewechselt werden
+                        print("Baum muss gewechselt werden !")
+                        break
+                    #endif
 
+                    parent = get_parent_node(tree , currentNode)
+                    visitedEdges.append((currentNode,parent)) # das heisst dass unser jetziger knoten auch schon "durchlaufen" ist und keinen weg zum ziel darstellt
+                    currentNode = parent # wir müssen eine ebene im baum hoch um noch weitere potenzielle knoten zu finden
+                #endif
+                else: #der jetzige Knoten hat Kinder von denen aus wir zum Ziel kommen
+                   
+
+                    #da man ganze kanten hat und diese keine ränge haben um sortiert werden zu können, müssen die knoten aus den kanten in eine separate liste
+                    #gepackt werden um dann einzelne nodes zu haben die sortert werden können
+                    possibleNextNodes = []
+                    for edge in possibleNextEdges:
+                        possibleNextNodes.append(edge[1])
+                    #endfor
+
+                    #sortieren der nodes anhand ihrer ränge
+                    print("Possible next Node before sort : ", possibleNextNodes)
+                    #lambda sort https://stackoverflow.com/a/46851604
+                    possibleNextNodes.sort(key=lambda x: (getRank(tree, x))) #man braucht von den nachbarn den, mit dem kürzesten abstand zum ziel
+                    print("Possible next Nodes after sort : ", possibleNextNodes)
+
+                    #input("......................weiter....................")
+                    print("_____________________________________")
+                    
+
+
+                    #hier muss man nur den ersten index prüfen aus den possible next nodes da, wenn dieser nicht klappt dann unter den "visitedEdges" fällt und im nächsten Durchlauf
+                    #direkt rausgefiltert wird wenn man erneut die possible next edges überprüft
+
+
+                    #kante mit dem kleinsten rang wird genommen und geprüft ob sie funktioniert
+                    if (currentNode, possibleNextNodes[0]) in fails or (possibleNextNodes[0], currentNode) in fails:
+                        visitedEdges.append( (currentNode,possibleNextNodes[0]) )
+                        visitedEdges.append( (possibleNextNodes[0],currentNode) ) # wenn sie nicht funktioniert dann wird sie als "visited angesehen 
+                        switches += 1
+                        #die kanten die wir wieder zurückgehen sind die kanten die wir schon in dem edp gelaufen sind
+                        detour_edges.append((currentNode, possibleNextNodes[0]))
+                    #endif
+                    else: # choosen node enthält den node den wir langehen wollen (kleinster abstand zur destination)
+                        hops += 1
+                        visitedEdges.append( (currentNode,possibleNextNodes[0]) )
+                        visitedEdges.append( (possibleNextNodes[0],currentNode) ) # die kante wird als "besucht" eingefügt da man die Kante dann weitergeht
+                        currentNode = possibleNextNodes[0]
+                    #endelse
+
+                #endelse 
+                 
+            #endwhile
+
+            if (currentNode == d):#falls wir am ziel angekommen sind
+                print("Routing done via the Tree : ", list(tree.nodes))
+                print(" ")
+                return (False, hops, switches, detour_edges)
+            #endif
+            
+            print("Schalte auf den nächsten Tree ")
+            print(" ")
+
+        #endfor
+        print("Routing failed via Trees ")
+        print(" ")
+        return (True, hops, switches, detour_edges)
+    #endif
+
+###########################################################################################################################################################
+###########################################################################################################################################################
 
 
 #wir fangen an alle edps nach aufsteigender länge durchzugehen
@@ -120,7 +261,7 @@ def RouteOneTree(s,d,fails,paths):
         detour_edges = []
         hops = 0
         switches = 0
-        tree = paths[s][d]['tree']
+        tree = paths[s][d]['trees']
         edps_for_s_d = paths[s][d]['edps']
         #print("Alle EDPs : " , edps_for_s_d)
         #print("Tree : ", list(tree.nodes))
@@ -264,6 +405,9 @@ def RouteOneTree(s,d,fails,paths):
 
 
 def getRank(tree, el):
+    #print("el : ", el)
+    #print("Versuche aus dem Tree : ", list(tree.nodes))
+    #print("Den Rang zu finden von ", tree.nodes[el])
     return tree.nodes[el]["rank"]
 
 # Route according to deterministic circular routing as described by Chiesa et al.
