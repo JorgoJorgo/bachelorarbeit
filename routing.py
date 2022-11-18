@@ -54,7 +54,7 @@ def RouteMultipleTrees(s,d,fails,paths):
     print('Routing started for ' , s , " to " , d )
 
     #########################################   FOR DEBUG ONLY                #####################################################
-    skip_edps = True
+    skip_edps = False
     skip_trees = False
     if(skip_edps):
         print("Skipping the EDPs")
@@ -102,7 +102,7 @@ def RouteMultipleTrees(s,d,fails,paths):
         print("Longest EDP : ", longest_edp )
         #fails.append( (longest_edp[len(longest_edp)-1],longest_edp[len(longest_edp)-2]))
         print("Fails : " , fails)
-        while((longest_edp[edpIndex],longest_edp[edpIndex+1])not in fails or  (longest_edp[edpIndex +1 ],longest_edp[edpIndex])  not in fails ):
+        while((longest_edp[edpIndex],longest_edp[edpIndex+1])not in fails and  (longest_edp[edpIndex +1 ],longest_edp[edpIndex]) not in fails ):
             print("Checking if : (" , longest_edp[edpIndex] , ",", longest_edp[edpIndex+1] , ") in fails ")
             print("Or check if : (" , longest_edp[edpIndex+1] , ",", longest_edp[edpIndex] , ") in fails ")
             #wenn man in die schleife reingekommen ist, dann bedeutet dies, dass man die kante gehen kann
@@ -261,7 +261,7 @@ def RouteOneTree(s,d,fails,paths):
         detour_edges = []
         hops = 0
         switches = 0
-        tree = paths[s][d]['trees']
+        tree = paths[s][d]['tree']
         edps_for_s_d = paths[s][d]['edps']
         #print("Alle EDPs : " , edps_for_s_d)
         #print("Tree : ", list(tree.nodes))
@@ -741,8 +741,8 @@ def SimulateGraph(g, RANDOM, stats, f, samplesize, precomputation=None, dest=Non
         precomputation = tree
         if precomputation is None:
             precomputation = GreedyArborescenceDecomposition(g)
-            #if precomputation is None:
-             #   return -1
+            if precomputation is None:
+               return -1
     fails = edg[:f]
     if targeted:
         fails = []
@@ -753,15 +753,18 @@ def SimulateGraph(g, RANDOM, stats, f, samplesize, precomputation=None, dest=Non
     g.remove_edges_from(failures1.keys())
     nodes = list(set(connected_component_nodes_with_d_after_failures(g,[],d))-set([dest, d]))
     dist = nx.shortest_path_length(g, target=d)
-    #if len(nodes) < samplesize:
-    #    print('Not enough nodes in connected component of destination (%i nodes, %i sample size), adapting it' % (len(nodes), samplesize))
-    #    samplesize = len(nodes)
+    if len(nodes) < samplesize:
+        print('Not enough nodes in connected component of destination (%i nodes, %i sample size), adapting it' % (len(nodes), samplesize))
+        PG = nx.nx_pydot.write_dot(g , "./failedGraphs/graph")
+        samplesize = len(nodes)
     nodes = list(set(g.nodes())-set([dest, d]))
     random.shuffle(nodes)
     count = 0
     for s in nodes[:samplesize]:
+        print("Loop over samplesize is runing")
         count += 1
         for stat in stats:
+            print("Loop over stats is runing")
             if targeted:
                 fails = list(nx.minimum_edge_cut(g,s=s,t=d))[1:]
                 random.shuffle(fails)

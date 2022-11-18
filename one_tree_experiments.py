@@ -65,8 +65,10 @@ def one_experiment(g, seed, out, algo):
     stat.reset(g.nodes())
     random.seed(seed)
     t = time.time()
+    print("Before simulate graph")
     #hier sage ich dass ich den routing algorithmus simulieren soll (in stat steht welchen routing algorithmus ich ausführen will))#################################################################################################################################
     SimulateGraph(g, True, [stat], f_num, samplesize, precomputation=precomputation)
+    print("After simulate")
     rt = (time.time() - t)/samplesize
     success_ratio = stat.succ/ samplesize
     # write results
@@ -184,10 +186,10 @@ def start_file(filename):
 # seed is used for pseudorandom number generation in this run
 # switch determines which experiments are run
 def experiments(switch="all", seed=0, rep=100):
-    if switch in ["regular", "all"]:
-        out = start_file("results/benchmark-regular-" + str(n) + "-" + str(k))
-        run_regular(out=out, seed=seed, rep=rep)
-        out.close()
+    #if switch in ["regular", "all"]:
+    #    out = start_file("results/benchmark-regular-" + str(n) + "-" + str(k))
+    #    run_regular(out=out, seed=seed, rep=rep)
+    #    out.close()
 
     if switch in ["zoo", "all"]:
         out = start_file("results/benchmark-zoo-" + str(k))

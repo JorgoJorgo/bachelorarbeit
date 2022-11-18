@@ -49,7 +49,7 @@ def multiple_trees_pre(graph):
                                                         #führen nicht zum Ziel und müssen gelöscht werden
                 
                 print_trees(source,destination,trees)
-                print("Printing trees finished for " , source , " - " , destination)
+                #print("Printing trees finished for " , source , " - " , destination)
                 print(" ")
                 if source in paths:
                     paths[source][destination] = { 'trees': trees, 'edps': edps}
