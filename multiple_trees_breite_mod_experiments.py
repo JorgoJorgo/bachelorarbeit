@@ -159,14 +159,39 @@ def run_regular(out=None, seed=0, rep=5):
     fn = min(int(n * k / 4), f_num)
     set_parameters([n, rep, k, ss, fn, seed, name + "regular-"])
     write_graphs()
+    g = create_custom_graph()
     for i in range(rep):
         random.seed(seed + i)
-        g = read_graph(i)
         random.seed(seed + i)
         for (algoname, algo) in algos.items():
             # graph, size, connectivity, algorithm, index,
             out.write('%s, %i, %i, %s, %i' % ("regular", n, k, algoname, i))
             algos[algoname] += [one_experiment(g, seed + i, out, algo)]
+
+def run_custom(out=None, seed=0, rep=5):
+
+    original_params = [n, rep, k, samplesize, f_num, seed, name]
+    graphs = []
+    fails = []
+
+    graph1, fail1 = create_custom_graph()
+    graphs.append(graph1)
+    fails.append(fail1) 
+
+    for i in range(0, len(graphs)):
+        random.seed(seed)
+        kk = 5
+        g = graphs[i]
+        g.graph['k'] = kk
+        nn = len(g.nodes())
+        mm = len(g.edges())
+        ss = min(int(nn / 2), samplesize)
+        fn = min(int(mm / 2), f_num)
+        fails = fails[i]
+        g.graph['fails'] = fails
+        set_parameters([nn, rep, kk, ss, fn, seed, name + "CUSTOM"])
+        shuffle_and_run(g, out, seed, rep, graphs[i])
+        set_parameters(original_params)
 
 # start file to capture results
 def start_file(filename):
@@ -190,6 +215,12 @@ def experiments(switch="all", seed=0, rep=100):
     #    out = start_file("results/benchmark-regular-" + str(n) + "-" + str(k))
     #    run_regular(out=out, seed=seed, rep=rep)
     #    out.close()
+
+    if switch in ["custom", "all"]:
+        out = start_file("results/benchmark-custom-" + str(k))
+        run_custom(out=out, seed=seed, rep=rep)
+        out.close()
+
 
     if switch in ["zoo", "all"]:
         out = start_file("results/benchmark-zoo-" + str(k))

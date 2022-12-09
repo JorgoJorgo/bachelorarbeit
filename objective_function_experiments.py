@@ -500,6 +500,18 @@ def write_graphs():
         f.write(s[:-1])
         f.close()
 
+def create_custom_graph():
+    g = nx.Graph()
+    g.add_node(1)
+    g.add_node(2)
+    g.add_node(3)
+    g.add_node(4)
+    g.add_edge(1,2)
+    g.add_edge(2,3)
+    g.add_edge(2,4)
+    g.add_edge(1,4)
+    fails = list((1,4))
+    return g,fails
 
 # read generated k-regular graphs from file system
 def read_graph(i):
