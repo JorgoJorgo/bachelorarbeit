@@ -953,7 +953,7 @@ def one_tree_pre_breite_mod(graph):
                 longest_edp = edps[len(edps)-1]
 
                 
-                tree = one_tree(source,destination,graph,longest_edp,3) #HIER KANN DER LETZTE FUNKTIONSPARAMETER GEÄNDERT WERDEN JE NACH GEWÜNSCHTER BREITE
+                tree = one_tree_breite_mod(source,destination,graph,longest_edp,2) #HIER KANN DER LETZTE FUNKTIONSPARAMETER GEÄNDERT WERDEN JE NACH GEWÜNSCHTER BREITE
 
                 #print("Versuche auf index ", source , " und ", destination ," zuzugreifen ")
                 if source in paths:
@@ -994,29 +994,43 @@ def one_tree_breite_mod(source, destination, graph, longest_edp,limitX):
         it = 0 # um die nachbarn der nachbarn zu bekommen
         while it < len(nodes):
 
-            #hier muss dann zusätzlich geprüft werden ob der jetzige node noch weitere Kinder aufnehmen kann, da die Breite beschränkt wird in dieser Änderung
-            int_node = int(nodes[it])
-            outgoing_edges = list(tree.edges(int_node))
-            number_out_edges = len(outgoing_edges)                        
-            limit = limitX
-            if(number_out_edges > limit):
-                print("Der Knoten ", int_node , " hat ", outgoing_edges)
-                print("daher sind es zu viele ausgehende Kanten")
+            
+
+            
+
+                
 
 
-                neighbors = list(nx.neighbors(graph, nodes[it]))
+            neighbors = list(nx.neighbors(graph, nodes[it]))
 
-                for j in neighbors:
+            for j in neighbors:
+
+                #hier muss dann zusätzlich geprüft werden ob der jetzige node noch weitere Kinder aufnehmen kann, da die Breite beschränkt wird in dieser Änderung
+                int_node = int(nodes[it])
+                outgoing_edges = list(tree.edges(int_node))
+                number_out_edges = len(outgoing_edges)                        
+                limit = limitX
+                #print("Limit : ",limit)
+                #print("Der Knoten ", int_node , " hat ", outgoing_edges)
+
+                if(number_out_edges < limit): 
+
+                    #print("daher passen noch mehr rein")
+                    #print("---")
                     if (not tree.has_node(j)) and (j!= destination): #not part of tree already and not the destiantion
                         nodes.append(j)
                         
                         tree.add_node(j) #add neighbors[j] to tree
                         tree.add_edge(nodes[it], j) # add edge to new node
                     #end if
-                
-                #end for
-                
-            #endif
+
+                else:
+                    #print("daher sind es zu viele ausgehende Kanten")
+                    #print("---")
+                    break;
+                #endif
+            #end for
+            
             it = it+1
         #end while
     #end for
