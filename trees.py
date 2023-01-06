@@ -498,7 +498,7 @@ def multiple_trees_pre_breite_mod(graph):
                 edps.sort(key=len, reverse=True) #Sortierung der EDPs
                 
                 print("Start building trees for ", source , " to ", destination)
-                trees = multiple_trees_breite_mod(source,destination,graph,edps, 2)
+                trees = multiple_trees_breite_mod(source,destination,graph,edps, 2) #HIER KANN DER LETZTE FUNKTIONSPARAMETER GEÄNDERT WERDEN JE NACH GEWÜNSCHTER BREITE
                 
                 trees = remove_single_node_trees(trees)#EDPs die nicht erweitert werden konnten, da andere Bäume die Kanten schon vorher verbaut haben,
                                                         #führen nicht zum Ziel und müssen gelöscht werden
@@ -927,6 +927,125 @@ def one_tree(source, destination, graph, longest_edp):
     #print("fertiger tree")
     #print(tree)
     return tree
+
+
+#################################### OneTree Breite Mod ############################################################################################
+
+#methode um für jedes source destination paar einen baum zu bauen
+def one_tree_pre_breite_mod(graph):
+    #die paths struktur besteht daraus : für jeden source (1. index) zu jeder destination (2. index) gibt es 1 Objekt dass den Baum drin hat (Attribut 'tree') und alle EDPs (Attribut 'edps')
+    # und alle weglängen zur destination in 'distance'
+
+    paths = {}
+
+    #paths = [[0 for x in range(graph.order())] for y in range(graph.order())]
+    print("Anzahl Knoten: " , graph.order())
+    print("Knoten : " , list(graph.nodes))
+    #source_index = 0
+    #destination_index = 0
+    for source in graph.nodes:
+
+        for destination in graph.nodes:
+            
+            if source != destination: #and source == 28 and destination == 13:                
+                edps = all_edps(source, destination, graph)
+                edps.sort(key=len)
+                longest_edp = edps[len(edps)-1]
+
+                
+                tree = one_tree(source,destination,graph,longest_edp,3) #HIER KANN DER LETZTE FUNKTIONSPARAMETER GEÄNDERT WERDEN JE NACH GEWÜNSCHTER BREITE
+
+                #print("Versuche auf index ", source , " und ", destination ," zuzugreifen ")
+                if source in paths:
+                    paths[source][destination] = { 'tree': tree, 'edps': edps}
+                else:
+                    paths[source] = {}
+                    paths[source][destination] = {'tree': tree, 'edps': edps}
+
+                
+    return paths
+
+#hilfsfunktion damit man die weglänge von jedem node zur distance hat , das braucht man um die reihenfolge festzulegen die man bei den verzweigungen nimmt 
+def compute_distance_to_dest(tree, destination):
+    return dict(nx.single_target_shortest_path_length(tree, destination))
+
+#den baum bauen indem man jeden knoten von der source aus mitnimmt der mit einem knoten aus dem baum benachbart ist
+#dabei guckt man sich die nachbarn im ursprungsgraphen  an und fügt die dann in einem anderen graphen (tree) ein
+# am ende löscht man noch die pfade die nicht zum destination führen
+# der baum ist ein gerichteter graph , damit man im tree die struktur zwischen parent/children erkennen kann anhand eingehender/ausgehender kanten
+def one_tree_breite_mod(source, destination, graph, longest_edp,limitX):
+    #print("EDP aus dem der Tree gebaut wird für ", source , " nach " , destination ," : " , longest_edp)
+    tree = nx.DiGraph()
+    assert source == longest_edp[0] , 'Source is not start of edp'
+    tree.add_node(source) # source = longest_edp[0]
+
+    #hier muss noch hin dass wir den edp an sich reinmachen
+    for i in range(1,len(longest_edp)-1): # -2 da wir die destination ncht einfügen wollen
+        tree.add_node(longest_edp[i])
+        tree.add_edge(longest_edp[i-1],longest_edp[i])
+
+    pathToExtend = longest_edp
+    
+    for i in range(0,len(pathToExtend)-1): # i max 7
+        
+
+
+        nodes = pathToExtend[:len(pathToExtend) -2]
+        it = 0 # um die nachbarn der nachbarn zu bekommen
+        while it < len(nodes):
+
+            #hier muss dann zusätzlich geprüft werden ob der jetzige node noch weitere Kinder aufnehmen kann, da die Breite beschränkt wird in dieser Änderung
+            int_node = int(nodes[it])
+            outgoing_edges = list(tree.edges(int_node))
+            number_out_edges = len(outgoing_edges)                        
+            limit = limitX
+            if(number_out_edges > limit):
+                print("Der Knoten ", int_node , " hat ", outgoing_edges)
+                print("daher sind es zu viele ausgehende Kanten")
+
+
+                neighbors = list(nx.neighbors(graph, nodes[it]))
+
+                for j in neighbors:
+                    if (not tree.has_node(j)) and (j!= destination): #not part of tree already and not the destiantion
+                        nodes.append(j)
+                        
+                        tree.add_node(j) #add neighbors[j] to tree
+                        tree.add_edge(nodes[it], j) # add edge to new node
+                    #end if
+                
+                #end for
+                
+            #endif
+            it = it+1
+        #end while
+    #end for
+    
+    PG = nx.nx_pydot.write_dot(tree , "./graphen/tree_all")
+    changed = True 
+    while changed == True: #solange versuchen zu kürzen bis nicht mehr gekürzt werden kann 
+        old_tree = tree.copy()
+        remove_redundant_paths(source, destination, tree, graph)
+        changed = tree.order() != old_tree.order() # order returns the number of nodes in the graph.
+    PG = nx.nx_pydot.write_dot(tree , "./graphen/tree_unranked"+ str(source) + str(destination))
+
+    rank_tree(tree , source)
+    connect_leaf_to_destination(tree, source, destination)
+
+    #add 'rank' property to the added destinaton, -1 for highest priorty in routing
+    tree.nodes[destination]["rank"] = -1
+
+
+    #OG = nx.nx_pydot.write_dot(graph , "./graphen/graph")
+    #PG = nx.nx_pydot.write_dot(tree , "./graphen/tree"+ str(source) + str(destination))
+    #input("press enter")
+    #print("fertiger tree")
+    #print(tree)
+    return tree
+
+####################################################################################################################################################
+
+
 
 # den baum von den leafs aus ranken, dabei kriegen die leafs als ersten ihren rang 
 # und parents nehmen den kleinsten rang ihrer kinder + 1 für die Kante zu ihrem kind
