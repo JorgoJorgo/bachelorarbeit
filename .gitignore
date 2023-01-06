@@ -9,3 +9,5 @@ multiple_trees_graphen/
 *.gml
 *ml
 log.txt
+log*
+graph
