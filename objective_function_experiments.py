@@ -501,16 +501,66 @@ def write_graphs():
         f.close()
 
 def create_custom_graph():
+    #jetziger graph ist der beispielgraph für die motivation von mod breite in multipletrees
     g = nx.Graph()
-    g.add_node(1)
-    g.add_node(2)
-    g.add_node(3)
-    g.add_node(4)
+    max_node = 22
+    for i in range(1,max_node):#geht von 1 bis max_node -1
+        g.add_node(i)
+    #endfor 
+
     g.add_edge(1,2)
-    g.add_edge(2,3)
-    g.add_edge(2,4)
+    g.add_edge(1,3)
     g.add_edge(1,4)
-    fails = list((1,4))
+
+    g.add_edge(2,5)
+
+    g.add_edge(3,6)
+    g.add_edge(3,7)
+    g.add_edge(3,8)
+
+    g.add_edge(4,9)
+
+    g.add_edge(5,14)
+    g.add_edge(5,15)
+
+    g.add_edge(6,14)
+    g.add_edge(6,10)
+
+    g.add_edge(7,11)
+
+    g.add_edge(8,12)
+
+    g.add_edge(9,13)
+
+    g.add_edge(10,15)
+
+    g.add_edge(11,17)
+
+    g.add_edge(12,19)
+
+    g.add_edge(13,20)
+
+    g.add_edge(14,18)
+
+    g.add_edge(15,16)
+
+    g.add_edge(16,21)
+
+    g.add_edge(17,21)
+
+    g.add_edge(18,21)
+
+    g.add_edge(19,21)
+
+    g.add_edge(20,21)
+
+    random1 = random.randint(1,max_node-1)
+    random2 = random.randint(1,max_node-1)
+    random3 = random.randint(1,max_node-1)
+    random4 = random.randint(1,max_node-1)
+    fails = list()
+    fails.append((random1,random2))
+    fails.append((random3,random4))
     return g,fails
 
 # read generated k-regular graphs from file system

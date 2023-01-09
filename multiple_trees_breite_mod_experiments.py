@@ -155,13 +155,26 @@ def shuffle_and_run(g, out, seed, rep, x):
 # seed is used for pseudorandom number generation in this run
 # rep denotes the number of repetitions in the secondary for loop
 def run_regular(out=None, seed=0, rep=5):
+    # ss = min(int(n / 2), samplesize)
+    # fn = min(int(n * k / 4), f_num)
+    # set_parameters([n, rep, k, ss, fn, seed, name + "regular-"])
+    # write_graphs()
+    # g = create_custom_graph()
+    # for i in range(rep):
+    #     random.seed(seed + i)
+    #     random.seed(seed + i)
+    #     for (algoname, algo) in algos.items():
+    #         # graph, size, connectivity, algorithm, index,
+    #         out.write('%s, %i, %i, %s, %i' % ("regular", n, k, algoname, i))
+    #         algos[algoname] += [one_experiment(g, seed + i, out, algo)]
+
     ss = min(int(n / 2), samplesize)
     fn = min(int(n * k / 4), f_num)
     set_parameters([n, rep, k, ss, fn, seed, name + "regular-"])
     write_graphs()
-    g = create_custom_graph()
     for i in range(rep):
         random.seed(seed + i)
+        g = read_graph(i)
         random.seed(seed + i)
         for (algoname, algo) in algos.items():
             # graph, size, connectivity, algorithm, index,
