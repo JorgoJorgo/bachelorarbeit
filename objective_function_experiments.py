@@ -18,12 +18,14 @@ name = "experiment-objective-function"
 
 # set global parameters in this file and in routing_stats
 def set_parameters(params):
+    #print("params:" , params)
     set_objective_parameters(params)
 
 # set global parameters in this file and in routing_stats
 def set_objective_parameters(params):
     global seed, n, rep, k, samplesize, name, f_num
     [n, rep, k, samplesize, f_num, seed, name] = params
+    #print("f_num set_obj_params", f_num)
     set_routing_params(params)
 
 # print global parameters in this file and in routing_stats
@@ -554,13 +556,15 @@ def create_custom_graph():
 
     g.add_edge(20,21)
 
-    random1 = random.randint(1,max_node-1)
-    random2 = random.randint(1,max_node-1)
-    random3 = random.randint(1,max_node-1)
-    random4 = random.randint(1,max_node-1)
+    #random1 = random.randint(1,max_node-1)
+    #random2 = random.randint(1,max_node-1)
+    #random3 = random.randint(1,max_node-1)
+    #random4 = random.randint(1,max_node-1)
     fails = list()
-    fails.append((random1,random2))
-    fails.append((random3,random4))
+    #fails.append((random1,random2))
+    #fails.append((random3,random4))
+    fails.append((8,12))
+    fails.append((5,15))
     return g,fails
 
 # read generated k-regular graphs from file system

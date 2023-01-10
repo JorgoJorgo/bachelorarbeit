@@ -7,10 +7,9 @@ import itertools
 import random
 import time
 import glob
-from arborescences import reset_arb_attribute
 from objective_function_experiments import *
-from trees import multiple_trees_pre_num_of_trees_mod
-from routing import RouteMultipleTrees, SimulateGraph, Statistic
+from trees import multiple_trees_pre, multiple_trees_pre_breite_mod, multiple_trees_pre_num_of_trees_mod, multiple_trees_pre_order_of_edps_mod, multiple_trees_pre_parallel
+from routing import RouteMultipleTrees
 DEBUG = True
 
 # Data structure containing the algorithms under
@@ -34,7 +33,12 @@ DEBUG = True
 # algorithms to this data structure to compare the performance
 # of additional algorithms.
 #algos = {'One Tree': [one_tree_pre, RouteOneTree], 'Greedy': [GreedyArborescenceDecomposition, RouteDetCirc]}
-algos = {'MultipleTrees Tree': [multiple_trees_pre_num_of_trees_mod, RouteMultipleTrees]}
+algos = {'MultipleTrees': [multiple_trees_pre, RouteMultipleTrees],
+'MultipleTrees Mod Breite': [multiple_trees_pre_breite_mod, RouteMultipleTrees],
+'MultipleTrees Mod Anzahl': [multiple_trees_pre_num_of_trees_mod, RouteMultipleTrees],
+'MultipleTrees Mod Reihenfolge': [multiple_trees_pre_order_of_edps_mod, RouteMultipleTrees],
+'MultipleTrees Mod Parallel': [multiple_trees_pre_parallel, RouteMultipleTrees]
+}
 
 # run one experiment with graph g
 # out denotes file handle to write results to
@@ -181,68 +185,24 @@ def start_file(filename):
     return out
 
 
-def run_custom(out=None, seed=0, rep=5):
-    global f_num 
-
-    original_params = [n, rep, k, samplesize, f_num, seed, name]
-    graphs = []
-    fails = []
-
-    graph1, fail1 = create_custom_graph()
-
-    graphs.append(graph1)
-    fails.append(fail1) 
-
-    for i in range(0, len(graphs)):
-        f_num = len(fails[i]) # How many failed edges we selected in our create_custom_graph
-        PG = nx.nx_pydot.write_dot(graphs[i] , "./graphen/custom_multipletrees_"+ str(i))
-        print("Fails : ", fails[i])
-        random.seed(seed)
-        kk = 5
-        g = graphs[i]
-        g.graph['k'] = kk
-        nn = len(g.nodes())
-        mm = len(g.edges())
-        ss = min(int(nn / 2), samplesize)
-        fn = min(int(mm / 2), f_num)
-        print("Minimum fn: ", fn, "MM/2: ", mm/2 , "f_num :", f_num )
-        fails = fails[i]
-        g.graph['fails'] = fails
-        set_parameters([nn, rep, kk, ss, fn, seed, name + "CUSTOM"])
-        print("Global f_num : ", f_num )
-        shuffle_and_run(g, out, seed, rep, graphs[i])
-        print("Global f_num after run : ", f_num )
-        set_parameters(original_params)
-        print("Global f_num after reset : ", f_num )
-
-
-
-
 # run experiments
 # seed is used for pseudorandom number generation in this run
 # switch determines which experiments are run
 
 #hier kann rep geändert werden
 def experiments(switch="all", seed=0, rep=100):
-    #if switch in ["regular", "all"]:
-    #    out = start_file("results/benchmark-regular-" + str(n) + "-" + str(k))
-    #    run_regular(out=out, seed=seed, rep=rep)
-    #    out.close()
-
-    if switch in ["custom", "all"]:
-        #hier steht wo die ergebnisse des durchlaufs gespeichert werden : results/benchmark-cusutom-5.txt
-        out = start_file("results/benchmark-custom-" + str(k))
-        run_custom(out=out, seed=seed, rep=rep)
+    if switch in ["regular", "all"]:
+        out = start_file("results/benchmark-regular-all-multiple-trees-" + str(n) + "-" + str(k))
+        run_regular(out=out, seed=seed, rep=rep)
         out.close()
 
-
     if switch in ["zoo", "all"]:
-        out = start_file("results/benchmark-zoo-" + str(k))
+        out = start_file("results/benchmark-zoo-multiple-trees-" + str(k))
         run_zoo(out=out, seed=seed, rep=rep)
         out.close()
 
     if switch in ["AS"]:
-        out = start_file("results/benchmark-as_seed_" + str(seed))
+        out = start_file("results/benchmark-as_seed_multiple-trees-" + str(seed))
         run_AS(out=out, seed=seed, rep=rep)
         out.close()
 
