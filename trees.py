@@ -103,8 +103,8 @@ def multiple_trees(source, destination, graph, all_edps):
 
                 for k in range(0,len(neighbors)): #jeden der nachbarn durchgehen
 
-                    if(neighbors[k] != nodes[j] and neighbors[k] != destination): #kanten zu sich selbst dürfen nicht rein da dann baum zu kreis wird und kanten zur destination auch nicht
-                        
+                    #if(neighbors[k] != nodes[j] and neighbors[k] != destination): #kanten zu sich selbst dürfen nicht rein da dann baum zu kreis wird und kanten zur destination auch nicht
+                    if(neighbors[k] != nodes[it] and neighbors[k] != destination): #kanten zu sich selbst dürfen nicht rein da dann baum zu kreis wird und kanten zur destination auch nicht    
                         #print(destination)
                         #print(neighbors[k])
                         #print("Nodes Array : ", nodes)
@@ -116,7 +116,8 @@ def multiple_trees(source, destination, graph, all_edps):
                         is_in_other_tree = False
                         if(len(trees)>0):#wenn es schon andere trees gibt muss man alle anderen durchsuchen
                             for tree_to_check in trees: 
-                                if (tree_to_check.has_edge(nodes[j],neighbors[k])): #wenn ein tree die edge schon drin hat dann darf man die edge nicht mehr benutzen
+                                #if (tree_to_check.has_edge(nodes[j],neighbors[k])): #wenn ein tree die edge schon drin hat dann darf man die edge nicht mehr benutzen
+                                if (tree_to_check.has_edge(nodes[it],neighbors[k])): #wenn ein tree die edge schon drin hat dann darf man die edge nicht mehr benutzen
                                     is_in_other_tree = True
                                     break
                                 #endif
@@ -126,7 +127,8 @@ def multiple_trees(source, destination, graph, all_edps):
                                 #print("Füge die Kante : ", nodes[j] , " - " , neighbors[k] , " ein bei len(trees) > 0")
                                 nodes.append(neighbors[k]) 
                                 tree.add_node(neighbors[k])
-                                tree.add_edge(nodes[j],neighbors[k])
+                                #tree.add_edge(nodes[j],neighbors[k])
+                                tree.add_edge(nodes[it],neighbors[k])
                             #endif
                         #endif
                         else: #das ist der fall wenn es noch keine anderen trees zum checken gibt, ob die kante schon verbaut ist
@@ -135,7 +137,8 @@ def multiple_trees(source, destination, graph, all_edps):
                                 #print("Füge die Kante : " , nodes[j] , " - " , neighbors[k] , " ein bei len(trees) = 0")
                                 
                                 tree.add_node(neighbors[k])
-                                tree.add_edge(nodes[j],neighbors[k])
+                                #tree.add_edge(nodes[j],neighbors[k])
+                                tree.add_edge(nodes[it],neighbors[k])
                             #endif
                             #wenn der node der grad in den tree eingefügt wurde schon in nodes war dann soll er nicht nochmal eingefügt werden
                             if not (neighbors[k]in nodes): #damit knoten nicht doppelt in nodes eingefügt werden
@@ -262,13 +265,14 @@ def multiple_trees_order_of_edps_mod(source, destination, graph, all_edps):
 
                 for k in range(0,len(neighbors)): #jeden der nachbarn durchgehen
 
-                    if(neighbors[k] != nodes[j] and neighbors[k] != destination): #kanten zu sich selbst dürfen nicht rein da dann baum zu kreis wird und kanten zur destination auch nicht
-                        
+                    #if(neighbors[k] != nodes[j] and neighbors[k] != destination): #kanten zu sich selbst dürfen nicht rein da dann baum zu kreis wird und kanten zur destination auch nicht
+                    if(neighbors[k] != nodes[it] and neighbors[k] != destination): #kanten zu sich selbst dürfen nicht rein da dann baum zu kreis wird und kanten zur destination auch nicht    
                         #prüfen ob kante von nodes[j] nach neighbors[k] schon in anderen trees verbaut ist
                         is_in_other_tree = False
                         if(len(trees)>0):#wenn es schon andere trees gibt muss man alle anderen durchsuchen
                             for tree_to_check in trees: 
-                                if (tree_to_check.has_edge(nodes[j],neighbors[k])): #wenn ein tree die edge schon drin hat dann darf man die edge nicht mehr benutzen
+                                #if (tree_to_check.has_edge(nodes[j],neighbors[k])): #wenn ein tree die edge schon drin hat dann darf man die edge nicht mehr benutzen
+                                if (tree_to_check.has_edge(nodes[it],neighbors[k])): #wenn ein tree die edge schon drin hat dann darf man die edge nicht mehr benutzen
                                     is_in_other_tree = True
                                     break
                                 #endif
@@ -278,7 +282,8 @@ def multiple_trees_order_of_edps_mod(source, destination, graph, all_edps):
                                 #print("Füge die Kante : ", nodes[j] , " - " , neighbors[k] , " ein bei len(trees) > 0")
                                 nodes.append(neighbors[k]) 
                                 tree.add_node(neighbors[k])
-                                tree.add_edge(nodes[j],neighbors[k])
+                                tree.add_edge(nodes[it],neighbors[k])
+                                #tree.add_edge(nodes[j],neighbors[k])
                             #endif
                         #endif
                         else: #das ist der fall wenn es noch keine anderen trees zum checken gibt, ob die kante schon verbaut ist
@@ -287,7 +292,8 @@ def multiple_trees_order_of_edps_mod(source, destination, graph, all_edps):
                                 #print("Füge die Kante : " , nodes[j] , " - " , neighbors[k] , " ein bei len(trees) = 0")
                                 
                                 tree.add_node(neighbors[k])
-                                tree.add_edge(nodes[j],neighbors[k])
+                                #tree.add_edge(nodes[j],neighbors[k])
+                                tree.add_edge(nodes[it],neighbors[k])
                             #endif
                             #wenn der node der grad in den tree eingefügt wurde schon in nodes war dann soll er nicht nochmal eingefügt werden
                             if not (neighbors[k]in nodes): #damit knoten nicht doppelt in nodes eingefügt werden
@@ -338,15 +344,15 @@ def multiple_trees_pre_num_of_trees_mod(graph):
                 
                 edps.sort(key=len, reverse=True) #Sortierung der EDPs
                 
-                print("Start building trees for ", source , " to ", destination)
+                #print("Start building trees for ", source , " to ", destination)
                 trees = multiple_trees_num_of_trees_mod(source,destination,graph,edps)
                 
                 trees = remove_single_node_trees(trees)#EDPs die nicht erweitert werden konnten, da andere Bäume die Kanten schon vorher verbaut haben,
                                                         #führen nicht zum Ziel und müssen gelöscht werden
                 
-                print_trees(source,destination,trees)
+                #print_trees(source,destination,trees)
                 
-                print(" ")
+                #print(" ")
                 if source in paths:
                     paths[source][destination] = { 'trees': trees, 'edps': edps}
                 else:
@@ -359,7 +365,7 @@ def multiple_trees_pre_num_of_trees_mod(graph):
 #gibt für ein source-destination paar alle trees zurück
 def multiple_trees_num_of_trees_mod(source, destination, graph, all_edps):
     trees = [] #hier werden alle trees gespeichert 
-
+    debug = False
     number_of_wanted_trees = 2 #diese Zahl muss geändert werden, damit man die Anzahl an zu bauenden Bäumen einschränkt
     number_of_edps = len(all_edps)
     
@@ -380,18 +386,18 @@ def multiple_trees_num_of_trees_mod(source, destination, graph, all_edps):
         #endfor
         #print("all_edps vor der Änderung : " , all_edps)
         all_edps = sublist
-        print("all_edps nach der Änderung : " , all_edps)
+        #print("all_edps nach der Änderung : " , all_edps)
     #endtry
     except ValueError:
         print('Zu viele EDPs ausgewählt, es werden alle EDPs genutzt') #wenn man versucht zu viele edps zu wählen 
     #endexcept
 
     #für jeden tree muss hier sein edp eingefügt werden in den graph 
-    print("All EDPs : " , all_edps)
+    #print("All EDPs : " , all_edps)
     for i in range(0,len(all_edps)):
 
         current_edp = all_edps[i]
-        print("Current EDP : ", current_edp)
+        #print("Current EDP : ", current_edp)
         tree = nx.DiGraph()
         tree.add_node(source)
         for j in range(1,len(current_edp)-1):
@@ -401,7 +407,7 @@ def multiple_trees_num_of_trees_mod(source, destination, graph, all_edps):
         trees.append(tree)
     #endfor
     
-    if(source == 1 and destination == 21):
+    if(source == 1 and destination == 21 and debug == True):
         print("Hab passendes Paar gefunden")
         i = 0
         for tree in trees:
@@ -422,7 +428,7 @@ def multiple_trees_num_of_trees_mod(source, destination, graph, all_edps):
         nodes = pathToExtend[:len(pathToExtend) -1]#in nodes stehen dann alle knoten drin die wir besuchen wollen um deren nachbarn auch reinzupacken
                                                    # am anfang ganzer edp drin und -2 damit die destination nicht mit drin steht
         
-        if(source == 1 and destination == 21):
+        if(source == 1 and destination == 21 and debug == True ):
             print("Building Tree for EDP : ", all_edps)
         #endif
 
@@ -438,32 +444,32 @@ def multiple_trees_num_of_trees_mod(source, destination, graph, all_edps):
                     
                     if(neighbors[k] != nodes[it] and neighbors[k] != destination):
                     #if(neighbors[k] != nodes[j] and neighbors[k] != destination): #kanten zu sich selbst dürfen nicht rein da dann baum zu kreis wird und kanten zur destination auch nicht
-                        if(source == 1 and destination == 21):
+                        if(source == 1 and destination == 21 and debug == True):
                             print("Versuche die Kante" , ((nodes[it],neighbors[k])) , " einzufügen" )
                             #print("Versuche die Kante" , ((nodes[j],neighbors[k])) , " einzufügen" )
                         #prüfen ob kante von nodes[j] nach neighbors[k] schon in anderen trees verbaut ist
                         is_in_other_tree = False
                         if(len(trees)>0):#wenn es schon andere trees gibt muss man alle anderen durchsuchen
 
-                            if(source == 1 and destination == 21):
+                            if(source == 1 and destination == 21 and debug == True):
                                 print("Bin in dem Fall, dass es andere Trees gibt")
 
                             for tree_to_check in trees: 
                                 if (tree_to_check.has_edge(nodes[it],neighbors[k])):
                                 #if (tree_to_check.has_edge(nodes[j],neighbors[k])): #wenn ein tree die edge schon drin hat dann darf man die edge nicht mehr benutzen
-                                    if(source == 1 and destination == 21):
+                                    if(source == 1 and destination == 21 and debug == True):
                                         print("Kante ist in anderem Tree")
                                     is_in_other_tree = True
                                     break
                                 
                                 else:
-                                    if(source == 1 and destination == 21):
+                                    if(source == 1 and destination == 21 and debug == True ):
                                         print("Kante ist NICHT in tree :", tree.nodes)
                                 #endif
                             #endfor
                         
                             if not ( is_in_other_tree or (tree.has_node(neighbors[k])) ):
-                                if(source == 1 and destination == 21):
+                                if(source == 1 and destination == 21 and debug == True):
                                     print("Kante ist NICHT in einem anderen Tree")
                                     print("Füge die Kante : ", nodes[j] , " - " , neighbors[k] , " ein bei len(trees) > 0")
                                 nodes.append(neighbors[k]) 
@@ -473,12 +479,12 @@ def multiple_trees_num_of_trees_mod(source, destination, graph, all_edps):
                             #endif
                         #endif
                         else: #das ist der fall wenn es noch keine anderen trees zum checken gibt, ob die kante schon verbaut ist
-                            if(source == 1 and destination == 21):
+                            if(source == 1 and destination == 21 and debug == True):
                                 print("Es gibt noch keine anderen Trees zum checken")
 
                             if not((neighbors[k] == destination) or (tree.has_node(neighbors[k]))): #dann darf die kante nicht zur destination sein
                                                                                                     #der knoten darf nicht im jetzigen tree drin sein
-                                if(source == 1 and destination == 21):                                                                                    
+                                if(source == 1 and destination == 21 and debug == True):                                                                                    
                                     #print("Füge die Kante : " , nodes[j] , " - " , neighbors[k] , " ein bei len(trees) = 0")
                                     print("Füge die Kante : " , nodes[it] , " - " , neighbors[k] , " ein bei len(trees) = 0")
                                 
@@ -492,7 +498,7 @@ def multiple_trees_num_of_trees_mod(source, destination, graph, all_edps):
                             #endif
                         #endelse
                     #endif
-                    if(source == 1 and destination == 21):
+                    if(source == 1 and destination == 21 and debug == True ):
                         print("---")
                 #endfor
                 it = it + 1                
@@ -518,7 +524,7 @@ def multiple_trees_num_of_trees_mod(source, destination, graph, all_edps):
             #trees.apend(tree)
         #endif
 
-        if(source == 1 and destination == 21):
+        if(source == 1 and destination == 21 and debug == True ):
             print("Fnished building Tree for EDP : ", all_edps)
             PG = nx.nx_pydot.write_dot(tree , "./graphen/custom_tree_finished"+ str(source) + "_" +  str(destination) + "_" + str(i))
         #endif
@@ -602,7 +608,8 @@ def multiple_trees_breite_mod(source, destination, graph, all_edps ,limitX):
                 for k in range(0,len(neighbors)): #jeden der nachbarn durchgehen
 
                     #hier muss dann zusätzlich geprüft werden ob der jetzige node noch weitere Kinder aufnehmen kann, da die Breite beschränkt wird in dieser Änderung
-                    int_node = int(nodes[j])
+                    #int_node = int(nodes[j])
+                    int_node = int(nodes[it])
                     outgoing_edges = list(tree.edges(int_node))
                     number_out_edges = len(outgoing_edges)                        
                     limit = limitX
@@ -610,15 +617,16 @@ def multiple_trees_breite_mod(source, destination, graph, all_edps ,limitX):
                         print("Der Knoten ", int_node , " hat ", outgoing_edges)
                         print("daher sind es zu viele ausgehende Kanten")
 
-                    if(neighbors[k] != nodes[j] and neighbors[k] != destination and number_out_edges < limit): #kanten zu sich selbst dürfen nicht rein da dann baum zu kreis wird und kanten zur destination auch nicht
-
+                    #if(neighbors[k] != nodes[j] and neighbors[k] != destination and number_out_edges < limit): #kanten zu sich selbst dürfen nicht rein da dann baum zu kreis wird und kanten zur destination auch nicht
+                    if(neighbors[k] != nodes[it] and neighbors[k] != destination and number_out_edges < limit): #kanten zu sich selbst dürfen nicht rein da dann baum zu kreis wird und kanten zur destination auch nicht
                         print("Der Knoten ", int_node , " hat ", outgoing_edges)
                         
                         #prüfen ob kante von nodes[j] nach neighbors[k] schon in anderen trees verbaut ist
                         is_in_other_tree = False
                         if(len(trees)>0):#wenn es schon andere trees gibt muss man alle anderen durchsuchen
                             for tree_to_check in trees: 
-                                if (tree_to_check.has_edge(nodes[j],neighbors[k])): #wenn ein tree die edge schon drin hat dann darf man die edge nicht mehr benutzen
+                                #if (tree_to_check.has_edge(nodes[j],neighbors[k])): #wenn ein tree die edge schon drin hat dann darf man die edge nicht mehr benutzen
+                                if (tree_to_check.has_edge(nodes[it],neighbors[k])): #wenn ein tree die edge schon drin hat dann darf man die edge nicht mehr benutzen
                                     is_in_other_tree = True
                                     break
                                 #endif
@@ -628,7 +636,8 @@ def multiple_trees_breite_mod(source, destination, graph, all_edps ,limitX):
                                 #print("Füge die Kante : ", nodes[j] , " - " , neighbors[k] , " ein bei len(trees) > 0")
                                 nodes.append(neighbors[k]) 
                                 tree.add_node(neighbors[k])
-                                tree.add_edge(nodes[j],neighbors[k])
+                                #tree.add_edge(nodes[j],neighbors[k])
+                                tree.add_edge(nodes[it],neighbors[k])
                             #endif
                         #endif
                         else: #das ist der fall wenn es noch keine anderen trees zum checken gibt, ob die kante schon verbaut ist
@@ -636,7 +645,8 @@ def multiple_trees_breite_mod(source, destination, graph, all_edps ,limitX):
                                                                                                     #der knoten darf nicht im jetzigen tree drin sein
                                 
                                 tree.add_node(neighbors[k])
-                                tree.add_edge(nodes[j],neighbors[k])
+                                #tree.add_edge(nodes[j],neighbors[k])
+                                tree.add_edge(nodes[it],neighbors[k])
                             #endif
                             #wenn der node der grad in den tree eingefügt wurde schon in nodes war dann soll er nicht nochmal eingefügt werden
                             if not (neighbors[k]in nodes): #damit knoten nicht doppelt in nodes eingefügt werden
@@ -772,8 +782,8 @@ def multiple_trees_parallel(source, destination, graph, all_edps):
                     print("Neighbors : ", neighbors)
                     for k in range(0,len(neighbors)): #jeden der nachbarn durchgehen
                         #print("k-ter Neighbor : " ,neighbors[k])
-                        if(neighbors[k] != nodes_in_tree[i][j] and neighbors[k] != destination): #kanten zu sich selbst dürfen nicht rein da dann baum zu kreis wird und kanten zur destination auch nicht
-                            
+                        #if(neighbors[k] != nodes_in_tree[i][j] and neighbors[k] != destination): #kanten zu sich selbst dürfen nicht rein da dann baum zu kreis wird und kanten zur destination auch nicht
+                        if(neighbors[k] != nodes_in_tree[i][it] and neighbors[k] != destination): #kanten zu sich selbst dürfen nicht rein da dann baum zu kreis wird und kanten zur destination auch nicht    
                             #print(destination)
                             #print(neighbors[k])
                             #print("Nodes Array : ", nodes)
@@ -785,17 +795,20 @@ def multiple_trees_parallel(source, destination, graph, all_edps):
                             is_in_other_tree = False
                             if(len(trees)>0):#wenn es schon andere trees gibt muss man alle anderen durchsuchen
                                 for tree_to_check in trees: 
-                                    if (tree_to_check.has_edge(nodes_in_tree[i][j],neighbors[k])): #wenn ein tree die edge schon drin hat dann darf man die edge nicht mehr benutzen
+                                    #if (tree_to_check.has_edge(nodes_in_tree[i][j],neighbors[k])): #wenn ein tree die edge schon drin hat dann darf man die edge nicht mehr benutzen
+                                    if (tree_to_check.has_edge(nodes_in_tree[i][it],neighbors[k])): #wenn ein tree die edge schon drin hat dann darf man die edge nicht mehr benutzen
                                         is_in_other_tree = True
                                         break
                                     #endif
                                 #endfor
                             
                                 if not ( is_in_other_tree or (tree.has_node(neighbors[k])) ):
-                                    print("Füge die Kante : ", nodes_in_tree[i][j] , " - " , neighbors[k] , " ein bei len(trees) > 0")
+                                    #print("Füge die Kante : ", nodes_in_tree[i][j] , " - " , neighbors[k] , " ein bei len(trees) > 0")
+                                    print("Füge die Kante : ", nodes_in_tree[it][j] , " - " , neighbors[k] , " ein bei len(trees) > 0")
                                     nodes_in_tree[i].append(neighbors[k]) 
                                     tree.add_node(neighbors[k])
-                                    tree.add_edge(nodes_in_tree[i][j],neighbors[k])
+                                    #tree.add_edge(nodes_in_tree[i][j],neighbors[k])
+                                    tree.add_edge(nodes_in_tree[i][it],neighbors[k])
                                     skip_while = True
                                     break
                                 #endif
@@ -803,10 +816,11 @@ def multiple_trees_parallel(source, destination, graph, all_edps):
                             else: #das ist der fall wenn es noch keine anderen trees zum checken gibt, ob die kante schon verbaut ist
                                 if not((neighbors[k] == destination) or (tree.has_node(neighbors[k]))): #dann darf die kante nicht zur destination sein
                                                                                                         #der knoten darf nicht im jetzigen tree drin sein
-                                    print("Füge die Kante : " , nodes_in_tree[i][j] , " - " , neighbors[k] , " ein bei len(trees) = 0")
-                                    
+                                    #print("Füge die Kante : " , nodes_in_tree[i][j] , " - " , neighbors[k] , " ein bei len(trees) = 0")
+                                    print("Füge die Kante : " , nodes_in_tree[i][it] , " - " , neighbors[k] , " ein bei len(trees) = 0")
                                     tree.add_node(neighbors[k])
-                                    tree.add_edge(nodes_in_tree[i][j],neighbors[k])
+                                    #tree.add_edge(nodes_in_tree[i][j],neighbors[k])
+                                    tree.add_edge(nodes_in_tree[i][it],neighbors[k])
                                 #endif
                                 #wenn der node der grad in den tree eingefügt wurde schon in nodes war dann soll er nicht nochmal eingefügt werden
                                 if not (neighbors[k]in nodes_in_tree[i]): #damit knoten nicht doppelt in nodes eingefügt werden

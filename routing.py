@@ -28,6 +28,7 @@ def set_routing_params(params):
     [n, rep, k, samplesize, f_num, seed, name] = params
 
 
+
 def RouteMultipleTrees(s,d,fails,paths):
 
     #alle EDPS entlang routen
@@ -59,12 +60,12 @@ def RouteMultipleTrees(s,d,fails,paths):
 
     if( not skip_edps ):
         for edp in edps_for_s_d:
-            print("EDP in der EDP Schleife : " , edp)
+            #print("EDP in der EDP Schleife : " , edp)
             if edp != edps_for_s_d[len(edps_for_s_d) -1]:
                 currentNode = edp[edpIndex]
                 while (currentNode != d):
                     if (edp[edpIndex], edp[edpIndex +1]) in fails or (edp[edpIndex +1], edp[edpIndex]) in fails:
-                        print("Kante kaputt : (" , edp[edpIndex] , ",", edp[edpIndex+1] , ") in fails ")
+                        #print("Kante kaputt : (" , edp[edpIndex] , ",", edp[edpIndex+1] , ") in fails ")
                         # wir schalten zum nächsten pfad
                         switches += 1
                         #die kanten die wir wieder zurückgehen, um wieder zur source zu kommen,  sind die kanten die wir schon in dem edp gelaufen sind
@@ -79,7 +80,7 @@ def RouteMultipleTrees(s,d,fails,paths):
                 #endwhile
                 if currentNode == d : #wir haben die destination mit einem der edps erreicht
                     print('Routing done via EDP')
-                    print('------------------------------------------------------')
+                    #print('------------------------------------------------------')
                     #input("Press key to continue...")
                     return (False, hops, switches, detour_edges)
         #endfor
@@ -91,27 +92,27 @@ def RouteMultipleTrees(s,d,fails,paths):
         
         edpIndex = 0
 
-        print("Longest EDP : ", longest_edp )
+        #print("Longest EDP : ", longest_edp )
         #fails.append( (longest_edp[len(longest_edp)-1],longest_edp[len(longest_edp)-2]))
-        print("Fails : " , fails)
+        #print("Fails : " , fails)
         while((longest_edp[edpIndex],longest_edp[edpIndex+1])not in fails and  (longest_edp[edpIndex +1 ],longest_edp[edpIndex]) not in fails ):
-            print("Checking if : (" , longest_edp[edpIndex] , ",", longest_edp[edpIndex+1] , ") in fails ")
-            print("Or check if : (" , longest_edp[edpIndex+1] , ",", longest_edp[edpIndex] , ") in fails ")
+            #print("Checking if : (" , longest_edp[edpIndex] , ",", longest_edp[edpIndex+1] , ") in fails ")
+            #print("Or check if : (" , longest_edp[edpIndex+1] , ",", longest_edp[edpIndex] , ") in fails ")
             #wenn man in die schleife reingekommen ist, dann bedeutet dies, dass man die kante gehen kann
             #daher wird zum nächsten node geschaltet, indem man currentnode neu setzt 
 
             edpIndex += 1
             hops += 1
             currentNode = longest_edp[edpIndex]
-            print("Current Node : " , currentNode)
+            #print("Current Node : " , currentNode)
             #falls wir mit dem letzten edp ans ziel gekommen sind
             if(currentNode == d):
-                print("Routing done via last EDP")
-                print('------------------------------------------------------')
+                #print("Routing done via last EDP")
+                #print('------------------------------------------------------')
                 return (False, hops, switches, detour_edges)
             
             if (edpIndex > len(list(longest_edp))-1):
-                print("Out of Bounds im letzten EDP")
+                #print("Out of Bounds im letzten EDP")
                 break
         #endwhile
     #endif
@@ -119,9 +120,9 @@ def RouteMultipleTrees(s,d,fails,paths):
         print(" ")
         print("Routing via Tree started")
 
-        print("Erster Tree in dem geroutet wird : " , list(trees[0].nodes))
+        #print("Erster Tree in dem geroutet wird : " , list(trees[0].nodes))
         print(" ")
-        print("CurrentNode bevor in den Tree rein : ", currentNode)
+        #print("CurrentNode bevor in den Tree rein : ", currentNode)
         #wir müssen prüfen ob der node auch wirklich im tree drin ist
         while(not trees[0].has_node(currentNode)): #wenn der jetzige node nicht drin ist dann gehen wir einen node zurück und im worst case sind wir in der wurzel
                 edpIndex = edpIndex -1
@@ -129,7 +130,7 @@ def RouteMultipleTrees(s,d,fails,paths):
                 visitedEdges.append((currentNode,longest_edp[edpIndex+1]))
                 detour_edges.append((longest_edp[edpIndex], longest_edp[edpIndex -1]))
                 currentNode = longest_edp[edpIndex]
-                print("CurrentNode nicht im Tree , nächster CurrentNode : ", currentNode)
+                #print("CurrentNode nicht im Tree , nächster CurrentNode : ", currentNode)
                 continue; # skip loop and try with previous node again
         #endwhile
 
@@ -138,7 +139,7 @@ def RouteMultipleTrees(s,d,fails,paths):
         for tree in trees:
             #in currentnode ist jetzt der node von dem wir das routen im tree starten wollen
             visitedEdges = []
-            print("Baum der probiert wird : ", list(tree.nodes))
+            #print("Baum der probiert wird : ", list(tree.nodes))
             
 
             #nun muss im tree geroutet werden
@@ -147,7 +148,7 @@ def RouteMultipleTrees(s,d,fails,paths):
 
                 #alle möglichen nächsten Kanten des jetzigen nodes herausfinden
                 possibleNextEdges = list(tree.out_edges(currentNode) )
-                print("Mögliche Kanten vor der Kürzung : " , possibleNextEdges)
+                #print("Mögliche Kanten vor der Kürzung : " , possibleNextEdges)
                 tmp = []
                 for el in possibleNextEdges:
                     if el in visitedEdges:
@@ -160,13 +161,13 @@ def RouteMultipleTrees(s,d,fails,paths):
 
                 possibleNextEdges = tmp
                 
-                print("Mögliche Kanten nach der Kürzung : " , possibleNextEdges)
-                print("VisitedEdges : " , visitedEdges)
+                #print("Mögliche Kanten nach der Kürzung : " , possibleNextEdges)
+                #print("VisitedEdges : " , visitedEdges)
 
                 if len(possibleNextEdges) == 0: # Es können keine kinder als nächster knoten mehr genutzt werden
                     
                     if currentNode == s: #das würde bedeuten dass es keine ausweichmöglichkeiten von der wurzel aus gibt, also muss der Tree gewechselt werden
-                        print("Baum muss gewechselt werden !")
+                        #print("Baum muss gewechselt werden !")
                         break
                     #endif
 
@@ -185,10 +186,10 @@ def RouteMultipleTrees(s,d,fails,paths):
                     #endfor
 
                     #sortieren der nodes anhand ihrer ränge
-                    print("Possible next Node before sort : ", possibleNextNodes)
+                    #print("Possible next Node before sort : ", possibleNextNodes)
                     #lambda sort https://stackoverflow.com/a/46851604
                     possibleNextNodes.sort(key=lambda x: (getRank(tree, x))) #man braucht von den nachbarn den, mit dem kürzesten abstand zum ziel
-                    print("Possible next Nodes after sort : ", possibleNextNodes)
+                    #print("Possible next Nodes after sort : ", possibleNextNodes)
 
                     #input("......................weiter....................")
                     print("_____________________________________")
@@ -220,16 +221,16 @@ def RouteMultipleTrees(s,d,fails,paths):
 
             if (currentNode == d):#falls wir am ziel angekommen sind
                 print("Routing done via the Tree : ", list(tree.nodes))
-                print(" ")
+                #print(" ")
                 return (False, hops, switches, detour_edges)
             #endif
             
-            print("Schalte auf den nächsten Tree ")
-            print(" ")
+            #print("Schalte auf den nächsten Tree ")
+            #print(" ")
 
         #endfor
         print("Routing failed via Trees ")
-        print(" ")
+        #print(" ")
         return (True, hops, switches, detour_edges)
     #endif
 
@@ -490,7 +491,7 @@ def RouteOneTreeNew (s,d,fails,paths):
                         hops += 1
                         last_node = currentNode
                         currentNode = children[index_of_last_node+1]
-                    else:
+                    else: #es gibt keine kinder mehr am currentnode
                         #print("Gehe den Baum eine Stufe hoch : ", get_parent_node(tree,currentNode))
                         #wenn nein dann setze currentnode auf den parent
                         hops += 1
