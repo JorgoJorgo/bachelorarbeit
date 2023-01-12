@@ -679,7 +679,7 @@ def multiple_trees_breite_mod(source, destination, graph, all_edps ,limitX):
     return trees
 
 #################################################################################################################################
-
+############################################# MultTrees mit Änderung der Baumbildung ###################################################################
 
 #der Algorithmus der die Baumbildung aufruft
 def multiple_trees_pre_parallel(graph):
@@ -714,23 +714,8 @@ def multiple_trees_pre_parallel(graph):
                 
     return paths
 
-
-############################################# MultTrees mit Änderung der Baumbildung ###################################################################
-
 #in dieser funktion werden die trees parallel gebaut, das bedeutet, dass pro tree jeweils 1 Kante eingebaut wird
 #und dann im nächsten Tree eine Kante eingebaut wird
-
-#in jedem tree wird erst der edp eingesetzt
-# array nodes[[]] fuer jeden baum
-# changed = true j=0 ;
-# while(changed):
-#    changed = false
-#    for i in trees:
-#      hat array_nodes[i] > j elemente?
-#        code den wir schon haben ['nodes' ersetzen mit 'array_nodes[i]' ]
-#        changed = true;
-#   j++;
-
 
 
 def multiple_trees_parallel(source, destination, graph, all_edps):
