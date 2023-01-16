@@ -230,18 +230,18 @@ def experiments(switch="all", seed=0, rep=100):
     #    out.close()
 
     if switch in ["custom"]:
-        out = start_file("results/benchmark-custom-" + str(k))
+        out = start_file("results/benchmark-custom-breite-mod-multipletrees" + str(k))
         run_custom(out=out, seed=seed, rep=rep)
         out.close()
 
 
     if switch in ["zoo", "all"]:
-        out = start_file("results/benchmark-zoo-" + str(k))
+        out = start_file("results/benchmark-zoo-breite-mod-multipletrees" + str(k))
         run_zoo(out=out, seed=seed, rep=rep)
         out.close()
 
     if switch in ["AS"]:
-        out = start_file("results/benchmark-as_seed_" + str(seed))
+        out = start_file("results/benchmark-as_seed_breite-mod-multipletrees" + str(seed))
         run_AS(out=out, seed=seed, rep=rep)
         out.close()
 
