@@ -386,7 +386,6 @@ def RouteOneTree(s,d,fails,paths):
 ###################################################################################################################
 #hier ist das alte multipletrees bei dem das "j" durch "it" in der while schleife getauscht werden musste
 
-
 def multiple_trees(source, destination, graph, all_edps):
     trees = [] #hier werden alle trees gespeichert 
     #print(all_edps)

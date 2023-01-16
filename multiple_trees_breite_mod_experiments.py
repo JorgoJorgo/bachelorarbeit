@@ -229,7 +229,7 @@ def experiments(switch="all", seed=0, rep=100):
     #    run_regular(out=out, seed=seed, rep=rep)
     #    out.close()
 
-    if switch in ["custom", "all"]:
+    if switch in ["custom"]:
         out = start_file("results/benchmark-custom-" + str(k))
         run_custom(out=out, seed=seed, rep=rep)
         out.close()

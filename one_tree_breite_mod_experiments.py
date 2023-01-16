@@ -9,7 +9,7 @@ import time
 import glob
 from objective_function_experiments import *
 from trees import  one_tree_pre_breite_mod
-from routing import RouteOneTreeNew
+from routing import RouteOneTree
 DEBUG = True
 
 # Data structure containing the algorithms under
@@ -33,7 +33,7 @@ DEBUG = True
 # algorithms to this data structure to compare the performance
 # of additional algorithms.
 #algos = {'One Tree': [one_tree_pre, RouteOneTree], 'Greedy': [GreedyArborescenceDecomposition, RouteDetCirc]}
-algos = {'One Tree': [one_tree_pre_breite_mod, RouteOneTreeNew]}
+algos = {'One Tree': [one_tree_pre_breite_mod, RouteOneTree]}
 
 # run one experiment with graph g
 # out denotes file handle to write results to
