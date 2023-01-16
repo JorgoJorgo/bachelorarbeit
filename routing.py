@@ -352,48 +352,63 @@ def RouteOneTreeNew (s,d,fails,paths):
         # wenn wir es nicht geschafft haben anhand der edps allein zum ziel zu routen dann geht es am längsten edp weiter
         print('Routing via EDPs FAILED')
         
-        edp = edps_for_s_d[len(edps_for_s_d) -1]#speichern des letzten EDPs
-
-        PG = nx.nx_pydot.write_dot(tree , "./graphen/tree_"+ str(s) + "_" +  str(d))
-        currentNode = edp[edpIndex]#edpIndex = 0 da der letzte Schritt die Rückführung zur Source war 
 
 
+        ##########################################################################################################################################
+
+
+        #Man muss den längsten edp nicht gesondert betrachten und so lange durchlaufen wie es geht um dann den letzten möglichen knoten zu speichern
+        #der edp wird von selbst als erstes im baum durchlaufen da man die ränge so verändert hat dass man als erstes immer die edp kanten nimmt,
+        #so ist man mindestens genau so resilient (so oder so weil man auch ohne diese veränderte priorisierung den edp früher oder später durchlaufen würde)
+        #wie nur die edps zu nutzen und jetzt auch genau so schnell wenn es nur mit edps klappt
+
+
+        #edp = edps_for_s_d[len(edps_for_s_d) -1]#speichern des letzten EDPs
+        #PG = nx.nx_pydot.write_dot(tree , "./graphen/tree_"+ str(s) + "_" +  str(d))
+        #currentNode = edp[edpIndex]#edpIndex = 0 da der letzte Schritt die Rückführung zur Source war 
         #gleich wie oben, versuchen EDP zu durchlaufen, nur ohne Rückführung
-        while (currentNode != d):
+        #while (currentNode != d):
             
-            if (edp[edpIndex], edp[edpIndex +1]) in fails or (edp[edpIndex +1], edp[edpIndex]) in fails:
-                print("Bin auf kaputte Kante gestoßen im letzten EDP , currentNode : ", currentNode)
-                # wir schalten zum nächsten pfad
-                switches += 1
-                #die kanten die wir wieder zurückgehen sind die kanten die wir schon in dem edp gelaufen sind
-                detour_edges.append((edp[edpIndex], edp[edpIndex +1]))
-                PG = nx.nx_pydot.write_dot(tree , "./graphen/tree_"+ str(s) + "_" +  str(d))
-                break;
-            else :#die kante gehen und zum nächsten knoten schalten
-                #print("Gehe einen Schritt im letzten edp currentNode : " ,currentNode)
-                edpIndex += 1
-                hops += 1
-                currentNode = edp[edpIndex]
-            #endif
+        #     if (edp[edpIndex], edp[edpIndex +1]) in fails or (edp[edpIndex +1], edp[edpIndex]) in fails:
+        #         print("Bin auf kaputte Kante gestoßen im letzten EDP , currentNode : ", currentNode)
+        #         # wir schalten zum nächsten pfad
+        #         switches += 1
+        #         #die kanten die wir wieder zurückgehen sind die kanten die wir schon in dem edp gelaufen sind
+        #         detour_edges.append((edp[edpIndex], edp[edpIndex +1]))
+        #         PG = nx.nx_pydot.write_dot(tree , "./graphen/tree_"+ str(s) + "_" +  str(d))
+        #         break;
+        #     else :#die kante gehen und zum nächsten knoten schalten
+        #         #print("Gehe einen Schritt im letzten edp currentNode : " ,currentNode)
+        #         edpIndex += 1
+        #         hops += 1
+        #         currentNode = edp[edpIndex]
+        #     #endif
 
-        #endwhile
+        # #endwhile
 
 
-        #wenn man aus dieser schleife raus ist dann hat man entweder das ziel mit dem letzten edp erreicht
-        #oder man ist so weit es geht im letzten edp vorangekommen
+        # #wenn man aus dieser schleife raus ist dann hat man entweder das ziel mit dem letzten edp erreicht
+        # #oder man ist so weit es geht im letzten edp vorangekommen
 
-        if currentNode == d : #wir haben die destination mit dem LETZTEN edp erreicht
-            print('Routing done via LAST EDP')
-            print('------------------------------------------------------')
-            #input("Press key to continue...")
-            return (False, hops, switches, detour_edges)
+        # if currentNode == d : #wir haben die destination mit dem LETZTEN edp erreicht
+        #     print('Routing done via LAST EDP')
+        #     print('------------------------------------------------------')
+        #     #input("Press key to continue...")
+        #     return (False, hops, switches, detour_edges)
 
-        #oder man muss jetzt das routen im tree beginnen
-        #es wird ab der letzten im edp durchlaufenen Kante gestartet
-
+        # #oder man muss jetzt das routen im tree beginnen
+        # #es wird ab der letzten im edp durchlaufenen Kante gestartet
+        ########################################################################################################################################################################
+        currentNode = s
         print("Routing via Tree started")
         last_node = currentNode
 
+        #####DEBUG ONLY######
+        #longest_edp_edges = list()
+    
+        #for i in range(1,len(edp)):
+        #    longest_edp_edges.append((edps_for_s_d[len(edps_for_s_d) -1][i-1],edps_for_s_d[len(edps_for_s_d) -1][i]))
+        #####################
 
         while(currentNode != d):#in dieser Schleife findet das Routing im Tree statt
                                 #die idee hinter dieser schleife ist ein großes switch-case
@@ -419,6 +434,10 @@ def RouteOneTreeNew (s,d,fails,paths):
                 for edge in out_edges_with_fails:
                     if edge in fails or tuple(reversed(edge)) in fails:
                         print("Kante ist in Fails")
+
+                        #if(edge in longest_edp_edges):
+                        #    print("EDP Kante ist in Fails")
+
                     else: 
                         out_edges.append(edge)
                     #endif
@@ -480,6 +499,9 @@ def RouteOneTreeNew (s,d,fails,paths):
                 for edge in out_edges_with_fails:
                     if edge in fails or tuple(reversed(edge)) in fails:
                         print("Kante ist in Fails")
+                        #if(edge in longest_edp_edges):
+                        #    print("EDP Kante ist in Fails")
+                        
                     else: 
                         out_edges.append(edge)
                     #endif
@@ -520,6 +542,8 @@ def RouteOneTreeNew (s,d,fails,paths):
                         hops += 1
                         last_node = currentNode
                         currentNode = children[0]
+                        #if((last_node,currentNode) in longest_edp_edges):
+                        #    print("EDP Kante wurde genommen")
 
 
                     #das kind wo das paket herkommt hatte den höchsten rang der kinder, also das letztmögliche
@@ -542,6 +566,8 @@ def RouteOneTreeNew (s,d,fails,paths):
                         hops += 1
                         last_node = currentNode
                         currentNode = children[index_of_last_node+1]
+                        #if((last_node,currentNode) in longest_edp_edges):
+                        #    print("EDP Kante wurde genommen")
 
                     #es gibt keine kinder mehr am currentnode
                     else: 
@@ -1093,7 +1119,7 @@ def SimulateGraph(g, RANDOM, stats, f, samplesize, precomputation=None, dest=Non
     dist = nx.shortest_path_length(g, target=d)
     if len(nodes) < samplesize:
         print('Not enough nodes in connected component of destination (%i nodes, %i sample size), adapting it' % (len(nodes), samplesize))
-        PG = nx.nx_pydot.write_dot(g , "./failedGraphs/graph")
+        PG = nx.nx_pydot.write_dot(g , "./graphen/failedGraphs/graph")
         samplesize = len(nodes)
     nodes = list(set(g.nodes())-set([dest, d]))
     random.shuffle(nodes)

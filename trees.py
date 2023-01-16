@@ -163,7 +163,7 @@ def multiple_trees(source, destination, graph, all_edps):
 
         #man muss prüfen ob nur die source im baum ist , da man im nächsten schritt der destination einen Rang geben muss
         if( tree.order() > 1 ):
-            rank_tree(tree , source)
+            rank_tree(tree , source,all_edps[i])
             connect_leaf_to_destination(tree, source,destination)
             #print("Versuche jetzt auf dem Tree : " , list(tree.nodes), " den Rang für ", destination , " einzufügen")
             tree.nodes[destination]["rank"] = -1
@@ -318,7 +318,7 @@ def multiple_trees_order_of_edps_mod(source, destination, graph, all_edps):
 
         #man muss prüfen ob nur die source im baum ist , da man im nächsten schritt der destination einen Rang geben muss
         if( tree.order() > 1 ):
-            rank_tree(tree , source)
+            rank_tree(tree , source, all_edps[i])
             connect_leaf_to_destination(tree, source,destination)
             #print("Versuche jetzt auf dem Tree : " , list(tree.nodes), " den Rang für ", destination , " einzufügen")
             tree.nodes[destination]["rank"] = -1
@@ -517,7 +517,7 @@ def multiple_trees_num_of_trees_mod(source, destination, graph, all_edps):
 
         #man muss prüfen ob nur die source im baum ist , da man im nächsten schritt der destination einen Rang geben muss
         if( tree.order() > 1 ):
-            rank_tree(tree , source)
+            rank_tree(tree , source,source,all_edps[i])
             connect_leaf_to_destination(tree, source,destination)
             #print("Versuche jetzt auf dem Tree : " , list(tree.nodes), " den Rang für ", destination , " einzufügen")
             tree.nodes[destination]["rank"] = -1
@@ -669,7 +669,7 @@ def multiple_trees_breite_mod(source, destination, graph, all_edps ,limitX):
 
         #man muss prüfen ob nur die source im baum ist , da man im nächsten schritt der destination einen Rang geben muss
         if( tree.order() > 1 ):
-            rank_tree(tree , source)
+            rank_tree(tree , source,all_edps[i])
             connect_leaf_to_destination(tree, source,destination)
             #print("Versuche jetzt auf dem Tree : " , list(tree.nodes), " den Rang für ", destination , " einzufügen")
             tree.nodes[destination]["rank"] = -1
@@ -824,7 +824,7 @@ def multiple_trees_parallel(source, destination, graph, all_edps):
         #endfor
         j = j+1 # next node in nodes array for new itteration
     #endwhile
-
+    edpIndex = 0 
     for tree in trees:
         changed = True 
         #print_trees_with_redundant(source,destination,trees)
@@ -838,11 +838,12 @@ def multiple_trees_parallel(source, destination, graph, all_edps):
 
         #man muss prüfen ob nur die source im baum ist , da man im nächsten schritt der destination einen Rang geben muss
         if( tree.order() > 1 ):
-            rank_tree(tree , source)
+            rank_tree(tree , source,all_edps[edpIndex])
             connect_leaf_to_destination(tree, source,destination)
             #print("Versuche jetzt auf dem Tree : " , list(tree.nodes), " den Rang für ", destination , " einzufügen")
             tree.nodes[destination]["rank"] = -1
             #trees.apend(tree)
+            edpIndex = edpIndex+1
         #endif
     return trees
 
@@ -959,7 +960,7 @@ def one_tree(source, destination, graph, longest_edp):
         changed = tree.order() != old_tree.order() # order returns the number of nodes in the graph.
     PG = nx.nx_pydot.write_dot(tree , "./graphen/tree_unranked"+ str(source) + str(destination))
 
-    rank_tree(tree , source)
+    rank_tree(tree , source,longest_edp)
     connect_leaf_to_destination(tree, source, destination)
 
     #add 'rank' property to the added destinaton, -1 for highest priorty in routing
@@ -1088,7 +1089,7 @@ def one_tree_breite_mod(source, destination, graph, longest_edp,limitX):
         changed = tree.order() != old_tree.order() # order returns the number of nodes in the graph.
     PG = nx.nx_pydot.write_dot(tree , "./graphen/tree_unranked"+ str(source) + str(destination))
 
-    rank_tree(tree , source)
+    rank_tree(tree , source , longest_edp)
     connect_leaf_to_destination(tree, source, destination)
 
     #add 'rank' property to the added destinaton, -1 for highest priorty in routing
@@ -1108,10 +1109,19 @@ def one_tree_breite_mod(source, destination, graph, longest_edp,limitX):
 
 # den baum von den leafs aus ranken, dabei kriegen die leafs als ersten ihren rang 
 # und parents nehmen den kleinsten rang ihrer kinder + 1 für die Kante zu ihrem kind
-def rank_tree(tree , source):
+
+#damit der edp des baums als erstes durchlaufen wird müssen die ränge so verteilt werden dass
+#die kanten des edps über alle anderen priorisiert werden
+def rank_tree(tree , source, edp):
     nx.set_node_attributes(tree, sys.maxsize, name="rank")
 
-    # initiualize with all leafes
+
+    edp_edges = list()
+    
+    for i in range(1,len(edp)):
+        edp_edges.append((edp[i-1],edp[i]))
+
+    # initialize with all leafes
     done_nodes = [node for node in tree if len(list(nx.neighbors(tree, node))) == 0]
 
 
@@ -1137,6 +1147,58 @@ def rank_tree(tree , source):
         #endfor        
         done_nodes.extend(to_add)
     #endwihle
+
+    #es folgt eine schleife über jeden node der die ränge der kinder so verschiebt dass die edp knoten den kleinsten rang haben
+    for node in tree:
+
+        children= list(nx.neighbors(tree, node))
+
+        for child in children:
+
+            if (node,child) in edp_edges:
+                
+                children.sort(key=lambda x: (getRank(tree, x)))
+
+                min_rank = tree.nodes[children[0]]["rank"]
+                #getRank(tree,children[0])
+
+                #wenn der rang des edp pfads der kleinste ist dann muss nichts getan werden
+                if min_rank == tree.nodes[child]["rank"]:
+                    continue
+                #wenn der edp nicht von anfang an den kleinsten rang hat
+                else:
+                    #der knoten des edp kriegt den kleinsten rang und alle anderen kinder kriegen ihren rang +1
+                    children_without_edp_node = list()
+                    
+                    for element in children:
+
+                        if element != child:
+                            children_without_edp_node.append(element)
+                        #endif
+                    tree.nodes[child]["rank"]= min_rank
+
+                    for element in children_without_edp_node:
+
+                        old_rank = tree.nodes[element]["rank"]
+
+                        tree.nodes[element]["rank"] = old_rank +1
+                    #endfor
+                #endif
+            #endif
+        #endfor
+    #endfor
+    #PG = nx.nx_pydot.write_dot(tree , "./graphen/testrank/g"+ str(source))
+    #print("EDP : " , edp)
+    #for node in tree: 
+    #    print("Node : ", node , " Rank : ", tree.nodes[node]["rank"])
+    #endfor
+    #input("Press Enter to continue...")
+
+def getRank(tree, el):
+    #print("el : ", el)
+    #print("Versuche aus dem Tree : ", list(tree.nodes))
+    #print("Den Rang zu finden von ", tree.nodes[el])
+    return tree.nodes[el]["rank"]
 
 def get_parent_node(tree, node):
     pre = list(tree.predecessors(node))
