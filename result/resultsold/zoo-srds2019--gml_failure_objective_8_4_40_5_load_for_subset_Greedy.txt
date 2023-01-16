@@ -1,0 +1,2 @@
+#n= 8, connectivity= 4, repetitions= 100
+#graph, before/after, intensity, 'objective', success rate, switches, load, load, max stretch, mean stretch, max hops, mean hops
