@@ -33,7 +33,7 @@ DEBUG = True
 # algorithms to this data structure to compare the performance
 # of additional algorithms.
 #algos = {'One Tree': [one_tree_pre, RouteOneTree], 'Greedy': [GreedyArborescenceDecomposition, RouteDetCirc]}
-algos = {'MultipleTrees Tree': [multiple_trees_pre_parallel, RouteMultipleTrees]}
+algos = {'MultipleTrees Parallel Mod': [multiple_trees_pre_parallel, RouteMultipleTrees]}
 
 # run one experiment with graph g
 # out denotes file handle to write results to

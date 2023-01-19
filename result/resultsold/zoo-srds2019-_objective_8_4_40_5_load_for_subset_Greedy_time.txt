@@ -1,3 +1,0 @@
-#n= 8, connectivity= 4, repetitions= 100
-#n, time to compute arborescence, time for swapping in seconds
-8, 0.003440, 0.205224
