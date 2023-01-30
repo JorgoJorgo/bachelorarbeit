@@ -31,7 +31,7 @@ DEBUG = False
 #der Algorithmus der die Baumbildung aufruft
 def multiple_trees_pre(graph):
     paths = {}
-    PG = nx.nx_pydot.write_dot(graph, "./multiple_trees_graphen/graph")
+    #PG = nx.nx_pydot.write_dot(graph, "./multiple_trees_graphen/graph")
     
     for source in graph.nodes:
        
@@ -162,6 +162,7 @@ def multiple_trees(source, destination, graph, all_edps):
         #edps direkt von s->d kommen müssen gesondert betrachtet werden
         if(tree.order() == 1 and len(all_edps[i]) == 2):
             tree.add_edge(source,destination)
+            tree.nodes[destination]["rank"] = -1
         #endif
         
     #endfor
@@ -316,6 +317,7 @@ def multiple_trees_order_of_edps_mod(source, destination, graph, all_edps):
         #edps direkt von s->d kommen müssen gesondert betrachtet werden
         if(tree.order() == 1 and len(all_edps[i]) == 2):
             tree.add_edge(source,destination)
+            tree.nodes[destination]["rank"] = -1
         #endif
     #endfor
     return trees
@@ -514,6 +516,7 @@ def multiple_trees_num_of_trees_mod(source, destination, graph, all_edps):
         #edps direkt von s->d kommen müssen gesondert betrachtet werden
         if(tree.order() == 1 and len(all_edps[i]) == 2):
             tree.add_edge(source,destination)
+            tree.nodes[destination]["rank"] = -1
         #endif
     #endfor
 
@@ -649,6 +652,7 @@ def multiple_trees_breite_mod(source, destination, graph, all_edps ,limitX):
         #edps direkt von s->d kommen müssen gesondert betrachtet werden
         if(tree.order() == 1 and len(all_edps[i]) == 2):
             tree.add_edge(source,destination)
+            tree.nodes[destination]["rank"] = -1
         #endif
     #endfor
     return trees
@@ -802,6 +806,7 @@ def multiple_trees_parallel(source, destination, graph, all_edps):
         #edps direkt von s->d kommen müssen gesondert betrachtet werden
         if(tree.order() == 1 and len(all_edps[i]) == 2):
             tree.add_edge(source,destination)
+            tree.nodes[destination]["rank"] = -1
         #endif
         i = i+1
     return trees
@@ -886,6 +891,7 @@ def one_tree(source, destination, graph, longest_edp):
         changed = tree.order() != old_tree.order() # order returns the number of nodes in the graph.
 
     rank_tree(tree , source,longest_edp)
+    
     connect_leaf_to_destination(tree, source, destination)
 
     #add 'rank' property to the added destinaton, -1 for highest priorty in routing

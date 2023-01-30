@@ -495,3 +495,292 @@ def multiple_trees(source, destination, graph, all_edps):
         #endif
     #endfor
     return trees
+
+
+#####################################################
+#hier ist die alte route multiple trees, welche entfernt wurde weil bei diesem routing die edps nicht gesondert betrachtet werden, abgesehen davon dass diese priorisiert werden
+#dadurch dass sie den kleinsten rang haben in ihren kindern. Also wurde der ganze erste part, also das routing durch die edps entfernt
+
+def RouteMultipleTrees(s,d,fails,paths):
+
+    #########################################   FOR DEBUG ONLY                #####################################################
+    skip_edps = False
+    skip_trees = False
+    if(skip_edps):
+        print("Skipping the EDPs")
+    #endif
+    if(skip_trees):
+        print("Skipping Trees")
+    #endif
+
+    ###############################################################################################################################
+
+
+     #alle EDPS entlang routen
+    currentNode = s
+    edpIndex = 0
+    detour_edges = []
+    hops = 0
+    switches = 0
+    trees = paths[s][d]['trees']
+    edps_for_s_d = sorted(paths[s][d]['edps'],key=len) # Aufsteigend die EDPs sortieren damit man den größten als letztes hat
+    print(" ")
+    print('Routing started for ' , s , " to " , d )
+
+    if(not skip_edps):
+
+        if(s != d):
+
+            #als erstes anhand der EDPs (außer dem längsten, also dem letzten) versuchen zu routen
+            for edp in edps_for_s_d:
+
+                currentNode = s
+                last_node = s 
+
+                if edp != edps_for_s_d[len(edps_for_s_d) -1]:
+
+                    currentNode = edp[edpIndex]
+
+
+                    #jeder EDP wird so weit durchlaufen bis man mit dem currentNode zum Ziel kommt oder man auf eine kaputte Kante stößt
+                    while (currentNode != d):
+
+
+                        #man prüft ob die nächste Kante im EDP kaputt ist so, indem man guckt ob eine Kante vom currentNode edp[edpIndex] zum nächsten Node im EDP edp[edpIndex+1] in Fails ist
+                        #dies beruht auf lokalen Informationen, da EDPs nur eine eingehende Kante haben ( auf der das Paket ankommt ) und eine ausgehende Kante (auf der das Paket nicht ankommt)
+                        if (edp[edpIndex], edp[edpIndex +1]) in fails or (edp[edpIndex +1], edp[edpIndex]) in fails:
+                            
+
+                            #wenn man auf eine fehlerhafte Kante stößt dann wechselt man den Pfad
+                            switches += 1
+
+                            #die kanten die wir wieder zurückgehen sind die kanten die wir schon in dem edp gelaufen sind
+                            detour_edges.append( (edp[edpIndex], edp[edpIndex +1]) )
+
+                            #wir fangen beim neuen edp ganz am anfang an
+                            tmp_node = currentNode #und gehen eine Kante hoch, also den edp zurück
+                            currentNode = last_node #das "rückwärts den edp gehen" kann so gemacht werden, da die pakete so nur über den port gehen müssen über den sie reingekommen sind
+                            last_node = tmp_node
+                            hops += 1
+                            break
+
+                        else :#wenn die kante die man gehen will inordnung ist, die kante gehen und zum nächsten knoten schalten
+                            edpIndex += 1
+                            hops += 1
+                            last_node = currentNode 
+                            currentNode = edp[edpIndex] #man kann hier currentnode direkt so setzen, da es im edp für jeden knoten jeweils 1 ausgehende
+                                                        #und genau eine eingehende Kante gibt
+                            #print("Es wird zum nächsten Node geschaltet : " , currentNode)
+                        #endif
+
+                    #endwhile
+
+                    #nun gibt es 2 Möglichkeiten aus denen die while-Schleife abgebrochen wurde : Ziel erreicht / EDP hat kaputte Kante 
+
+
+                    if currentNode == d : #wir haben die destination mit einem der edps erreicht
+                        print('Routing done via EDP')
+                        print('------------------------------------------------------')
+                        #input("Press key to continue...")
+                        return (False, hops, switches, detour_edges)
+                    #endif                    
+
+                    #wenn man hier angelangt ist, dann bedeutet dies, dass die while(currentNode != d) beendet wurde weil man auf eine kaputte kante gestoßen ist 
+                    #und dass man nicht an der destination angekommen ist, daher muss man jetzt an die source zurück um den nächsten edp zu starten
+                    while currentNode != s: #hier findet die Rückführung statt
+                        detour_edges.append( (last_node,currentNode) )
+
+                        last_node = currentNode #man geht den edp so weit hoch bis man an der source ist
+                        currentNode = edp[edpIndex-1] #man kann auch hier direkt den edp index verwenden da man genau 1 eingehende kante hat
+                        edpIndex = edpIndex-1
+                        #print("CurrentNode : ", currentNode)
+                        hops += 1
+
+                    #endwhile
+                #endif
+
+            #endfor
+
+            # wenn wir es nicht geschafft haben anhand der edps allein zum ziel zu routen dann geht es am längsten edp weiter
+            print('Routing via EDPs FAILED')
+
+        #endif
+    #endif
+    if(not skip_trees):
+
+        print(" ")
+        print("Routing via Tree started")
+
+        for tree in trees:
+            
+            #hier wurde das Routing von OneTree eingesetzt
+            while(currentNode != d):#in dieser Schleife findet das Routing im Tree statt
+                                #die idee hinter dieser schleife ist ein großes switch-case
+                                #bei dem man je nach eingehenden und funktionierenden ausgehenden ports switcht
+                                #nach jedem schritt den man im baum geht folgt die prüfung ob man schon am ziel angekommen ist
+
+
+                #kommt das paket von einer eingehenden kante (parent) an dann wird der kleinste rang der kinder gewählt
+                #denn man war noch nicht an diesem node
+                if last_node == get_parent_node(tree,currentNode) or last_node == currentNode:
+
+
+                    #suche das kind mit dem kleinsten  rang
+
+
+
+                    children = []
+                    #es werden alle Kinder gespeichert zu denen der jetzige Knoten einen Verbindung hat und sortiert nach ihren Rängen
+                    out_edges_with_fails = tree.out_edges(currentNode)
+                    out_edges = []
+                    for edge in out_edges_with_fails:
+                        if edge in fails or tuple(reversed(edge)) in fails:
+                            continue
+
+                        else: 
+                            out_edges.append(edge)
+                        #endif
+                    #endfor
+                    for nodes in out_edges:
+                        children.append(nodes[1])
+                    #endfor
+                    children.sort(key=lambda x: (getRank(tree, x)))
+
+
+                    if len(children) >  0 : #wenn es kinder gibt, zu denen die Kanten nicht kaputt sind
+                        #setze lastnode auf currentnode
+                        #setze current node auf das kind mit dem kleinesten rang
+                        #dadurch "geht man" die kante zum kind
+                        last_node = currentNode
+                        currentNode = children[0]
+                        hops += 1
+                    
+
+                    else: #wenn alle Kanten zu den Kindern kaputt sind dann ist man fertig wenn man an der source ist oder man muss eine kante hoch
+                        if currentNode == s: 
+                            break; #das routing für diesen Baum
+                        #endif
+
+
+                        #man nimmt die eingehende kante des currentnode und "geht eine stufe hoch"
+                        hops += 1
+                        detour_edges.append( (currentNode, last_node) )
+                        last_node = currentNode
+                        currentNode = get_parent_node(tree,currentNode)
+
+                    #endif
+                #endif
+
+
+
+                children_of_currentNode = []
+
+                for nodes in tree.out_edges(currentNode):
+                        children_of_currentNode.append(nodes[1])
+                #endfor
+
+                #wenn das Paket nicht aus einer eingehenden Kante kommt, dann muss es aus einer ausgehenden (kind) kommen
+                #dafür muss man den Rang des Kindes bestimmen von dem das Paket kommt
+                #das Kind mit dem nächsthöheren Rang suchen
+                if last_node in children_of_currentNode:
+
+                    #alle funktionierenden Kinder finden
+                    children = []
+                    out_edges_with_fails = tree.out_edges(currentNode)
+                    out_edges = []
+                    for edge in out_edges_with_fails:
+                        if edge in fails or tuple(reversed(edge)) in fails:
+                            continue 
+                        else: 
+                            out_edges.append(edge)
+                        #endif
+
+                    #endfor
+                    for nodes in out_edges:
+                        children.append(nodes[1])
+                    #endfor
+                    children.sort(key=lambda x: (getRank(tree, x)))
+
+                    
+
+                    #wenn es Funktionierende Kinder gibt dann muss man das Kind suchen mit dem nächstgrößeren Rang
+                    if len(children) > 0: 
+                        #prüfen ob es noch kinder gibt mit größerem rang , also ob es noch zu durchlaufene kinder gibt
+                        
+
+                        #welchen index hat das kind nach seinem "rank" in der sortierten liste
+                        index_of_last_node = children.index(last_node) if last_node in children else -1 
+                    
+                        #alle  kinder ohne das wo das paket herkommt
+                        children_without_last = [a for a in children if a != last_node] 
+
+                        #es gibt keine möglichen kinder mehr und man ist an der Source
+                        #dann ist das Routing fehlgeschlagen für diesen Baum
+                        if len(children_without_last) == 0 and currentNode == s : 
+                            break;
+
+                        #Sonderfall (noch unklar ob nötig)
+                        #wenn man aus einem Kind kommt, zu dem die Kante fehlerhaft ist
+                        #man nimmt trotzdem das nächste Kind
+                        elif index_of_last_node == -1:
+                            hops += 1
+                            last_node = currentNode
+                            currentNode = children[0]
+
+                        #das kind wo das paket herkommt hatte den höchsten rang der kinder, also das letztmögliche
+                        #daher muss man den Baum eine Stufe hoch
+                        elif index_of_last_node == len(children)-1: 
+                            
+                            if currentNode != s: #man muss eine stufe hoch gehen
+                                hops += 1
+                                detour_edges.append( (currentNode, last_node) )
+                                last_node = currentNode
+                                currentNode = get_parent_node(tree,currentNode)
+                            else:#sonderfall wenn man an der Source ist dann ist das Routing gescheitert
+                                break;
+
+                        #es gibt noch mindestens 1 Kind mit höherem Rang
+                        elif index_of_last_node < len(children)-1 : 
+                            #wenn ja dann nimm das Kind mit dem nächst größeren Rang aus der sortierten Children Liste
+                            hops += 1
+                            last_node = currentNode
+                            currentNode = children[index_of_last_node+1]
+
+                        #es gibt keine kinder mehr am currentnode
+                        else: 
+                            #wenn nein dann setze currentnode auf den parent
+                            hops += 1
+                            detour_edges.append( (currentNode, last_node) )
+                            last_node = currentNode
+                            currentNode = get_parent_node(tree,currentNode)
+                        #endif
+
+                    #wenn es keine funktionierenden Kinder gibt dann geht man eine Stufe hoch
+                    else: 
+                        detour_edges.append( (currentNode, last_node) )
+                        hops += 1
+                        last_node = currentNode
+                        currentNode = get_parent_node(tree,currentNode)
+                    #endif
+                
+                    
+            #endwhile
+
+            if (currentNode == d):#falls wir am ziel angekommen sind
+                print("Routing done via the Tree : ", list(tree.nodes))
+                print(" ")
+                return (False, hops, switches, detour_edges)
+            #endif
+
+            #das war in OneTree egal, da man nur 1 Tree hatte, aber hier kann die Source der Bäume nicht an den gleichen Knoten dran sein wie
+            #andere Bäume, daher muss der eingehende Port des Pakets auf den currentNode gesetzt werden (hier die Source) damit man 
+            #weiß dass man den nächsten Baum nimmt
+            last_node = currentNode
+        #endfor 
+        print("Routing failed via Trees ")
+        print(" ")
+        return (True, hops, switches, detour_edges)    
+    #endif
+
+###########################################################################################################################################################
+###########################################################################################################################################################

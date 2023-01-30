@@ -31,7 +31,7 @@ def set_routing_params(params):
 def RouteMultipleTrees(s,d,fails,paths):
 
     #########################################   FOR DEBUG ONLY                #####################################################
-    skip_edps = False
+    skip_edps = True
     skip_trees = False
     if(skip_edps):
         print("Skipping the EDPs")
@@ -45,94 +45,14 @@ def RouteMultipleTrees(s,d,fails,paths):
 
      #alle EDPS entlang routen
     currentNode = s
-    edpIndex = 0
+    last_node = currentNode
     detour_edges = []
     hops = 0
     switches = 0
     trees = paths[s][d]['trees']
-    edps_for_s_d = sorted(paths[s][d]['edps'],key=len) # Aufsteigend die EDPs sortieren damit man den größten als letztes hat
     print(" ")
     print('Routing started for ' , s , " to " , d )
 
-    if(not skip_edps):
-
-        if(s != d):
-
-            #als erstes anhand der EDPs (außer dem längsten, also dem letzten) versuchen zu routen
-            for edp in edps_for_s_d:
-
-                currentNode = s
-                last_node = s 
-
-                if edp != edps_for_s_d[len(edps_for_s_d) -1]:
-
-                    currentNode = edp[edpIndex]
-
-
-                    #jeder EDP wird so weit durchlaufen bis man mit dem currentNode zum Ziel kommt oder man auf eine kaputte Kante stößt
-                    while (currentNode != d):
-
-
-                        #man prüft ob die nächste Kante im EDP kaputt ist so, indem man guckt ob eine Kante vom currentNode edp[edpIndex] zum nächsten Node im EDP edp[edpIndex+1] in Fails ist
-                        #dies beruht auf lokalen Informationen, da EDPs nur eine eingehende Kante haben ( auf der das Paket ankommt ) und eine ausgehende Kante (auf der das Paket nicht ankommt)
-                        if (edp[edpIndex], edp[edpIndex +1]) in fails or (edp[edpIndex +1], edp[edpIndex]) in fails:
-                            
-
-                            #wenn man auf eine fehlerhafte Kante stößt dann wechselt man den Pfad
-                            switches += 1
-
-                            #die kanten die wir wieder zurückgehen sind die kanten die wir schon in dem edp gelaufen sind
-                            detour_edges.append( (edp[edpIndex], edp[edpIndex +1]) )
-
-                            #wir fangen beim neuen edp ganz am anfang an
-                            tmp_node = currentNode #und gehen eine Kante hoch, also den edp zurück
-                            currentNode = last_node #das "rückwärts den edp gehen" kann so gemacht werden, da die pakete so nur über den port gehen müssen über den sie reingekommen sind
-                            last_node = tmp_node
-                            hops += 1
-                            break
-
-                        else :#wenn die kante die man gehen will inordnung ist, die kante gehen und zum nächsten knoten schalten
-                            edpIndex += 1
-                            hops += 1
-                            last_node = currentNode 
-                            currentNode = edp[edpIndex] #man kann hier currentnode direkt so setzen, da es im edp für jeden knoten jeweils 1 ausgehende
-                                                        #und genau eine eingehende Kante gibt
-                            #print("Es wird zum nächsten Node geschaltet : " , currentNode)
-                        #endif
-
-                    #endwhile
-
-                    #nun gibt es 2 Möglichkeiten aus denen die while-Schleife abgebrochen wurde : Ziel erreicht / EDP hat kaputte Kante 
-
-
-                    if currentNode == d : #wir haben die destination mit einem der edps erreicht
-                        print('Routing done via EDP')
-                        print('------------------------------------------------------')
-                        #input("Press key to continue...")
-                        return (False, hops, switches, detour_edges)
-                    #endif                    
-
-                    #wenn man hier angelangt ist, dann bedeutet dies, dass die while(currentNode != d) beendet wurde weil man auf eine kaputte kante gestoßen ist 
-                    #und dass man nicht an der destination angekommen ist, daher muss man jetzt an die source zurück um den nächsten edp zu starten
-                    while currentNode != s: #hier findet die Rückführung statt
-                        detour_edges.append( (last_node,currentNode) )
-
-                        last_node = currentNode #man geht den edp so weit hoch bis man an der source ist
-                        currentNode = edp[edpIndex-1] #man kann auch hier direkt den edp index verwenden da man genau 1 eingehende kante hat
-                        edpIndex = edpIndex-1
-                        #print("CurrentNode : ", currentNode)
-                        hops += 1
-
-                    #endwhile
-                #endif
-
-            #endfor
-
-            # wenn wir es nicht geschafft haben anhand der edps allein zum ziel zu routen dann geht es am längsten edp weiter
-            print('Routing via EDPs FAILED')
-
-        #endif
-    #endif
     if(not skip_trees):
 
         print(" ")
@@ -170,7 +90,11 @@ def RouteMultipleTrees(s,d,fails,paths):
                     #endfor
                     for nodes in out_edges:
                         children.append(nodes[1])
+                        print("Nodes : " , nodes)
+                        print("Nodes[1] : " , nodes[1])
+                        print("Rank Nodes[1] :" , getRank(tree,nodes[1]))
                     #endfor
+                    
                     children.sort(key=lambda x: (getRank(tree, x)))
 
 

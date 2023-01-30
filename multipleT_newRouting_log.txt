@@ -1,0 +1,556 @@
+Mon Jan 30 15:52:29 2023
+n_before, n_after, m_after, connectivity, degree
+37 ./benchmark_graphs/BtNorthAmerica.graphml n_before= 36 n_after= 17 m_after= 107 connectivity= 4 degree= 8
+experiment for  <function multiple_trees_pre at 0x7f1b726004c0>
+Start building trees with MultipleTrees Base for  1  to  2
+ 
+Start building trees with MultipleTrees Base for  1  to  7
+ 
+Start building trees with MultipleTrees Base for  1  to  8
+ 
+Start building trees with MultipleTrees Base for  1  to  10
+ 
+Start building trees with MultipleTrees Base for  1  to  11
+ 
+Start building trees with MultipleTrees Base for  1  to  13
+ 
+Start building trees with MultipleTrees Base for  1  to  15
+ 
+Start building trees with MultipleTrees Base for  1  to  16
+ 
+Start building trees with MultipleTrees Base for  1  to  17
+ 
+Start building trees with MultipleTrees Base for  1  to  20
+ 
+Start building trees with MultipleTrees Base for  1  to  21
+ 
+Start building trees with MultipleTrees Base for  1  to  22
+ 
+Start building trees with MultipleTrees Base for  1  to  23
+ 
+Start building trees with MultipleTrees Base for  1  to  25
+ 
+Start building trees with MultipleTrees Base for  1  to  27
+ 
+Start building trees with MultipleTrees Base for  1  to  28
+ 
+Start building trees with MultipleTrees Base for  2  to  1
+ 
+Start building trees with MultipleTrees Base for  2  to  7
+ 
+Start building trees with MultipleTrees Base for  2  to  8
+ 
+Start building trees with MultipleTrees Base for  2  to  10
+ 
+Start building trees with MultipleTrees Base for  2  to  11
+ 
+Start building trees with MultipleTrees Base for  2  to  13
+ 
+Start building trees with MultipleTrees Base for  2  to  15
+ 
+Start building trees with MultipleTrees Base for  2  to  16
+ 
+Start building trees with MultipleTrees Base for  2  to  17
+ 
+Start building trees with MultipleTrees Base for  2  to  20
+ 
+Start building trees with MultipleTrees Base for  2  to  21
+ 
+Start building trees with MultipleTrees Base for  2  to  22
+ 
+Start building trees with MultipleTrees Base for  2  to  23
+ 
+Start building trees with MultipleTrees Base for  2  to  25
+ 
+Start building trees with MultipleTrees Base for  2  to  27
+ 
+Start building trees with MultipleTrees Base for  2  to  28
+ 
+Start building trees with MultipleTrees Base for  7  to  1
+ 
+Start building trees with MultipleTrees Base for  7  to  2
+ 
+Start building trees with MultipleTrees Base for  7  to  8
+ 
+Start building trees with MultipleTrees Base for  7  to  10
+ 
+Start building trees with MultipleTrees Base for  7  to  11
+ 
+Start building trees with MultipleTrees Base for  7  to  13
+ 
+Start building trees with MultipleTrees Base for  7  to  15
+ 
+Start building trees with MultipleTrees Base for  7  to  16
+ 
+Start building trees with MultipleTrees Base for  7  to  17
+ 
+Start building trees with MultipleTrees Base for  7  to  20
+ 
+Start building trees with MultipleTrees Base for  7  to  21
+ 
+Start building trees with MultipleTrees Base for  7  to  22
+ 
+Start building trees with MultipleTrees Base for  7  to  23
+ 
+Start building trees with MultipleTrees Base for  7  to  25
+ 
+Start building trees with MultipleTrees Base for  7  to  27
+ 
+Start building trees with MultipleTrees Base for  7  to  28
+ 
+Start building trees with MultipleTrees Base for  8  to  1
+ 
+Start building trees with MultipleTrees Base for  8  to  2
+ 
+Start building trees with MultipleTrees Base for  8  to  7
+ 
+Start building trees with MultipleTrees Base for  8  to  10
+ 
+Start building trees with MultipleTrees Base for  8  to  11
+ 
+Start building trees with MultipleTrees Base for  8  to  13
+ 
+Start building trees with MultipleTrees Base for  8  to  15
+ 
+Start building trees with MultipleTrees Base for  8  to  16
+ 
+Start building trees with MultipleTrees Base for  8  to  17
+ 
+Start building trees with MultipleTrees Base for  8  to  20
+ 
+Start building trees with MultipleTrees Base for  8  to  21
+ 
+Start building trees with MultipleTrees Base for  8  to  22
+ 
+Start building trees with MultipleTrees Base for  8  to  23
+ 
+Start building trees with MultipleTrees Base for  8  to  25
+ 
+Start building trees with MultipleTrees Base for  8  to  27
+ 
+Start building trees with MultipleTrees Base for  8  to  28
+ 
+Start building trees with MultipleTrees Base for  10  to  1
+ 
+Start building trees with MultipleTrees Base for  10  to  2
+ 
+Start building trees with MultipleTrees Base for  10  to  7
+ 
+Start building trees with MultipleTrees Base for  10  to  8
+ 
+Start building trees with MultipleTrees Base for  10  to  11
+ 
+Start building trees with MultipleTrees Base for  10  to  13
+ 
+Start building trees with MultipleTrees Base for  10  to  15
+ 
+Start building trees with MultipleTrees Base for  10  to  16
+ 
+Start building trees with MultipleTrees Base for  10  to  17
+ 
+Start building trees with MultipleTrees Base for  10  to  20
+ 
+Start building trees with MultipleTrees Base for  10  to  21
+ 
+Start building trees with MultipleTrees Base for  10  to  22
+ 
+Start building trees with MultipleTrees Base for  10  to  23
+ 
+Start building trees with MultipleTrees Base for  10  to  25
+ 
+Start building trees with MultipleTrees Base for  10  to  27
+ 
+Start building trees with MultipleTrees Base for  10  to  28
+ 
+Start building trees with MultipleTrees Base for  11  to  1
+ 
+Start building trees with MultipleTrees Base for  11  to  2
+ 
+Start building trees with MultipleTrees Base for  11  to  7
+ 
+Start building trees with MultipleTrees Base for  11  to  8
+ 
+Start building trees with MultipleTrees Base for  11  to  10
+ 
+Start building trees with MultipleTrees Base for  11  to  13
+ 
+Start building trees with MultipleTrees Base for  11  to  15
+ 
+Start building trees with MultipleTrees Base for  11  to  16
+ 
+Start building trees with MultipleTrees Base for  11  to  17
+ 
+Start building trees with MultipleTrees Base for  11  to  20
+ 
+Start building trees with MultipleTrees Base for  11  to  21
+ 
+Start building trees with MultipleTrees Base for  11  to  22
+ 
+Start building trees with MultipleTrees Base for  11  to  23
+ 
+Start building trees with MultipleTrees Base for  11  to  25
+ 
+Start building trees with MultipleTrees Base for  11  to  27
+ 
+Start building trees with MultipleTrees Base for  11  to  28
+ 
+Start building trees with MultipleTrees Base for  13  to  1
+ 
+Start building trees with MultipleTrees Base for  13  to  2
+ 
+Start building trees with MultipleTrees Base for  13  to  7
+ 
+Start building trees with MultipleTrees Base for  13  to  8
+ 
+Start building trees with MultipleTrees Base for  13  to  10
+ 
+Start building trees with MultipleTrees Base for  13  to  11
+ 
+Start building trees with MultipleTrees Base for  13  to  15
+ 
+Start building trees with MultipleTrees Base for  13  to  16
+ 
+Start building trees with MultipleTrees Base for  13  to  17
+ 
+Start building trees with MultipleTrees Base for  13  to  20
+ 
+Start building trees with MultipleTrees Base for  13  to  21
+ 
+Start building trees with MultipleTrees Base for  13  to  22
+ 
+Start building trees with MultipleTrees Base for  13  to  23
+ 
+Start building trees with MultipleTrees Base for  13  to  25
+ 
+Start building trees with MultipleTrees Base for  13  to  27
+ 
+Start building trees with MultipleTrees Base for  13  to  28
+ 
+Start building trees with MultipleTrees Base for  15  to  1
+ 
+Start building trees with MultipleTrees Base for  15  to  2
+ 
+Start building trees with MultipleTrees Base for  15  to  7
+ 
+Start building trees with MultipleTrees Base for  15  to  8
+ 
+Start building trees with MultipleTrees Base for  15  to  10
+ 
+Start building trees with MultipleTrees Base for  15  to  11
+ 
+Start building trees with MultipleTrees Base for  15  to  13
+ 
+Start building trees with MultipleTrees Base for  15  to  16
+ 
+Start building trees with MultipleTrees Base for  15  to  17
+ 
+Start building trees with MultipleTrees Base for  15  to  20
+ 
+Start building trees with MultipleTrees Base for  15  to  21
+ 
+Start building trees with MultipleTrees Base for  15  to  22
+ 
+Start building trees with MultipleTrees Base for  15  to  23
+ 
+Start building trees with MultipleTrees Base for  15  to  25
+ 
+Start building trees with MultipleTrees Base for  15  to  27
+ 
+Start building trees with MultipleTrees Base for  15  to  28
+ 
+Start building trees with MultipleTrees Base for  16  to  1
+ 
+Start building trees with MultipleTrees Base for  16  to  2
+ 
+Start building trees with MultipleTrees Base for  16  to  7
+ 
+Start building trees with MultipleTrees Base for  16  to  8
+ 
+Start building trees with MultipleTrees Base for  16  to  10
+ 
+Start building trees with MultipleTrees Base for  16  to  11
+ 
+Start building trees with MultipleTrees Base for  16  to  13
+ 
+Start building trees with MultipleTrees Base for  16  to  15
+ 
+Start building trees with MultipleTrees Base for  16  to  17
+ 
+Start building trees with MultipleTrees Base for  16  to  20
+ 
+Start building trees with MultipleTrees Base for  16  to  21
+ 
+Start building trees with MultipleTrees Base for  16  to  22
+ 
+Start building trees with MultipleTrees Base for  16  to  23
+ 
+Start building trees with MultipleTrees Base for  16  to  25
+ 
+Start building trees with MultipleTrees Base for  16  to  27
+ 
+Start building trees with MultipleTrees Base for  16  to  28
+ 
+Start building trees with MultipleTrees Base for  17  to  1
+ 
+Start building trees with MultipleTrees Base for  17  to  2
+ 
+Start building trees with MultipleTrees Base for  17  to  7
+ 
+Start building trees with MultipleTrees Base for  17  to  8
+ 
+Start building trees with MultipleTrees Base for  17  to  10
+ 
+Start building trees with MultipleTrees Base for  17  to  11
+ 
+Start building trees with MultipleTrees Base for  17  to  13
+ 
+Start building trees with MultipleTrees Base for  17  to  15
+ 
+Start building trees with MultipleTrees Base for  17  to  16
+ 
+Start building trees with MultipleTrees Base for  17  to  20
+ 
+Start building trees with MultipleTrees Base for  17  to  21
+ 
+Start building trees with MultipleTrees Base for  17  to  22
+ 
+Start building trees with MultipleTrees Base for  17  to  23
+ 
+Start building trees with MultipleTrees Base for  17  to  25
+ 
+Start building trees with MultipleTrees Base for  17  to  27
+ 
+Start building trees with MultipleTrees Base for  17  to  28
+ 
+Start building trees with MultipleTrees Base for  20  to  1
+ 
+Start building trees with MultipleTrees Base for  20  to  2
+ 
+Start building trees with MultipleTrees Base for  20  to  7
+ 
+Start building trees with MultipleTrees Base for  20  to  8
+ 
+Start building trees with MultipleTrees Base for  20  to  10
+ 
+Start building trees with MultipleTrees Base for  20  to  11
+ 
+Start building trees with MultipleTrees Base for  20  to  13
+ 
+Start building trees with MultipleTrees Base for  20  to  15
+ 
+Start building trees with MultipleTrees Base for  20  to  16
+ 
+Start building trees with MultipleTrees Base for  20  to  17
+ 
+Start building trees with MultipleTrees Base for  20  to  21
+ 
+Start building trees with MultipleTrees Base for  20  to  22
+ 
+Start building trees with MultipleTrees Base for  20  to  23
+ 
+Start building trees with MultipleTrees Base for  20  to  25
+ 
+Start building trees with MultipleTrees Base for  20  to  27
+ 
+Start building trees with MultipleTrees Base for  20  to  28
+ 
+Start building trees with MultipleTrees Base for  21  to  1
+ 
+Start building trees with MultipleTrees Base for  21  to  2
+ 
+Start building trees with MultipleTrees Base for  21  to  7
+ 
+Start building trees with MultipleTrees Base for  21  to  8
+ 
+Start building trees with MultipleTrees Base for  21  to  10
+ 
+Start building trees with MultipleTrees Base for  21  to  11
+ 
+Start building trees with MultipleTrees Base for  21  to  13
+ 
+Start building trees with MultipleTrees Base for  21  to  15
+ 
+Start building trees with MultipleTrees Base for  21  to  16
+ 
+Start building trees with MultipleTrees Base for  21  to  17
+ 
+Start building trees with MultipleTrees Base for  21  to  20
+ 
+Start building trees with MultipleTrees Base for  21  to  22
+ 
+Start building trees with MultipleTrees Base for  21  to  23
+ 
+Start building trees with MultipleTrees Base for  21  to  25
+ 
+Start building trees with MultipleTrees Base for  21  to  27
+ 
+Start building trees with MultipleTrees Base for  21  to  28
+ 
+Start building trees with MultipleTrees Base for  22  to  1
+ 
+Start building trees with MultipleTrees Base for  22  to  2
+ 
+Start building trees with MultipleTrees Base for  22  to  7
+ 
+Start building trees with MultipleTrees Base for  22  to  8
+ 
+Start building trees with MultipleTrees Base for  22  to  10
+ 
+Start building trees with MultipleTrees Base for  22  to  11
+ 
+Start building trees with MultipleTrees Base for  22  to  13
+ 
+Start building trees with MultipleTrees Base for  22  to  15
+ 
+Start building trees with MultipleTrees Base for  22  to  16
+ 
+Start building trees with MultipleTrees Base for  22  to  17
+ 
+Start building trees with MultipleTrees Base for  22  to  20
+ 
+Start building trees with MultipleTrees Base for  22  to  21
+ 
+Start building trees with MultipleTrees Base for  22  to  23
+ 
+Start building trees with MultipleTrees Base for  22  to  25
+ 
+Start building trees with MultipleTrees Base for  22  to  27
+ 
+Start building trees with MultipleTrees Base for  22  to  28
+ 
+Start building trees with MultipleTrees Base for  23  to  1
+ 
+Start building trees with MultipleTrees Base for  23  to  2
+ 
+Start building trees with MultipleTrees Base for  23  to  7
+ 
+Start building trees with MultipleTrees Base for  23  to  8
+ 
+Start building trees with MultipleTrees Base for  23  to  10
+ 
+Start building trees with MultipleTrees Base for  23  to  11
+ 
+Start building trees with MultipleTrees Base for  23  to  13
+ 
+Start building trees with MultipleTrees Base for  23  to  15
+ 
+Start building trees with MultipleTrees Base for  23  to  16
+ 
+Start building trees with MultipleTrees Base for  23  to  17
+ 
+Start building trees with MultipleTrees Base for  23  to  20
+ 
+Start building trees with MultipleTrees Base for  23  to  21
+ 
+Start building trees with MultipleTrees Base for  23  to  22
+ 
+Start building trees with MultipleTrees Base for  23  to  25
+ 
+Start building trees with MultipleTrees Base for  23  to  27
+ 
+Start building trees with MultipleTrees Base for  23  to  28
+ 
+Start building trees with MultipleTrees Base for  25  to  1
+ 
+Start building trees with MultipleTrees Base for  25  to  2
+ 
+Start building trees with MultipleTrees Base for  25  to  7
+ 
+Start building trees with MultipleTrees Base for  25  to  8
+ 
+Start building trees with MultipleTrees Base for  25  to  10
+ 
+Start building trees with MultipleTrees Base for  25  to  11
+ 
+Start building trees with MultipleTrees Base for  25  to  13
+ 
+Start building trees with MultipleTrees Base for  25  to  15
+ 
+Start building trees with MultipleTrees Base for  25  to  16
+ 
+Start building trees with MultipleTrees Base for  25  to  17
+ 
+Start building trees with MultipleTrees Base for  25  to  20
+ 
+Start building trees with MultipleTrees Base for  25  to  21
+ 
+Start building trees with MultipleTrees Base for  25  to  22
+ 
+Start building trees with MultipleTrees Base for  25  to  23
+ 
+Start building trees with MultipleTrees Base for  25  to  27
+ 
+Start building trees with MultipleTrees Base for  25  to  28
+ 
+Start building trees with MultipleTrees Base for  27  to  1
+ 
+Start building trees with MultipleTrees Base for  27  to  2
+ 
+Start building trees with MultipleTrees Base for  27  to  7
+ 
+Start building trees with MultipleTrees Base for  27  to  8
+ 
+Start building trees with MultipleTrees Base for  27  to  10
+ 
+Start building trees with MultipleTrees Base for  27  to  11
+ 
+Start building trees with MultipleTrees Base for  27  to  13
+ 
+Start building trees with MultipleTrees Base for  27  to  15
+ 
+Start building trees with MultipleTrees Base for  27  to  16
+ 
+Start building trees with MultipleTrees Base for  27  to  17
+ 
+Start building trees with MultipleTrees Base for  27  to  20
+ 
+Start building trees with MultipleTrees Base for  27  to  21
+ 
+Start building trees with MultipleTrees Base for  27  to  22
+ 
+Start building trees with MultipleTrees Base for  27  to  23
+ 
+Start building trees with MultipleTrees Base for  27  to  25
+ 
+Start building trees with MultipleTrees Base for  27  to  28
+ 
+Start building trees with MultipleTrees Base for  28  to  1
+ 
+Start building trees with MultipleTrees Base for  28  to  2
+ 
+Start building trees with MultipleTrees Base for  28  to  7
+ 
+Start building trees with MultipleTrees Base for  28  to  8
+ 
+Start building trees with MultipleTrees Base for  28  to  10
+ 
+Start building trees with MultipleTrees Base for  28  to  11
+ 
+Start building trees with MultipleTrees Base for  28  to  13
+ 
+Start building trees with MultipleTrees Base for  28  to  15
+ 
+Start building trees with MultipleTrees Base for  28  to  16
+ 
+Start building trees with MultipleTrees Base for  28  to  17
+ 
+Start building trees with MultipleTrees Base for  28  to  20
+ 
+Start building trees with MultipleTrees Base for  28  to  21
+ 
+Start building trees with MultipleTrees Base for  28  to  22
+ 
+Start building trees with MultipleTrees Base for  28  to  23
+ 
+Start building trees with MultipleTrees Base for  28  to  25
+ 
+Start building trees with MultipleTrees Base for  28  to  27
+ 
+Done with precomputation algo
+Start routing
+Loop over samplesize is runing
+Loop over stats is runing
+ 
+Routing started for  21  to  7
+ 
+Routing via Tree started
