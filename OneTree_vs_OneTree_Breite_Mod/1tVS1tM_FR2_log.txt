@@ -1,0 +1,505 @@
+Wed Jan 25 14:45:15 2023
+experiment for  <function one_tree_pre at 0x7f5bc3d54dc0>
+Done with precomputation algo
+Start routing
+Before simulate graph
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  1  to  0
+Routing done via EDP
+------------------------------------------------------
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  38  to  0
+Routing done via EDP
+------------------------------------------------------
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  13  to  0
+Routing done via EDP
+------------------------------------------------------
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  35  to  0
+Routing done via EDP
+------------------------------------------------------
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  28  to  0
+Routing done via EDP
+------------------------------------------------------
+After simulate
+success 5 <function one_tree_pre at 0x7f5bc3d54dc0>
+experiment for  <function one_tree_pre_breite_mod at 0x7f5bc3d54f70>
+Done with precomputation algo
+Start routing
+Before simulate graph
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  1  to  0
+Routing done via EDP
+------------------------------------------------------
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  38  to  0
+Routing done via EDP
+------------------------------------------------------
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  13  to  0
+Routing done via EDP
+------------------------------------------------------
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  35  to  0
+Routing done via EDP
+------------------------------------------------------
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  28  to  0
+Routing done via EDP
+------------------------------------------------------
+After simulate
+success 5 <function one_tree_pre_breite_mod at 0x7f5bc3d54f70>
+experiment for  <function one_tree_pre at 0x7f5bc3d54dc0>
+Done with precomputation algo
+Start routing
+Before simulate graph
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  38  to  0
+Routing done via EDP
+------------------------------------------------------
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  3  to  0
+Routing done via EDP
+------------------------------------------------------
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  12  to  0
+Routing done via EDP
+------------------------------------------------------
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  2  to  0
+Routing done via EDP
+------------------------------------------------------
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  10  to  0
+Routing done via EDP
+------------------------------------------------------
+After simulate
+success 5 <function one_tree_pre at 0x7f5bc3d54dc0>
+experiment for  <function one_tree_pre_breite_mod at 0x7f5bc3d54f70>
+Done with precomputation algo
+Start routing
+Before simulate graph
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  38  to  0
+Routing done via EDP
+------------------------------------------------------
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  3  to  0
+Routing done via EDP
+------------------------------------------------------
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  12  to  0
+Routing done via EDP
+------------------------------------------------------
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  2  to  0
+Routing done via EDP
+------------------------------------------------------
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  10  to  0
+Routing done via EDP
+------------------------------------------------------
+After simulate
+success 5 <function one_tree_pre_breite_mod at 0x7f5bc3d54f70>
+experiment for  <function one_tree_pre at 0x7f5bc3d54dc0>
+Done with precomputation algo
+Start routing
+Before simulate graph
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  26  to  0
+Routing done via EDP
+------------------------------------------------------
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  5  to  0
+Routing done via EDP
+------------------------------------------------------
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  39  to  0
+Routing done via EDP
+------------------------------------------------------
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  36  to  0
+Routing done via EDP
+------------------------------------------------------
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  16  to  0
+Routing done via EDP
+------------------------------------------------------
+After simulate
+success 5 <function one_tree_pre at 0x7f5bc3d54dc0>
+experiment for  <function one_tree_pre_breite_mod at 0x7f5bc3d54f70>
+Done with precomputation algo
+Start routing
+Before simulate graph
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  26  to  0
+Routing done via EDP
+------------------------------------------------------
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  5  to  0
+Routing done via EDP
+------------------------------------------------------
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  39  to  0
+Routing done via EDP
+------------------------------------------------------
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  36  to  0
+Routing done via EDP
+------------------------------------------------------
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  16  to  0
+Routing done via EDP
+------------------------------------------------------
+After simulate
+success 5 <function one_tree_pre_breite_mod at 0x7f5bc3d54f70>
+experiment for  <function one_tree_pre at 0x7f5bc3d54dc0>
+Done with precomputation algo
+Start routing
+Before simulate graph
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  6  to  0
+Routing done via EDP
+------------------------------------------------------
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  10  to  0
+Routing done via EDP
+------------------------------------------------------
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  20  to  0
+Routing done via EDP
+------------------------------------------------------
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  4  to  0
+Routing done via EDP
+------------------------------------------------------
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  19  to  0
+Routing done via EDP
+------------------------------------------------------
+After simulate
+success 5 <function one_tree_pre at 0x7f5bc3d54dc0>
+experiment for  <function one_tree_pre_breite_mod at 0x7f5bc3d54f70>
+Done with precomputation algo
+Start routing
+Before simulate graph
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  6  to  0
+Routing done via EDP
+------------------------------------------------------
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  10  to  0
+Routing done via EDP
+------------------------------------------------------
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  20  to  0
+Routing done via EDP
+------------------------------------------------------
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  4  to  0
+Routing done via EDP
+------------------------------------------------------
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  19  to  0
+Routing done via EDP
+------------------------------------------------------
+After simulate
+success 5 <function one_tree_pre_breite_mod at 0x7f5bc3d54f70>
+experiment for  <function one_tree_pre at 0x7f5bc3d54dc0>
+Done with precomputation algo
+Start routing
+Before simulate graph
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  28  to  0
+Routing done via EDP
+------------------------------------------------------
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  27  to  0
+Routing done via EDP
+------------------------------------------------------
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  24  to  0
+Routing done via EDP
+------------------------------------------------------
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  14  to  0
+Routing done via EDP
+------------------------------------------------------
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  39  to  0
+Routing done via EDP
+------------------------------------------------------
+After simulate
+success 5 <function one_tree_pre at 0x7f5bc3d54dc0>
+experiment for  <function one_tree_pre_breite_mod at 0x7f5bc3d54f70>
+Done with precomputation algo
+Start routing
+Before simulate graph
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  28  to  0
+Routing done via EDP
+------------------------------------------------------
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  27  to  0
+Routing done via EDP
+------------------------------------------------------
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  24  to  0
+Routing done via EDP
+------------------------------------------------------
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  14  to  0
+Routing done via EDP
+------------------------------------------------------
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  39  to  0
+Routing done via EDP
+------------------------------------------------------
+After simulate
+success 5 <function one_tree_pre_breite_mod at 0x7f5bc3d54f70>
+experiment for  <function one_tree_pre at 0x7f5bc3d54dc0>
+Done with precomputation algo
+Start routing
+Before simulate graph
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  24  to  0
+Routing done via EDP
+------------------------------------------------------
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  25  to  0
+Routing done via EDP
+------------------------------------------------------
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  5  to  0
+Routing done via EDP
+------------------------------------------------------
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  20  to  0
+Routing done via EDP
+------------------------------------------------------
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  39  to  0
+Routing done via EDP
+------------------------------------------------------
+After simulate
+success 5 <function one_tree_pre at 0x7f5bc3d54dc0>
+experiment for  <function one_tree_pre_breite_mod at 0x7f5bc3d54f70>
+Done with precomputation algo
+Start routing
+Before simulate graph
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  24  to  0
+Routing done via EDP
+------------------------------------------------------
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  25  to  0
+Routing done via EDP
+------------------------------------------------------
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  5  to  0
+Routing done via EDP
+------------------------------------------------------
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  20  to  0
+Routing done via EDP
+------------------------------------------------------
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  39  to  0
+Routing done via EDP
+------------------------------------------------------
+After simulate
+success 5 <function one_tree_pre_breite_mod at 0x7f5bc3d54f70>
+experiment for  <function one_tree_pre at 0x7f5bc3d54dc0>
+Done with precomputation algo
+Start routing
+Before simulate graph
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  8  to  0
+Routing done via EDP
+------------------------------------------------------
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  26  to  0
+Routing done via EDP
+------------------------------------------------------
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  5  to  0
+Routing done via EDP
+------------------------------------------------------
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  23  to  0
+Routing done via EDP
+------------------------------------------------------
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  21  to  0
+Routing done via EDP
+------------------------------------------------------
+After simulate
+success 5 <function one_tree_pre at 0x7f5bc3d54dc0>
+experiment for  <function one_tree_pre_breite_mod at 0x7f5bc3d54f70>
+Done with precomputation algo
+Start routing
+Before simulate graph
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  8  to  0
+Routing done via EDP
+------------------------------------------------------
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  26  to  0
+Routing done via EDP
+------------------------------------------------------
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  5  to  0
+Routing done via EDP
+------------------------------------------------------
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  23  to  0
+Routing done via EDP
+------------------------------------------------------
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  21  to  0
+Routing done via EDP
+------------------------------------------------------
+After simulate
+success 5 <function one_tree_pre_breite_mod at 0x7f5bc3d54f70>
+experiment for  <function one_tree_pre at 0x7f5bc3d54dc0>
+Done with precomputation algo
+Start routing
+Before simulate graph
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  6  to  0
+Routing done via EDP
+------------------------------------------------------
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  35  to  0
+Routing done via EDP
+------------------------------------------------------
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  13  to  0
+Routing done via EDP
+------------------------------------------------------
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  20  to  0
+Routing done via EDP
+------------------------------------------------------
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  16  to  0
+Routing done via EDP
+------------------------------------------------------
+After simulate
+success 5 <function one_tree_pre at 0x7f5bc3d54dc0>
+experiment for  <function one_tree_pre_breite_mod at 0x7f5bc3d54f70>
+Done with precomputation algo
+Start routing
+Before simulate graph
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  6  to  0
+Routing done via EDP
+------------------------------------------------------
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  35  to  0
+Routing done via EDP
+------------------------------------------------------
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  13  to  0
+Routing done via EDP
+------------------------------------------------------
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  20  to  0
+Routing done via EDP
+------------------------------------------------------
+Loop over samplesize is runing
+Loop over stats is runing
+Routing started for  16  to  0
+Routing done via EDP
+------------------------------------------------------
+After simulate
+success 5 <function one_tree_pre_breite_mod at 0x7f5bc3d54f70>
+
+One Tree FR2 	 1.12500E+00
+One Tree Breite Mod FR2 	 1.12500E+00
+
+lower is better
+time elapsed 31.64341688156128
+start time Wed Jan 25 14:45:15 2023
+end time Wed Jan 25 14:45:47 2023

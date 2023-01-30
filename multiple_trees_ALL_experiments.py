@@ -191,10 +191,10 @@ def start_file(filename):
 
 #hier kann rep geändert werden
 def experiments(switch="all", seed=0, rep=100):
-    #if switch in ["regular", "all"]:
-    #    out = start_file("results/benchmark-regular-all-multiple-trees-" + str(n) + "-" + str(k))
-    #    run_regular(out=out, seed=seed, rep=rep)
-    #    out.close()
+    if switch in ["regular", "all"]:
+        out = start_file("results/benchmark-regular-all-multiple-trees-" + str(n) + "-" + str(k))
+        run_regular(out=out, seed=seed, rep=rep)
+        out.close()
 
     if switch in ["zoo", "all"]:
         out = start_file("results/benchmark-zoo-all-multiple-trees-" + str(k))
@@ -214,15 +214,15 @@ def experiments(switch="all", seed=0, rep=100):
 
 
 if __name__ == "__main__":
-    f_num = 40
-    n = 100
-    k = 5
-    samplesize = 20
-    rep = 100
-    switch = 'all'
-    seed = 0
-    name = "benchmark-"
-    short = None
+    f_num = 15 #number of failed links
+    n = 60 # number of nodes
+    k = 5 #base connectivity
+    samplesize = 5 #number of sources to route a packet to destination
+    rep = 3 #number of experiments
+    switch = 'all' #which experiments to run with same parameters
+    seed = 0  #random seed
+    name = "benchmark-" #result files start with this name
+    short = None #if true only small zoo graphs < 25 nodes are run
     start = time.time()
     print(time.asctime(time.localtime(start)))
     if len(sys.argv) > 1:

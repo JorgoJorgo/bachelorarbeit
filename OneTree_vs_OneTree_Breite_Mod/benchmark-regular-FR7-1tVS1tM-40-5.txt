@@ -1,0 +1,18 @@
+#graph, size, connectivity, algorithm, index, stretch, load, hops, success, routing computation time, pre-computation time in seconds
+#Wed Jan 25 14:47:53 2023
+regular, 40, 5, One Tree FR7, 0, 2, 2, 6, 1.000000, 0.000230, 1.488588
+regular, 40, 5, One Tree Breite Mod FR7, 0, 2, 2, 6, 1.000000, 0.000205, 2.248600
+regular, 40, 5, One Tree FR7, 1, 6, 2, 10, 0.600000, 0.000234, 1.532200
+regular, 40, 5, One Tree Breite Mod FR7, 1, 6, 2, 10, 0.600000, 0.000228, 2.261749
+regular, 40, 5, One Tree FR7, 2, 5, 3, 8, 0.800000, 0.000213, 1.521921
+regular, 40, 5, One Tree Breite Mod FR7, 2, 5, 3, 8, 0.800000, 0.000211, 2.234667
+regular, 40, 5, One Tree FR7, 3, 6, 1, 10, 1.000000, 0.000207, 1.545241
+regular, 40, 5, One Tree Breite Mod FR7, 3, 6, 1, 10, 1.000000, 0.000210, 2.275731
+regular, 40, 5, One Tree FR7, 4, 2, 3, 5, 0.600000, 0.000236, 1.541201
+regular, 40, 5, One Tree Breite Mod FR7, 4, 2, 3, 5, 0.600000, 0.000221, 2.244348
+regular, 40, 5, One Tree FR7, 5, 1, 4, 5, 0.600000, 0.000222, 1.532418
+regular, 40, 5, One Tree Breite Mod FR7, 5, 1, 4, 5, 0.600000, 0.000224, 2.265380
+regular, 40, 5, One Tree FR7, 6, 1, 3, 5, 0.400000, 0.000228, 1.516876
+regular, 40, 5, One Tree Breite Mod FR7, 6, 1, 3, 5, 0.400000, 0.000228, 2.226403
+regular, 40, 5, One Tree FR7, 7, 1, 1, 4, 0.800000, 0.000213, 1.541639
+regular, 40, 5, One Tree Breite Mod FR7, 7, 1, 1, 4, 0.800000, 0.000210, 2.256977

@@ -1,0 +1,18 @@
+#graph, size, connectivity, algorithm, index, stretch, load, hops, success, routing computation time, pre-computation time in seconds
+#Tue Jan 24 22:40:13 2023
+regular, 40, 5, One Tree FR5, 0, 2, 2, 6, 1.000000, 0.000225, 1.478083
+regular, 40, 5, Multiple Trees FR5, 0, 2, 2, 6, 1.000000, 0.000224, 52.739609
+regular, 40, 5, One Tree FR5, 1, 3, 1, 7, 1.000000, 0.000202, 1.786242
+regular, 40, 5, Multiple Trees FR5, 1, 3, 1, 7, 1.000000, 0.000232, 52.873147
+regular, 40, 5, One Tree FR5, 2, 5, 3, 8, 0.800000, 0.000214, 1.702057
+regular, 40, 5, Multiple Trees FR5, 2, 5, 3, 8, 0.800000, 0.000267, 52.875393
+regular, 40, 5, One Tree FR5, 3, 2, 1, 6, 1.000000, 0.000206, 1.706202
+regular, 40, 5, Multiple Trees FR5, 3, 2, 1, 6, 1.000000, 0.000239, 52.662572
+regular, 40, 5, One Tree FR5, 4, 2, 2, 5, 1.000000, 0.000205, 1.713062
+regular, 40, 5, Multiple Trees FR5, 4, 2, 2, 5, 1.000000, 0.000236, 52.988262
+regular, 40, 5, One Tree FR5, 5, 1, 3, 4, 0.800000, 0.000208, 1.701499
+regular, 40, 5, Multiple Trees FR5, 5, 1, 3, 4, 0.800000, 0.000262, 52.767668
+regular, 40, 5, One Tree FR5, 6, 2, 1, 6, 0.800000, 0.000213, 1.704213
+regular, 40, 5, Multiple Trees FR5, 6, 2, 2, 6, 0.800000, 0.000262, 52.604021
+regular, 40, 5, One Tree FR5, 7, 1, 1, 4, 1.000000, 0.000203, 1.699261
+regular, 40, 5, Multiple Trees FR5, 7, 1, 1, 4, 1.000000, 0.000238, 52.878774

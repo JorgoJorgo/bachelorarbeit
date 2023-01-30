@@ -8,8 +8,8 @@ import random
 import time
 import glob
 from objective_function_experiments import *
-from trees import  multiple_trees_pre_order_of_edps_mod
-from routing import RouteMultipleTrees
+from trees import  one_tree_pre, one_tree_pre_breite_mod
+from routing import RouteOneTree
 DEBUG = True
 
 # Data structure containing the algorithms under
@@ -33,7 +33,7 @@ DEBUG = True
 # algorithms to this data structure to compare the performance
 # of additional algorithms.
 #algos = {'One Tree': [one_tree_pre, RouteOneTree], 'Greedy': [GreedyArborescenceDecomposition, RouteDetCirc]}
-algos = {'MultipleTrees Order Mod': [multiple_trees_pre_order_of_edps_mod, RouteMultipleTrees]}
+algos = {'One Tree FR4': [one_tree_pre, RouteOneTree],'One Tree Breite Mod FR4': [one_tree_pre_breite_mod,RouteOneTree]}
 
 # run one experiment with graph g
 # out denotes file handle to write results to
@@ -65,8 +65,10 @@ def one_experiment(g, seed, out, algo):
     stat.reset(g.nodes())
     random.seed(seed)
     t = time.time()
+    print("Before simulate graph")
     #hier sage ich dass ich den routing algorithmus simulieren soll (in stat steht welchen routing algorithmus ich ausführen will))#################################################################################################################################
     SimulateGraph(g, True, [stat], f_num, samplesize, precomputation=precomputation)
+    print("After simulate")
     rt = (time.time() - t)/samplesize
     success_ratio = stat.succ/ samplesize
     # write results
@@ -103,7 +105,7 @@ def run_AS(out=None, seed=0, rep=5):
         nn = len(g.nodes())
         mm = len(g.edges())
         ss = min(int(nn / 2), samplesize)
-        fn = min(int(mm / 2), f_num)
+        fn = min(int(mm / 4), f_num)
         fails = random.sample(list(g.edges()), fn)
         g.graph['fails'] = fails
         set_parameters([nn, rep, kk, ss, fn, seed, name + "AS-"])
@@ -183,21 +185,19 @@ def start_file(filename):
 # run experiments
 # seed is used for pseudorandom number generation in this run
 # switch determines which experiments are run
-
-#hier kann rep geändert werden
 def experiments(switch="all", seed=0, rep=100):
-    #if switch in ["regular", "all"]:
-    #    out = start_file("results/benchmark-regular-order-of-edps-multtrees-" + str(n) + "-" + str(k))
-    #    run_regular(out=out, seed=seed, rep=rep)
-    #    out.close()
+    if switch in ["regular", "all"]:
+        out = start_file("results/benchmark-regular-FR4-1tVS1tM-" + str(n) + "-" + str(k))
+        run_regular(out=out, seed=seed, rep=rep)
+        out.close()
 
     if switch in ["zoo", "all"]:
-        out = start_file("results/benchmark-zoo-order-of-edps-multtrees-" + str(k))
+        out = start_file("results/benchmark-zoo-1tvsMt" + str(k))
         run_zoo(out=out, seed=seed, rep=rep)
         out.close()
 
     if switch in ["AS"]:
-        out = start_file("results/benchmark-as_seed-order-of-edps-multtrees-" + str(seed))
+        out = start_file("results/benchmark-as_seed_1tvsMt" + str(seed))
         run_AS(out=out, seed=seed, rep=rep)
         out.close()
 
@@ -206,17 +206,19 @@ def experiments(switch="all", seed=0, rep=100):
         print('%s \t %.5E' % (algoname, np.mean(algo[2:])))
     print("\nlower is better")
 
-
-
+# k = 5 , FR = 2 ---> f_num = k * FR =  10 
+# k = 5 , FR = 4 ---> f_num = k * FR =  20 
+# k = 5 , FR = 6 ---> f_num = k * FR =  30 
+# k = 5 , FR = 8 ---> f_num = k * FR =  40
 if __name__ == "__main__":
-    f_num = 15 #number of failed links
-    n = 60 # number of nodes
+    f_num = 20 #number of failed links
+    n = 40 # number of nodes
     k = 5 #base connectivity
     samplesize = 5 #number of sources to route a packet to destination
-    rep = 3 #number of experiments
+    rep = 8 #number of experiments
     switch = 'all' #which experiments to run with same parameters
     seed = 0  #random seed
-    name = "benchmark-" #result files start with this name
+    name = "benchmark-FR4-1tVS1tM-" #result files start with this name
     short = None #if true only small zoo graphs < 25 nodes are run
     start = time.time()
     print(time.asctime(time.localtime(start)))
