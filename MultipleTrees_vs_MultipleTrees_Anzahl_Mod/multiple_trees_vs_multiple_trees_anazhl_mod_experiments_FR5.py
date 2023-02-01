@@ -1,6 +1,5 @@
 import sys
 from typing import List, Any, Union
-
 import networkx as nx
 import numpy as np
 import itertools
@@ -8,8 +7,8 @@ import random
 import time
 import glob
 from objective_function_experiments import *
-from trees import multiple_trees_pre, one_tree_pre
-from routing import RouteOneTree
+from routing import RouteMultipleTrees
+from trees import multiple_trees_pre, multiple_trees_pre_breite_mod, multiple_trees_pre_num_of_trees_mod
 DEBUG = True
 
 # Data structure containing the algorithms under
@@ -33,7 +32,7 @@ DEBUG = True
 # algorithms to this data structure to compare the performance
 # of additional algorithms.
 #algos = {'One Tree': [one_tree_pre, RouteOneTree], 'Greedy': [GreedyArborescenceDecomposition, RouteDetCirc]}
-algos = {'One Tree FR8': [one_tree_pre, RouteOneTree],'Multiple Trees FR8': [multiple_trees_pre,RouteMultipleTrees]}
+algos = {'MultipleTrees Base FR5': [multiple_trees_pre,RouteMultipleTrees],'Multiple Trees Anzahl Mod FR5': [multiple_trees_pre_num_of_trees_mod,RouteMultipleTrees]}
 
 # run one experiment with graph g
 # out denotes file handle to write results to
@@ -187,17 +186,17 @@ def start_file(filename):
 # switch determines which experiments are run
 def experiments(switch="all", seed=0, rep=100):
     if switch in ["regular", "all"]:
-        out = start_file("results/benchmark-regular-FR8-" + str(n) + "-" + str(k))
+        out = start_file("results/benchmark-regular-FR5-MTvsMTAM-" + str(n) + "-" + str(k))
         run_regular(out=out, seed=seed, rep=rep)
         out.close()
 
     if switch in ["zoo", "all"]:
-        out = start_file("results/benchmark-zoo-1tvsMt" + str(k))
+        out = start_file("results/benchmark-zoo-FR5-MTvsMTAM-" + str(k))
         run_zoo(out=out, seed=seed, rep=rep)
         out.close()
 
     if switch in ["AS"]:
-        out = start_file("results/benchmark-as_seed_1tvsMt" + str(seed))
+        out = start_file("results/benchmark-as_seed_FR5-MTvsMTAM-" + str(seed))
         run_AS(out=out, seed=seed, rep=rep)
         out.close()
 
@@ -207,18 +206,23 @@ def experiments(switch="all", seed=0, rep=100):
     print("\nlower is better")
 
 # k = 5 , FR = 2 ---> f_num = k * FR =  10 
+# k = 5 , FR = 3 ---> f_num = k * FR =  15
 # k = 5 , FR = 4 ---> f_num = k * FR =  20 
+# k = 5 , FR = 5 ---> f_num = k * FR =  25
 # k = 5 , FR = 6 ---> f_num = k * FR =  30 
+# k = 5 , FR = 7 ---> f_num = k * FR =  35 
 # k = 5 , FR = 8 ---> f_num = k * FR =  40
+# k = 5 , FR = 9 ---> f_num = k * FR =  45 
+# k = 5 , FR = 10 ---> f_num = k * FR =  50 
 if __name__ == "__main__":
-    f_num = 40 #number of failed links
+    f_num = 25 #number of failed links
     n = 40 # number of nodes
     k = 5 #base connectivity
     samplesize = 5 #number of sources to route a packet to destination
     rep = 8 #number of experiments
     switch = 'all' #which experiments to run with same parameters
     seed = 0  #random seed
-    name = "benchmark-FR-8" #result files start with this name
+    name = "benchmark-FR5-" #result files start with this name
     short = None #if true only small zoo graphs < 25 nodes are run
     start = time.time()
     print(time.asctime(time.localtime(start)))

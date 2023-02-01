@@ -1,0 +1,18 @@
+#graph, size, connectivity, algorithm, index, stretch, load, hops, success, routing computation time, pre-computation time in seconds
+#Tue Jan 31 19:08:30 2023
+regular, 40, 5, MultipleTrees Base FR6, 0, 3, 1, 5, 0.800000, 0.000282, 52.405456
+regular, 40, 5, Multiple Trees Anzahl Mod FR6, 0, 9, 1, 12, 0.800000, 0.000272, 3.795362
+regular, 40, 5, MultipleTrees Base FR6, 1, 10, 2, 14, 0.600000, 0.000379, 52.367522
+regular, 40, 5, Multiple Trees Anzahl Mod FR6, 1, 6, 2, 9, 0.400000, 0.000304, 3.675986
+regular, 40, 5, MultipleTrees Base FR6, 2, 16, 2, 19, 0.800000, 0.000334, 52.271554
+regular, 40, 5, Multiple Trees Anzahl Mod FR6, 2, 4, 2, 7, 1.000000, 0.000245, 3.705648
+regular, 40, 5, MultipleTrees Base FR6, 3, 11, 1, 13, 1.000000, 0.000306, 52.530573
+regular, 40, 5, Multiple Trees Anzahl Mod FR6, 3, 10, 2, 12, 0.200000, 0.000308, 3.759733
+regular, 40, 5, MultipleTrees Base FR6, 4, 16, 2, 19, 0.800000, 0.000341, 52.580562
+regular, 40, 5, Multiple Trees Anzahl Mod FR6, 4, 8, 2, 13, 0.600000, 0.000278, 3.680557
+regular, 40, 5, MultipleTrees Base FR6, 5, 16, 2, 19, 0.800000, 0.000339, 52.486994
+regular, 40, 5, Multiple Trees Anzahl Mod FR6, 5, 8, 2, 11, 0.600000, 0.000340, 3.678222
+regular, 40, 5, MultipleTrees Base FR6, 6, 12, 2, 15, 0.800000, 0.000317, 52.441143
+regular, 40, 5, Multiple Trees Anzahl Mod FR6, 6, 15, 2, 19, 0.800000, 0.000295, 3.716268
+regular, 40, 5, MultipleTrees Base FR6, 7, 9, 1, 10, 0.800000, 0.000306, 52.435555
+regular, 40, 5, Multiple Trees Anzahl Mod FR6, 7, 15, 1, 16, 0.600000, 0.000270, 3.711469

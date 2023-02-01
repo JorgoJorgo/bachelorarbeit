@@ -10,8 +10,6 @@ regular, 40, 5, One Tree FR9, 3, 6, 2, 10, 0.600000, 0.000223, 1.709843
 regular, 40, 5, Multiple Trees FR9, 3, 6, 3, 10, 0.600000, 0.000287, 53.020806
 regular, 40, 5, One Tree FR9, 4, 0, 3, 1, 0.200000, 0.000249, 1.716896
 regular, 40, 5, Multiple Trees FR9, 4, 6, 3, 11, 0.400000, 0.000364, 53.101919
-regular, 40, 5, One Tree FR9, 5, inf, inf, inf, 0.000000, 0.000261, 1.713655
-regular, 40, 5, Multiple Trees FR9, 5, inf, inf, inf, 0.000000, 0.000389, 52.856097
 regular, 40, 5, One Tree FR9, 6, 12, 3, 17, 0.400000, 0.000240, 1.715321
 regular, 40, 5, Multiple Trees FR9, 6, 1, 3, 4, 0.200000, 0.000366, 53.065216
 regular, 40, 5, One Tree FR9, 7, 0, 2, 2, 0.400000, 0.000231, 1.722920

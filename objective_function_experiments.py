@@ -1,3 +1,4 @@
+import statistics
 import sys
 import networkx as nx
 import numpy as np
@@ -53,7 +54,7 @@ def measure_product(g, DEBUG=False):
 def measure_obj(g, obj, DEBUG=False):
     # calculate x = maximum number of hops/load/stretch with f failures for a set of samplesize source-root pairs
     T = get_arborescence_list(g)
-    stat = Statistic(RouteDetCirc, "DetCirc")
+    stat = statistics(RouteDetCirc, "DetCirc")
     success = 0
     for i in range(f_num + 1):
         stat.reset(g.nodes())

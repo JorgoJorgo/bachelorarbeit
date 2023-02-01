@@ -1,0 +1,18 @@
+#graph, size, connectivity, algorithm, index, stretch, load, hops, success, routing computation time, pre-computation time in seconds
+#Tue Jan 31 17:49:27 2023
+regular, 40, 5, MultipleTrees Base FR10, 0, 2, 2, 4, 0.400000, 0.000312, 54.733668
+regular, 40, 5, Multiple Trees Breite Mod FR10, 0, inf, inf, inf, 0.000000, 0.000290, 75.244301
+regular, 40, 5, MultipleTrees Base FR10, 1, 10, 3, 14, 0.200000, 0.000374, 55.751413
+regular, 40, 5, Multiple Trees Breite Mod FR10, 1, inf, inf, inf, 0.000000, 0.000336, 73.945950
+regular, 40, 5, MultipleTrees Base FR10, 2, inf, inf, inf, 0.000000, 0.000352, 54.809855
+regular, 40, 5, Multiple Trees Breite Mod FR10, 2, inf, inf, inf, 0.000000, 0.000304, 73.972162
+regular, 40, 5, MultipleTrees Base FR10, 3, 12, 2, 14, 0.200000, 0.000381, 55.089509
+regular, 40, 5, Multiple Trees Breite Mod FR10, 3, 4, 2, 6, 0.200000, 0.000302, 73.743448
+regular, 40, 5, MultipleTrees Base FR10, 4, 6, 2, 7, 0.200000, 0.000370, 54.241930
+regular, 40, 5, Multiple Trees Breite Mod FR10, 4, 6, 2, 7, 0.200000, 0.000330, 73.817141
+regular, 40, 5, MultipleTrees Base FR10, 5, inf, inf, inf, 0.000000, 0.000361, 55.402125
+regular, 40, 5, Multiple Trees Breite Mod FR10, 5, inf, inf, inf, 0.000000, 0.000295, 73.083837
+regular, 40, 5, MultipleTrees Base FR10, 6, inf, inf, inf, 0.000000, 0.000374, 55.682516
+regular, 40, 5, Multiple Trees Breite Mod FR10, 6, inf, inf, inf, 0.000000, 0.000319, 74.455851
+regular, 40, 5, MultipleTrees Base FR10, 7, 2, 1, 6, 0.200000, 0.000349, 55.712325
+regular, 40, 5, Multiple Trees Breite Mod FR10, 7, inf, inf, inf, 0.000000, 0.000295, 76.136179

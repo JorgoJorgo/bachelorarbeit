@@ -90,9 +90,6 @@ def RouteMultipleTrees(s,d,fails,paths):
                     #endfor
                     for nodes in out_edges:
                         children.append(nodes[1])
-                        print("Nodes : " , nodes)
-                        print("Nodes[1] : " , nodes[1])
-                        print("Rank Nodes[1] :" , getRank(tree,nodes[1]))
                     #endfor
                     
                     children.sort(key=lambda x: (getRank(tree, x)))
