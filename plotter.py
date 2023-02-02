@@ -14,8 +14,8 @@ TitleAlgo1 = " One Tree"
 TitleAlgo2 = " One Tree Breite Mod"
 
 #Filepath und FR müssen nach jedem FR geändert werden
-filepath = "OneTree_vs_OneTree_Breite_Mod/benchmark-regular-FR10-1tVS1tM-40-5.txt"
-FR = '_fr10'
+filepath = "results/benchmark-regular-FR7-1tVS1tM-40-5.txt"
+FR = '_fr7'
 
 ###################################################################################################################
 f = open(filepath, "r")
@@ -259,9 +259,15 @@ print("Count : ", accumulated[algorithm2 + FR]['count'])
 print("Durchschnittliche Resilienz : ", accumulated[algorithm2 + FR ]['success'] /  accumulated[algorithm2 + FR]['count'] )
 print("Durchschnittliche Hops : ", accumulated[algorithm2 + FR ]['hops'] /  accumulated[algorithm2 + FR ]['count'] )
 print("Durchschnittliche Zeit : ", (accumulated[algorithm2 + FR ]['pre_computation_time']+accumulated[algorithm2 + FR ]['routing_computation_time'])  /  accumulated[algorithm2 + FR ]['count'])
+print("------------------------------------------------------------------")
+print("Durchschnittliche Resilienz : " , algorithm1 ,  " " , FR  , " "  , accumulated[algorithm1 + FR ]['success'] /  accumulated[algorithm1 + FR ]['count'] )
+print("Durchschnittliche Resilienz : ", accumulated[algorithm2 + FR ]['success'] /  accumulated[algorithm2 + FR]['count'] )
 
+print("Durchschnittliche Hops : ", accumulated[algorithm1 + FR ]['hops'] /  accumulated[algorithm1 + FR ]['count'] )
+print("Durchschnittliche Hops : ", accumulated[algorithm2 + FR ]['hops'] /  accumulated[algorithm2 + FR ]['count'] )
 
-
+print("Durchschnittliche Zeit : ", (accumulated[algorithm1 + FR ]['pre_computation_time']+accumulated[algorithm1 + FR ]['routing_computation_time'])  /  accumulated[algorithm1 + FR]['count'])
+print("Durchschnittliche Zeit : ", (accumulated[algorithm2 + FR ]['pre_computation_time']+accumulated[algorithm2 + FR ]['routing_computation_time'])  /  accumulated[algorithm2 + FR ]['count'])
 ###Graphen ####
 
 
@@ -270,18 +276,56 @@ print("Durchschnittliche Zeit : ", (accumulated[algorithm2 + FR ]['pre_computati
 plotfig = False
 if (plotfig):
 
-    plt.figure()
 
+    ##############################'ONETREE VS MULTIPLETREES ######################################################
+    # plt.figure()
+    # #PLOT1
+    # X = [0,1,2,3,4,5,6,7,8,9,10]
+    # # Assign variables to the y axis part of the curve
+    # y = [1,1,1,1,1, 0.925 , 0.85 , 0.725 , 0.575 , 0.42 , 0.225] #OneTree
+    # z = [1,1,1,1,1, 0.925 , 0.874 , 0.775 , 0.575 , 0.45 , 0.25] #MultipleTrees
+    # # Plotting both the curves simultaneously
+    # plt.subplot(221)
+    # plt.plot(X, y, color='r', label='OneTree')
+    # plt.plot(X, z, color='g', label='MultipleTrees')
+    # # Naming the x-axis, y-axis and the whole graph
+    # plt.xlabel("Failure Rate")
+    # plt.ylabel("Resilienz")
+    # plt.title("Resilienz, n = 40 , k = 5 ")
+    # # Adding legend, which helps us recognize the curve according to it's color
+    # plt.legend()
+
+    # #PLOT2
+    # X = [0,1,2,3,4,5,6,7,8,9,10]
+    # y = [3.5 , 3.5 , 3.5 , 3.875 , 4.375 , 5.75 , 8.625 , 6.625 , 8.125 , 7.1 , 4] #OneTree
+    # z = [3.5 , 3.5 , 3.5 , 3.875 , 4.375 , 5.75 , 10.125 , 11.875 , 7.75 , 8.7 , 7]
+    # # Plotting both the curves simultaneously
+    # plt.subplot(222)
+    # plt.plot(X, y, color='r', label='OneTree')
+    # plt.plot(X, z, color='g', label='MultipleTrees')
+    # # Naming the x-axis, y-axis and the whole graph
+    # plt.xlabel("Failure Rate")
+    # plt.ylabel("Durschn. Hops")
+    # plt.title("Durschn. Hops, n = 40 , k = 5 ")
+    # # Adding legend, which helps us recognize the curve according to it's color
+    # plt.legend()
+
+    # # To load the display window
+    # plt.show()
+
+    ################################### ONETREE VS ONETREE BREITE MOD #######################################################
+
+    plt.figure()
     #PLOT1
 
     X = [0,1,2,3,4,5,6,7,8,9,10]
     # Assign variables to the y axis part of the curve
-    y = [1,1,1,1,1, 0.925 , 0.85 , 0.725 , 0.575 , 0.42 , 0.225] #OneTree
-    z = [1,1,1,1,1, 0.925 , 0.874 , 0.775 , 0.575 , 0.45 , 0.25] #MultipleTrees
+    y = [1,1,1,1,1,0.92,0.85,0.725,0.575,0.4285,0.3] #OneTree
+    z = [1,1,1,1,1,0.92,0.8,0.725,0.575,0.457,0.3] #MultipleTrees
     # Plotting both the curves simultaneously
     plt.subplot(221)
     plt.plot(X, y, color='r', label='OneTree')
-    plt.plot(X, z, color='g', label='MultipleTrees')
+    plt.plot(X, z, color='g', label='OneTree Breite Mod')
     # Naming the x-axis, y-axis and the whole graph
     plt.xlabel("Failure Rate")
     plt.ylabel("Resilienz")
@@ -289,15 +333,14 @@ if (plotfig):
     # Adding legend, which helps us recognize the curve according to it's color
     plt.legend()
 
-
-    #PLOT2
+    #PLOT2 
     X = [0,1,2,3,4,5,6,7,8,9,10]
-    y = [3.5 , 3.5 , 3.5 , 3.875 , 4.375 , 5.75 , 8.625 , 6.625 , 8.125 , 7.1 , 4] #OneTree
-    z = [3.5 , 3.5 , 3.5 , 3.875 , 4.375 , 5.75 , 10.125 , 11.875 , 7.75 , 8.7 , 7]
+    y = [3.5,2.875,4.375,5.75,8.6,6.625,8.125,7.1,4.0] #OneTree
+    z = [3.5,2.875,4.375,5.75,6.6,6.625,8.126,8.2,4.0]
     # Plotting both the curves simultaneously
     plt.subplot(222)
     plt.plot(X, y, color='r', label='OneTree')
-    plt.plot(X, z, color='g', label='MultipleTrees')
+    plt.plot(X, z, color='g', label='OneTree Breite Mod')
     # Naming the x-axis, y-axis and the whole graph
     plt.xlabel("Failure Rate")
     plt.ylabel("Durschn. Hops")

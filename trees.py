@@ -527,7 +527,7 @@ def multiple_trees_num_of_trees_mod(source, destination, graph, all_edps):
 #der Algorithmus der die Baumbildung aufruft
 def multiple_trees_pre_breite_mod(graph):
     paths = {}
-    PG = nx.nx_pydot.write_dot(graph, "./multiple_trees_graphen/graph")
+    #PG = nx.nx_pydot.write_dot(graph, "./multiple_trees_graphen/graph")
     
     for source in graph.nodes:
         for destination in graph.nodes:
@@ -833,7 +833,7 @@ def one_tree_pre(graph):
 
                 
                 tree = one_tree(source,destination,graph,longest_edp)
-
+                PG5 = nx.nx_pydot.write_dot(tree , "./breite_mod_trees/treeNORMAL_"+ str(source) + "_" + str(destination))
                 if source in paths:
                     paths[source][destination] = { 'tree': tree, 'edps': edps}
                 else:
@@ -870,25 +870,37 @@ def one_tree(source, destination, graph, longest_edp):
         while it < len(nodes):
 
             neighbors = list(nx.neighbors(graph, nodes[it]))
-
+            #print("Nodes[it] : " , nodes[it])
+            #print("Nachbarn von Nodes[it] : " ,neighbors)
+            #print("Nodes im Baum : " , tree.nodes)
+            #print(" ")
+            #print("Schleife : ")
             for j in neighbors:
+                #print("Prüfe ob ", j , " in tree ist")
                 if (not tree.has_node(j)) and (j!= destination): #not part of tree already and not the destiantion
                     nodes.append(j)
-                    
+                    #print(" Füge ", j , " hinzu")
                     tree.add_node(j) #add neighbors[j] to tree
                     tree.add_edge(nodes[it], j) # add edge to new node
                 #end if
-            
+            #print(" ")
             #end for
             it = it+1
         #end while
+        #print(" ")
     #end for
     
+
+    #PG1 = nx.nx_pydot.write_dot(tree , "./breite_mod_trees/treeNBT"+str(source)+"-"+str(destination))
+
     changed = True 
     while changed == True: #solange versuchen zu kürzen bis nicht mehr gekürzt werden kann 
         old_tree = tree.copy()
         remove_redundant_paths(source, destination, tree, graph)
         changed = tree.order() != old_tree.order() # order returns the number of nodes in the graph.
+
+    
+    #PG1 = nx.nx_pydot.write_dot(tree , "./breite_mod_trees/treeNAT"+str(source)+"-"+str(destination))
 
     rank_tree(tree , source,longest_edp)
     
@@ -909,6 +921,7 @@ def one_tree_pre_breite_mod(graph):
     # und alle weglängen zur destination in 'distance'
 
     paths = {}
+    #PG1 = nx.nx_pydot.write_dot(graph , "./breite_mod_trees/graph")
 
     for source in graph.nodes:
 
@@ -921,7 +934,8 @@ def one_tree_pre_breite_mod(graph):
 
                 
                 tree = one_tree_breite_mod(source,destination,graph,longest_edp,2) #HIER KANN DER LETZTE FUNKTIONSPARAMETER GEÄNDERT WERDEN JE NACH GEWÜNSCHTER BREITE
-
+                PG5 = nx.nx_pydot.write_dot(tree , "./breite_mod_trees/treeMOD_"+ str(source) + "_" + str(destination))
+                
                 #print("Versuche auf index ", source , " und ", destination ," zuzugreifen ")
                 if source in paths:
                     paths[source][destination] = { 'tree': tree, 'edps': edps}

@@ -182,6 +182,42 @@ def start_file(filename):
     return out
 
 
+#testen ob onetree auch trees baut mit breite mehr als 2
+def run_custom(out=None, seed=0, rep=5):
+    global f_num 
+
+    original_params = [n, rep, k, samplesize, f_num, seed, name]
+    graphs = []
+    fails = []
+
+    graph1, fail1 = create_custom_graph()
+
+    graphs.append(graph1)
+    fails.append(fail1) 
+
+    for i in range(0, len(graphs)):
+        f_num = len(fails[i]) # How many failed edges we selected in our create_custom_graph
+        PG = nx.nx_pydot.write_dot(graphs[i] , "./customOneTree/custom_multipletrees_"+ str(i))
+        print("Fails : ", fails[i])
+        random.seed(seed)
+        kk = 5
+        g = graphs[i]
+        g.graph['k'] = kk
+        nn = len(g.nodes())
+        mm = len(g.edges())
+        ss = min(int(nn / 2), samplesize)
+        fn = min(int(mm / 2), f_num)
+        print("Minimum fn: ", fn, "MM/2: ", mm/2 , "f_num :", f_num )
+        fails = fails[i]
+        g.graph['fails'] = fails
+        set_parameters([nn, rep, kk, ss, fn, seed, name + "CUSTOM"])
+        print("Global f_num : ", f_num )
+        shuffle_and_run(g, out, seed, rep, graphs[i])
+        print("Global f_num after run : ", f_num )
+        set_parameters(original_params)
+        print("Global f_num after reset : ", f_num )
+
+
 # run experiments
 # seed is used for pseudorandom number generation in this run
 # switch determines which experiments are run
@@ -189,6 +225,12 @@ def experiments(switch="all", seed=0, rep=100):
     if switch in ["regular", "all"]:
         out = start_file("results/benchmark-regular-FR7-1tVS1tM-" + str(n) + "-" + str(k))
         run_regular(out=out, seed=seed, rep=rep)
+        out.close()
+
+    if switch in ["custom"]:
+        #hier steht wo die ergebnisse des durchlaufs gespeichert werden : results/benchmark-cusutom-5.txt
+        out = start_file("results/benchmark-custom-onetree-" + str(k))
+        run_custom(out=out, seed=seed, rep=rep)
         out.close()
 
     if switch in ["zoo", "all"]:
@@ -209,11 +251,12 @@ def experiments(switch="all", seed=0, rep=100):
 # k = 5 , FR = 2 ---> f_num = k * FR =  10 
 # k = 5 , FR = 4 ---> f_num = k * FR =  20 
 # k = 5 , FR = 6 ---> f_num = k * FR =  30 
+
 # k = 5 , FR = 8 ---> f_num = k * FR =  40
 if __name__ == "__main__":
     f_num = 35 #number of failed links
-    n = 40 # number of nodes
-    k = 5 #base connectivity
+    n = 150 # number of nodes
+    k = 10 #base connectivity
     samplesize = 5 #number of sources to route a packet to destination
     rep = 8 #number of experiments
     switch = 'all' #which experiments to run with same parameters
