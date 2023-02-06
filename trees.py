@@ -48,8 +48,12 @@ def multiple_trees_pre(graph):
                 
                 trees = remove_single_node_trees(trees)#EDPs die nicht erweitert werden konnten, da andere Bäume die Kanten schon vorher verbaut haben,
                                                         #führen nicht zum Ziel und müssen gelöscht werden
+                i= 0
+                for tree in trees:    
+                    i = i + 1
+                    PG5 = nx.nx_pydot.write_dot(tree , "./breite_mod_trees/tree_"+ str(source) + "_" + str(destination) + "_" + str(i) + "_N")
                 
-                print_trees(source,destination,trees)
+                #print_trees(source,destination,trees)
                 
                 print(" ")
                 if source in paths:
@@ -58,7 +62,7 @@ def multiple_trees_pre(graph):
                     paths[source] = {}
                     paths[source][destination] = {'trees': trees, 'edps': edps}
 
-                
+    input("...")           
     return paths
 
 #gibt für ein source-destination paar alle trees zurück
@@ -542,8 +546,12 @@ def multiple_trees_pre_breite_mod(graph):
                 
                 trees = remove_single_node_trees(trees)#EDPs die nicht erweitert werden konnten, da andere Bäume die Kanten schon vorher verbaut haben,
                                                         #führen nicht zum Ziel und müssen gelöscht werden
+                i = 0
+                for tree in trees:    
+                    i = i + 1
+                    PG5 = nx.nx_pydot.write_dot(tree , "./breite_mod_trees/tree_"+ str(source) + "_" + str(destination) + "_" + str(i) + "_M")
                 
-                print_trees(source,destination,trees)
+                #print_trees(source,destination,trees)
 
                 print(" ")
                 if source in paths:
@@ -552,7 +560,7 @@ def multiple_trees_pre_breite_mod(graph):
                     paths[source] = {}
                     paths[source][destination] = {'trees': trees, 'edps': edps}
 
-                
+    input("...")            
     return paths
 
 def multiple_trees_breite_mod(source, destination, graph, all_edps ,limitX):
@@ -833,7 +841,7 @@ def one_tree_pre(graph):
 
                 
                 tree = one_tree(source,destination,graph,longest_edp)
-                PG5 = nx.nx_pydot.write_dot(tree , "./breite_mod_trees/treeNORMAL_"+ str(source) + "_" + str(destination))
+                #PG5 = nx.nx_pydot.write_dot(tree , "./breite_mod_trees/treeNORMAL_"+ str(source) + "_" + str(destination))
                 if source in paths:
                     paths[source][destination] = { 'tree': tree, 'edps': edps}
                 else:

@@ -8,14 +8,14 @@ import math
 
 ##################################################################################################################
 #Hier müssen die algorithm1 , algorithm2 , TitleAlgo1 . TitleAlgo1 NACH JEDEM BEENDETEM PLOT geändert werden
-algorithm1 = 'one_tree'
-algorithm2 = 'one_tree_breite_mod'
-TitleAlgo1 = " One Tree"
-TitleAlgo2 = " One Tree Breite Mod"
+algorithm1 = 'multiple_trees'
+algorithm2 = 'multiple_trees_mod'
+TitleAlgo1 = " MultipleTrees Base"
+TitleAlgo2 = " Multiple Trees Breite Mod"
 
 #Filepath und FR müssen nach jedem FR geändert werden
-filepath = "results/benchmark-regular-FR7-1tVS1tM-40-5.txt"
-FR = '_fr7'
+filepath = "MultipleTrees_vs_MultipleTrees_Breite_Mod/benchmark-regular-FR10-MTvsMTBM-40-5.txt"
+FR = '_fr10'
 
 ###################################################################################################################
 f = open(filepath, "r")
@@ -250,30 +250,36 @@ print(filepath)
 print(" ")
 print(algorithm1 + " " + FR +  " Ergebnisse : " )
 print("Count : ", accumulated[algorithm1 + FR]['count'])
+print("Gesamte Resilienz : " , algorithm1 , accumulated[algorithm1 + FR ]['success'] )
 print("Durchschnittliche Resilienz : ", accumulated[algorithm1 + FR ]['success'] /  accumulated[algorithm1 + FR ]['count'] )
 print("Durchschnittliche Hops : ", accumulated[algorithm1 + FR ]['hops'] /  accumulated[algorithm1 + FR ]['count'] )
 print("Durchschnittliche Zeit : ", (accumulated[algorithm1 + FR ]['pre_computation_time']+accumulated[algorithm1 + FR ]['routing_computation_time'])  /  accumulated[algorithm1 + FR]['count'])
 print(" ")
 print(algorithm2 +   " " + FR +   " Ergebnisse : " )
 print("Count : ", accumulated[algorithm2 + FR]['count'])
+print("Gesamte Resilienz : " , algorithm2 , accumulated[algorithm2 + FR ]['success'] )
 print("Durchschnittliche Resilienz : ", accumulated[algorithm2 + FR ]['success'] /  accumulated[algorithm2 + FR]['count'] )
 print("Durchschnittliche Hops : ", accumulated[algorithm2 + FR ]['hops'] /  accumulated[algorithm2 + FR ]['count'] )
 print("Durchschnittliche Zeit : ", (accumulated[algorithm2 + FR ]['pre_computation_time']+accumulated[algorithm2 + FR ]['routing_computation_time'])  /  accumulated[algorithm2 + FR ]['count'])
 print("------------------------------------------------------------------")
 print("Durchschnittliche Resilienz : " , algorithm1 ,  " " , FR  , " "  , accumulated[algorithm1 + FR ]['success'] /  accumulated[algorithm1 + FR ]['count'] )
-print("Durchschnittliche Resilienz : ", accumulated[algorithm2 + FR ]['success'] /  accumulated[algorithm2 + FR]['count'] )
-
+print("Durchschnittliche Resilienz : " , algorithm2 ,  " " , FR  , " "  , accumulated[algorithm2 + FR ]['success'] /  accumulated[algorithm2 + FR]['count'] )
+print(" ")
 print("Durchschnittliche Hops : ", accumulated[algorithm1 + FR ]['hops'] /  accumulated[algorithm1 + FR ]['count'] )
 print("Durchschnittliche Hops : ", accumulated[algorithm2 + FR ]['hops'] /  accumulated[algorithm2 + FR ]['count'] )
-
+print(" ")
 print("Durchschnittliche Zeit : ", (accumulated[algorithm1 + FR ]['pre_computation_time']+accumulated[algorithm1 + FR ]['routing_computation_time'])  /  accumulated[algorithm1 + FR]['count'])
 print("Durchschnittliche Zeit : ", (accumulated[algorithm2 + FR ]['pre_computation_time']+accumulated[algorithm2 + FR ]['routing_computation_time'])  /  accumulated[algorithm2 + FR ]['count'])
+print(" ")
+print("Durchschnittliche Precomp Zeit : ", (accumulated[algorithm1 + FR ]['pre_computation_time'])  /  accumulated[algorithm1 + FR]['count'])
+print("Durchschnittliche Precomp Zeit : ", (accumulated[algorithm2 + FR ]['pre_computation_time'])  /  accumulated[algorithm2 + FR ]['count'])
+
 ###Graphen ####
 
 
 
 
-plotfig = False
+plotfig = True
 if (plotfig):
 
 
@@ -315,38 +321,103 @@ if (plotfig):
 
     ################################### ONETREE VS ONETREE BREITE MOD #######################################################
 
+    # plt.figure()
+    # #PLOT1
+    # X = [0,1,2,3,4,5,6,7,8,9,10]
+    # # Assign variables to the y axis part of the curve
+    # y = [1,1,1,1,1,0.92,0.85,0.725,0.575,0.4285,0.3] #OneTree
+    # z = [1,1,1,1,1,0.92,0.8,0.725,0.575,0.457,0.3] #MultipleTrees
+    # # Plotting both the curves simultaneously
+    # plt.subplot(221)
+    # plt.plot(X, y, color='r', label='OneTree')
+    # plt.plot(X, z, color='g', label='OneTree Breite Mod')
+    # # Naming the x-axis, y-axis and the whole graph
+    # plt.xlabel("Failure Rate")
+    # plt.ylabel("Resilienz")
+    # plt.title("Resilienz, n = 40 , k = 5 ")
+    # # Adding legend, which helps us recognize the curve according to it's color
+    # plt.legend()
+
+    # #PLOT2 
+    # X = [0,1,2,3,4,5,6,7,8,9,10]
+    # y = [3.5,3.5,3.5,2.875,4.375,5.75,8.6,6.625,8.125,7.1,4.0] #OneTree
+    # z = [3.5,3.5,3.5,2.875,4.375,5.75,6.6,6.625,8.126,8.2,4.0]
+    # # Plotting both the curves simultaneously
+    # plt.subplot(222)
+    # plt.plot(X, y, color='r', label='OneTree')
+    # plt.plot(X, z, color='g', label='OneTree Breite Mod')
+    # # Naming the x-axis, y-axis and the whole graph
+    # plt.xlabel("Failure Rate")
+    # plt.ylabel("Durschn. Hops")
+    # plt.title("Durschn. Hops, n = 40 , k = 5 ")
+    # # Adding legend, which helps us recognize the curve according to it's color
+    # plt.legend()
+
+    
+    # #PLOT3
+    # X = [0,1,2,3,4,5,6,7,8,9,10]
+    # y = [1.56,1.56,1.56,1.6,1.55,1.53,1.53,1.53,1.53,1.5,1.56] #OneTree
+    # z = [2.3,2.3,2.3,2.6,2.28,2.26,2.25,2.25,2.27,2.27,2.3]
+    # a = [1.56, 1.56 , 1.56 , 1.566 , 1.544 , 1.55 , 1.53, 1.53, 1.52 , 1.53 , 1.56  ]
+    # b = [2.29,2.29 , 2.29 , 2.2955 , 2.27 , 2.28 , 2.269 , 2.254, 2.251  , 2.27 , 2.3]
+    # # Plotting both the curves simultaneously
+    # plt.subplot(223)
+
+    # plt.plot(X, y, color='r', label='OneTree Gesamt')
+    # plt.plot(X, a, '--', color='r', label='OneTree Pre-Comp.')
+    # plt.plot(X, z, color='g', label='OneTree Breite Mod Gesamt')
+    # plt.plot(X, b, '--', color='g', label='OneTree Mod Pre-Comp.')
+    # # Naming the x-axis, y-axis and the whole graph
+    # plt.xlabel("Failure Rate")
+    # plt.ylabel("Zeit in s")
+    # plt.title("Durchschn. Ausführungszeit, n = 40 , k = 5 ")
+    # # Adding legend, which helps us recognize the curve according to it's color
+    # plt.legend(bbox_to_anchor=(1.05, 1),loc='upper left', borderaxespad=0.)
+    # # # To load the display window
+    # plt.show()
+    ################################### MULTIPLETREES VS MULTIPLETREES BREITE MOD #######################################################
+    
     plt.figure()
     #PLOT1
-
     X = [0,1,2,3,4,5,6,7,8,9,10]
     # Assign variables to the y axis part of the curve
-    y = [1,1,1,1,1,0.92,0.85,0.725,0.575,0.4285,0.3] #OneTree
-    z = [1,1,1,1,1,0.92,0.8,0.725,0.575,0.457,0.3] #MultipleTrees
+
+    y = [1,1,
+    1,1,1,0.89,0.79,0.65,0.45,0.35,0.15]
+
+    z = [1,1,
+    1,1,0.975,0.92,0.59,0.45,0.4,0.15,0.05] 
+
     # Plotting both the curves simultaneously
     plt.subplot(221)
-    plt.plot(X, y, color='r', label='OneTree')
-    plt.plot(X, z, color='g', label='OneTree Breite Mod')
+    plt.plot(X, y, color='r', label='MultipleTrees')
+    plt.plot(X, z, color='g', label='MultipleTrees Mod')
     # Naming the x-axis, y-axis and the whole graph
     plt.xlabel("Failure Rate")
     plt.ylabel("Resilienz")
     plt.title("Resilienz, n = 40 , k = 5 ")
     # Adding legend, which helps us recognize the curve according to it's color
-    plt.legend()
+    plt.legend(fontsize="x-small")
 
     #PLOT2 
-    X = [0,1,2,3,4,5,6,7,8,9,10]
-    y = [3.5,2.875,4.375,5.75,8.6,6.625,8.125,7.1,4.0] #OneTree
-    z = [3.5,2.875,4.375,5.75,6.6,6.625,8.126,8.2,4.0]
+    X = [2,3,4,5,6,7,8,9,10]
+
+    y = [7.25,7.375,9.5,10.87,14.25,11.62,12.37,12,9] 
+
+    z = [11,15.375,21.625,20.62,19.5,16,12.85,11,6]
+
     # Plotting both the curves simultaneously
     plt.subplot(222)
-    plt.plot(X, y, color='r', label='OneTree')
-    plt.plot(X, z, color='g', label='OneTree Breite Mod')
+    plt.plot(X, y, color='r', label='MultipleTrees')
+    plt.plot(X, z, color='g', label='MultipleTrees Mod')
     # Naming the x-axis, y-axis and the whole graph
     plt.xlabel("Failure Rate")
     plt.ylabel("Durschn. Hops")
     plt.title("Durschn. Hops, n = 40 , k = 5 ")
     # Adding legend, which helps us recognize the curve according to it's color
-    plt.legend()
+    plt.legend(fontsize="x-small")
+    #plt.legend()
 
-    # To load the display window
+    
+    # # To load the display window
     plt.show()
