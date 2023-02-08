@@ -11,11 +11,11 @@ import math
 algorithm1 = 'multiple_trees'
 algorithm2 = 'multiple_trees_mod'
 TitleAlgo1 = " MultipleTrees Base"
-TitleAlgo2 = " Multiple Trees Breite Mod"
-
+TitleAlgo2 = " Multiple Trees Parallel Mod"
+number = "10"
 #Filepath und FR müssen nach jedem FR geändert werden
-filepath = "MultipleTrees_vs_MultipleTrees_Breite_Mod/benchmark-regular-FR10-MTvsMTBM-40-5.txt"
-FR = '_fr10'
+filepath = "MultipleTrees_vs_MultipleTrees_Parallel_Mod/benchmark-regular-FR"+number+"-MTvsMTPM-40-5.txt"
+FR = '_fr'+number
 
 ###################################################################################################################
 f = open(filepath, "r")
@@ -262,8 +262,14 @@ print("Durchschnittliche Resilienz : ", accumulated[algorithm2 + FR ]['success']
 print("Durchschnittliche Hops : ", accumulated[algorithm2 + FR ]['hops'] /  accumulated[algorithm2 + FR ]['count'] )
 print("Durchschnittliche Zeit : ", (accumulated[algorithm2 + FR ]['pre_computation_time']+accumulated[algorithm2 + FR ]['routing_computation_time'])  /  accumulated[algorithm2 + FR ]['count'])
 print("------------------------------------------------------------------")
-print("Durchschnittliche Resilienz : " , algorithm1 ,  " " , FR  , " "  , accumulated[algorithm1 + FR ]['success'] /  accumulated[algorithm1 + FR ]['count'] )
-print("Durchschnittliche Resilienz : " , algorithm2 ,  " " , FR  , " "  , accumulated[algorithm2 + FR ]['success'] /  accumulated[algorithm2 + FR]['count'] )
+print("Durchschnittliche Precomp Zeit : ", (accumulated[algorithm1 + FR ]['pre_computation_time'])  /  accumulated[algorithm1 + FR]['count'])
+print("Durchschnittliche Precomp Zeit : ", (accumulated[algorithm2 + FR ]['pre_computation_time'])  /  accumulated[algorithm2 + FR ]['count'])
+print("------------------------------------------------------------------")
+print(algorithm1 ,  " " , FR)
+print(algorithm2 ,  " " , FR)
+print("------------------------------------------------------------------")
+print("Durchschnittliche Resilienz : " , accumulated[algorithm1 + FR ]['success'] /  accumulated[algorithm1 + FR ]['count'] )
+print("Durchschnittliche Resilienz : " , accumulated[algorithm2 + FR ]['success'] /  accumulated[algorithm2 + FR]['count'] )
 print(" ")
 print("Durchschnittliche Hops : ", accumulated[algorithm1 + FR ]['hops'] /  accumulated[algorithm1 + FR ]['count'] )
 print("Durchschnittliche Hops : ", accumulated[algorithm2 + FR ]['hops'] /  accumulated[algorithm2 + FR ]['count'] )
@@ -271,8 +277,6 @@ print(" ")
 print("Durchschnittliche Zeit : ", (accumulated[algorithm1 + FR ]['pre_computation_time']+accumulated[algorithm1 + FR ]['routing_computation_time'])  /  accumulated[algorithm1 + FR]['count'])
 print("Durchschnittliche Zeit : ", (accumulated[algorithm2 + FR ]['pre_computation_time']+accumulated[algorithm2 + FR ]['routing_computation_time'])  /  accumulated[algorithm2 + FR ]['count'])
 print(" ")
-print("Durchschnittliche Precomp Zeit : ", (accumulated[algorithm1 + FR ]['pre_computation_time'])  /  accumulated[algorithm1 + FR]['count'])
-print("Durchschnittliche Precomp Zeit : ", (accumulated[algorithm2 + FR ]['pre_computation_time'])  /  accumulated[algorithm2 + FR ]['count'])
 
 ###Graphen ####
 
@@ -281,8 +285,7 @@ print("Durchschnittliche Precomp Zeit : ", (accumulated[algorithm2 + FR ]['pre_c
 
 plotfig = True
 if (plotfig):
-
-
+    print(" ")
     ##############################'ONETREE VS MULTIPLETREES ######################################################
     # plt.figure()
     # #PLOT1
@@ -377,16 +380,111 @@ if (plotfig):
     # plt.show()
     ################################### MULTIPLETREES VS MULTIPLETREES BREITE MOD #######################################################
     
+    # plt.figure()
+    # #PLOT1
+    # X = [0,1,2,3,4,5,6,7,8,9,10]
+    # # Assign variables to the y axis part of the curve
+
+    # y = [1,1,
+    # 1,1,1,0.89,0.79,0.65,0.45,0.35,0.15]
+
+    # z = [1,1,
+    # 1,1,0.975,0.92,0.59,0.45,0.4,0.15,0.05] 
+
+    # # Plotting both the curves simultaneously
+    # plt.subplot(221)
+    # plt.plot(X, y, color='r', label='MultipleTrees')
+    # plt.plot(X, z, color='g', label='MultipleTrees Mod')
+    # # Naming the x-axis, y-axis and the whole graph
+    # plt.xlabel("Failure Rate")
+    # plt.ylabel("Resilienz")
+    # plt.title("Resilienz, n = 40 , k = 5 ")
+    # # Adding legend, which helps us recognize the curve according to it's color
+    # plt.legend(fontsize="x-small")
+
+    # #PLOT2 
+    # X = [2,3,4,5,6,7,8,9,10]
+
+    # y = [7.25,7.375,9.5,10.87,14.25,11.62,12.37,12,9] 
+
+    # z = [11,15.375,21.625,20.62,19.5,16,12.85,11,6]
+
+    # # Plotting both the curves simultaneously
+    # plt.subplot(222)
+    # plt.plot(X, y, color='r', label='MultipleTrees')
+    # plt.plot(X, z, color='g', label='MultipleTrees Mod')
+    # # Naming the x-axis, y-axis and the whole graph
+    # plt.xlabel("Failure Rate")
+    # plt.ylabel("Durschn. Hops")
+    # plt.title("Durschn. Hops, n = 40 , k = 5 ")
+    # # Adding legend, which helps us recognize the curve according to it's color
+    # plt.legend(fontsize="x-small")
+    # #plt.legend()
+
+    
+    # # # To load the display window
+    # plt.show()
+
+    ########################## MULTIPLETREES VS MULTIPLETREES ANZAHL MOD #################################################
+
+    # plt.figure()
+    # #PLOT1
+    # X = [0,1,2,3,4,5,6,7,8,9,10]
+    # # Assign variables to the y axis part of the curve
+
+    # y = [1,1,
+    # 1,1,1,0.89,0.79,0.65,0.45,0.35,0.15]
+
+    # z = [1,1,
+    # 1,1,0.92,0.89,0.625,0.55,0.3,0.325,0.125] 
+
+    # # Plotting both the curves simultaneously
+    # plt.subplot(221)
+    # plt.plot(X, y, color='r', label='MultipleTrees')
+    # plt.plot(X, z, color='g', label='MultipleTrees Mod')
+    # # Naming the x-axis, y-axis and the whole graph
+    # plt.xlabel("Failure Rate")
+    # plt.ylabel("Resilienz")
+    # plt.title("Resilienz, n = 40 , k = 5 ")
+    # # Adding legend, which helps us recognize the curve according to it's color
+    # plt.legend(fontsize="x-small")
+
+    # # # #PLOT2 
+    # X = [2,3,4,5,6,7,8,9,10]
+
+    # y = [7.25,7.375,9.5,10.87,14.25,11.62,12.37,12,9] 
+
+    # z = [6.125,7.6,9.625,11,12,10.75,6.8,12.8,6.3]
+
+    # # Plotting both the curves simultaneously
+    # plt.subplot(222)
+    # plt.plot(X, y, color='r', label='MultipleTrees')
+    # plt.plot(X, z, color='g', label='MultipleTrees Mod')
+    # # Naming the x-axis, y-axis and the whole graph
+    # plt.xlabel("Failure Rate")
+    # plt.ylabel("Durschn. Hops")
+    # plt.title("Durschn. Hops, n = 40 , k = 5 ")
+    # # Adding legend, which helps us recognize the curve according to it's color
+    # plt.legend(fontsize="x-small")
+    # #plt.legend()
+
+    
+    # # To load the display window
+    
+    # plt.show()
+
+    ########################## MULTIPLETREES VS MULTIPLETREES PARALLEL MOD #################################################
+
     plt.figure()
     #PLOT1
     X = [0,1,2,3,4,5,6,7,8,9,10]
     # Assign variables to the y axis part of the curve
 
     y = [1,1,
-    1,1,1,0.89,0.79,0.65,0.45,0.35,0.15]
+    1,1,1,0.89,0.79,0.65,0.45,0.35,0.24]
 
     z = [1,1,
-    1,1,0.975,0.92,0.59,0.45,0.4,0.15,0.05] 
+    1,1,1,1,0.875,0.75,0.525,0.275,0.24] 
 
     # Plotting both the curves simultaneously
     plt.subplot(221)
@@ -399,12 +497,12 @@ if (plotfig):
     # Adding legend, which helps us recognize the curve according to it's color
     plt.legend(fontsize="x-small")
 
-    #PLOT2 
+    # # #PLOT2 
     X = [2,3,4,5,6,7,8,9,10]
 
-    y = [7.25,7.375,9.5,10.87,14.25,11.62,12.37,12,9] 
+    y = [7.25,7.375,9.5,10.87,14.25,11.62,12.37,12,9] #muss man für MultipleTrees nicht ändern da es sich für gleiche Graphen identisch verhält
 
-    z = [11,15.375,21.625,20.62,19.5,16,12.85,11,6]
+    z = [8.75,8.8,11.125,14.37,14,18.5,12.25,5.4,6.6]
 
     # Plotting both the curves simultaneously
     plt.subplot(222)
@@ -417,7 +515,4 @@ if (plotfig):
     # Adding legend, which helps us recognize the curve according to it's color
     plt.legend(fontsize="x-small")
     #plt.legend()
-
-    
-    # # To load the display window
     plt.show()

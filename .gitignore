@@ -10,5 +10,6 @@ multiple_trees_graphen/
 *ml
 log.txt
 log*
+*.txt
 graph
 breite_mod_trees/

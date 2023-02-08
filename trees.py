@@ -32,7 +32,9 @@ DEBUG = False
 def multiple_trees_pre(graph):
     paths = {}
     #PG = nx.nx_pydot.write_dot(graph, "./multiple_trees_graphen/graph")
-    
+    count = 1
+    all_graph_edge_number = len(graph.edges)
+    all_tree_edge_number = 0
     for source in graph.nodes:
        
         for destination in graph.nodes:
@@ -53,8 +55,15 @@ def multiple_trees_pre(graph):
                     i = i + 1
                     PG5 = nx.nx_pydot.write_dot(tree , "./breite_mod_trees/tree_"+ str(source) + "_" + str(destination) + "_" + str(i) + "_N")
                 
-                #print_trees(source,destination,trees)
+                # #print_trees(source,destination,trees)
                 
+                print(" ")
+                edges_of_this_run = 0 
+                for tree in trees:
+                    all_tree_edge_number = all_tree_edge_number + len(tree.edges)
+                    edges_of_this_run = edges_of_this_run + len(tree.edges)
+                count = count + 1
+                print("Die Kanten dieses Laufs (normal) : " , edges_of_this_run)
                 print(" ")
                 if source in paths:
                     paths[source][destination] = { 'trees': trees, 'edps': edps}
@@ -62,7 +71,8 @@ def multiple_trees_pre(graph):
                     paths[source] = {}
                     paths[source][destination] = {'trees': trees, 'edps': edps}
 
-    input("...")           
+    print("Bei einem count von " , count , " und insgesamt Graph Kanten " , all_graph_edge_number, " ergeben sich " , all_tree_edge_number , " Baumkanten bei der normalen Variante")
+    #input("...")           
     return paths
 
 #gibt für ein source-destination paar alle trees zurück
@@ -331,7 +341,9 @@ def multiple_trees_order_of_edps_mod(source, destination, graph, all_edps):
 
 def multiple_trees_pre_num_of_trees_mod(graph):
     paths = {}
-    
+    count = 1
+    all_graph_edge_number = len(graph.edges)
+    all_tree_edge_number = 0
     for source in graph.nodes:
 
         for destination in graph.nodes:
@@ -349,13 +361,20 @@ def multiple_trees_pre_num_of_trees_mod(graph):
                                                         #führen nicht zum Ziel und müssen gelöscht werden
                 
                 
+                
+                edges_of_this_run = 0 
+                for tree in trees:
+                    all_tree_edge_number = all_tree_edge_number + len(tree.edges)
+                    edges_of_this_run = edges_of_this_run + len(tree.edges)
+                count = count + 1
+                print("Die Kanten dieses Laufs (modifiziert) : " , edges_of_this_run)
                 print(" ")
                 if source in paths:
                     paths[source][destination] = { 'trees': trees, 'edps': edps}
                 else:
                     paths[source] = {}
                     paths[source][destination] = {'trees': trees, 'edps': edps}
-
+    print("Bei einem count von " , count , " und insgesamt Graph Kanten " , all_graph_edge_number, " ergeben sich " , all_tree_edge_number , " Baumkanten bei der modifizierten Variante")
                 
     return paths
 
@@ -363,7 +382,7 @@ def multiple_trees_pre_num_of_trees_mod(graph):
 def multiple_trees_num_of_trees_mod(source, destination, graph, all_edps):
     trees = [] #hier werden alle trees gespeichert 
     debug = False
-    number_of_wanted_trees = 2 #diese Zahl muss geändert werden, damit man die Anzahl an zu bauenden Bäumen einschränkt
+    number_of_wanted_trees = 3 #diese Zahl muss geändert werden, damit man die Anzahl an zu bauenden Bäumen einschränkt
     number_of_edps = len(all_edps)
     
     print("Versuche " , number_of_wanted_trees , " aus " , number_of_edps , " zu bilden ")
@@ -671,7 +690,9 @@ def multiple_trees_breite_mod(source, destination, graph, all_edps ,limitX):
 #der Algorithmus der die Baumbildung aufruft
 def multiple_trees_pre_parallel(graph):
     paths = {}
-    
+    count = 1
+    all_graph_edge_number = len(graph.edges)
+    all_tree_edge_number = 0
     
     for source in graph.nodes:
         for destination in graph.nodes:
@@ -686,8 +707,18 @@ def multiple_trees_pre_parallel(graph):
                 
                 trees = remove_single_node_trees(trees)#EDPs die nicht erweitert werden konnten, da andere Bäume die Kanten schon vorher verbaut haben,
                                                         #führen nicht zum Ziel und müssen gelöscht werden
-                
-                print_trees(source,destination,trees)
+                edges_of_this_run = 0 
+                for tree in trees:
+                    all_tree_edge_number = all_tree_edge_number + len(tree.edges)
+                    edges_of_this_run = edges_of_this_run + len(tree.edges)
+                i = 0
+                for tree in trees:    
+                    i = i + 1
+                    PG5 = nx.nx_pydot.write_dot(tree , "./breite_mod_trees/tree_"+ str(source) + "_" + str(destination) + "_" + str(i) + "_M")
+                count = count + 1
+                print("Die Kanten dieses Laufs (modifiziert) : " , edges_of_this_run)
+                print(" ")
+                #print_trees(source,destination,trees)
                 print(" ")
                 if source in paths:
                     paths[source][destination] = { 'trees': trees, 'edps': edps}
@@ -695,7 +726,7 @@ def multiple_trees_pre_parallel(graph):
                     paths[source] = {}
                     paths[source][destination] = {'trees': trees, 'edps': edps}
 
-                
+    print("Bei einem count von " , count , " und insgesamt Graph Kanten " , all_graph_edge_number, " ergeben sich " , all_tree_edge_number , " Baumkanten bei der modifizierten Variante")            
     return paths
 
 #in dieser funktion werden die trees parallel gebaut, das bedeutet, dass pro tree jeweils 1 Kante eingebaut wird

@@ -3,7 +3,6 @@
 regular, 40, 5, MultipleTrees Base FR8, 0, 9, 2, 12, 0.600000, 0.000327, 56.445086
 regular, 40, 5, Multiple Trees Breite Mod FR8, 0, 14, 2, 17, 0.200000, 0.000328, 76.560563
 regular, 40, 5, MultipleTrees Base FR8, 1, 10, 3, 14, 0.400000, 0.000376, 57.042535
-regular, 40, 5, Multiple Trees Breite Mod FR8, 1, inf, inf, inf, 0.000000, 0.000370, 76.557007
 regular, 40, 5, MultipleTrees Base FR8, 2, 4, 2, 9, 0.400000, 0.000366, 55.348621
 regular, 40, 5, Multiple Trees Breite Mod FR8, 2, 4, 2, 8, 0.200000, 0.000318, 74.020267
 regular, 40, 5, MultipleTrees Base FR8, 3, 20, 1, 22, 0.800000, 0.000363, 55.234338
