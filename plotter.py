@@ -8,10 +8,10 @@ import math
 
 ##################################################################################################################
 #Hier müssen die algorithm1 , algorithm2 , TitleAlgo1 . TitleAlgo1 NACH JEDEM BEENDETEM PLOT geändert werden
-algorithm1 = 'multiple_trees'
-algorithm2 = 'multiple_trees_mod'
-TitleAlgo1 = " MultipleTrees Base"
-TitleAlgo2 = " MultipleTrees Invert Order Mod"
+algorithm1 = 'square_one'
+algorithm2 = 'breite_inverse'
+TitleAlgo1 = " SquareOne"
+TitleAlgo2 = " Breite and Inverse"
 
 alg1_hops = []
 alg2_hops = []
@@ -25,7 +25,7 @@ for i in range(2,11):
 
     number = str(i)
 
-    filepath = "MultipleTrees_vs_MultipleTrees_Inverse_Order_Mod/benchmark-regular-FR"+number+"-MTvsMTOIM-40-5.txt"
+    filepath = "SquareOne/benchmark-regular-sq1-FR" + number + "-40-5.txt"
     FR = '_fr'+number
 
     ###################################################################################################################
@@ -303,7 +303,7 @@ for i in range(2,11):
 
     ###Graphen ####
     print(" ")
-    input("CLICK FOR NEXT FR ...")
+    #input("CLICK FOR NEXT FR ...")
     print("------------------------------------------------------------------")
 #endfor
 print(algorithm1 , " Resilienz : ", alg1_resilience)
@@ -328,17 +328,19 @@ print(algorithm2 , " Hops : ", alg2_hops)
 plotfig = True
 if (plotfig):
     print(" ")
-    ##############################'ONETREE VS MULTIPLETREES ######################################################
+    ##############################'ONETREE VS MULTIPLETREES VS SQUARE ONE######################################################
     # plt.figure()
     # #PLOT1
     # X = [0,1,2,3,4,5,6,7,8,9,10]
     # # Assign variables to the y axis part of the curve
-    # y = [1,1,1,1,1, 0.925 , 0.85 , 0.725 , 0.575 , 0.42 , 0.225] #OneTree
+    # y = [1,1,1,1,1, 0.925 , 0.85 ,  0.725 , 0.575 , 0.42 , 0.225] #OneTree
     # z = [1,1,1,1,1, 0.925 , 0.874 , 0.775 , 0.575 , 0.45 , 0.25] #MultipleTrees
+    # a = [1,1,1,1,1, 0.924 , 0.75,   0.65,   0.525,  0.35,  0.19] # SquareOne
     # # Plotting both the curves simultaneously
     # plt.subplot(221)
     # plt.plot(X, y, color='r', label='OneTree')
     # plt.plot(X, z, color='g', label='MultipleTrees')
+    # plt.plot(X, a, color='b', label='SquareOne')
     # # Naming the x-axis, y-axis and the whole graph
     # plt.xlabel("Failure Rate")
     # plt.ylabel("Resilienz")
@@ -349,11 +351,13 @@ if (plotfig):
     # #PLOT2
     # X = [0,1,2,3,4,5,6,7,8,9,10]
     # y = [3.5 , 3.5 , 3.5 , 3.875 , 4.375 , 5.75 , 8.625 , 6.625 , 8.125 , 7.1 , 4] #OneTree
-    # z = [3.5 , 3.5 , 3.5 , 3.875 , 4.375 , 5.75 , 10.125 , 11.875 , 7.75 , 8.7 , 7]
+    # z = [3.5 , 3.5 , 3.5 , 3.875 , 4.375 , 5.75 , 10.125 , 11.875 , 7.75 , 8.7 , 7] #multipletrees
+    # a = [3.37,3.37,3.375, 3.625, 3.75, 5.875, 5.875, 5.625, 5.25, 5.571428571428571, 3.5] #squareone
     # # Plotting both the curves simultaneously
     # plt.subplot(222)
     # plt.plot(X, y, color='r', label='OneTree')
     # plt.plot(X, z, color='g', label='MultipleTrees')
+    # plt.plot(X, a, color='b', label='SquareOne')
     # # Naming the x-axis, y-axis and the whole graph
     # plt.xlabel("Failure Rate")
     # plt.ylabel("Durschn. Hops")
@@ -613,7 +617,6 @@ if (plotfig):
 
     # y = [1, 1, 1.0, 1.0, 1.0, 0.8999999999999999, 0.7999999999999999, 0.65, 0.45000000000000007, 0.35, 0.15]
 
-
     # z = [1, 1, 1.0, 1.0, 1.0, 0.95, 0.925, 0.925, 0.6749999999999999, 0.475, 0.24000000000000005]
 
     # # Plotting both the curves simultaneously
@@ -651,18 +654,36 @@ if (plotfig):
 
     plt.figure()
     #PLOT1
-    X = [0,1,2,3,4,5,6,7,8,9,10]
+    X = [4,5,6,7,8,9,10]
     # Assign variables to the y axis part of the curve
 
-    y = [1, 1, 1.0, 1.0, 1.0, 0.8999999999999999, 0.7999999999999999, 0.65, 0.45000000000000007, 0.35, 0.15]
+    # y = [1, 1, 1, 1, 1, 0.92,  0.85,  0.725, 0.575,  0.375, 0.22] # OneTree
 
+    # z = [1, 1, 1, 1, 1, 0.89,  0.79,  0.65,  0.450,  0.35,  0.15] # MultipleTrees
 
-    z = [1, 1, 1.0, 1.0, 1.0, 0.95, 0.925, 0.925, 0.6749999999999999, 0.475, 0.24000000000000005]
+    # b = [1, 1, 1, 1, 1, 0.975, 0.925, 0.825, 0.575, 0.3, 0.15] # p + i
+
+    # c = [1, 1, 1, 1, 0.925, 0.725, 0.525, 0.35, 0.2, 0.125, 0.025] # b + i
+
+    # d = [1, 1, 1, 1, 1, 0.975, 0.85, 0.7749999999999999, 0.5, 0.325, 0.125] # n + r
+
+    y = [ 1, 0.92,  0.85,  0.725, 0.575,  0.375, 0.22] # OneTree
+
+    z = [1,  0.925 ,0.874 ,0.775 ,0.575 , 0.45 , 0.25] #MultipleTrees
+    
+    b = [ 1,  0.975, 0.925, 0.825, 0.575, 0.3, 0.15] # p + i
+
+    c = [ 0.925, 0.725, 0.525, 0.35, 0.2, 0.125, 0.025] # b + i
+
+    d = [ 1, 0.975, 0.85, 0.7749999999999999, 0.5, 0.325, 0.125] # n + r
 
     # Plotting both the curves simultaneously
     plt.subplot(221)
-    plt.plot(X, y, color='r', label='MultipleTrees')
-    plt.plot(X, z, color='g', label='MultipleTrees Mod')
+    plt.plot(X, y, '--', color='r', label='OneTree')
+    plt.plot(X, z, '--', color='g', label='MultipleTrees')
+    plt.plot(X, b, color='c', label='Parallel & Invers')
+    plt.plot(X, c, color='m', label='Breite & Invers')
+    plt.plot(X, d, color='y', label='Anzahl & Randomisiert')
     # Naming the x-axis, y-axis and the whole graph
     plt.xlabel("Failure Rate")
     plt.ylabel("Resilienz")
@@ -670,22 +691,4 @@ if (plotfig):
     # Adding legend, which helps us recognize the curve according to it's color
     plt.legend(fontsize="x-small")
 
-    # # #PLOT2 
-    X = [2,3,4,5,6,7,8,9,10]
-
-    y = alg1_hops
-
-    z = alg2_hops
-
-    # Plotting both the curves simultaneously
-    plt.subplot(222)
-    plt.plot(X, y, color='r', label='MultipleTrees')
-    plt.plot(X, z, color='g', label='MultipleTrees Mod')
-    # Naming the x-axis, y-axis and the whole graph
-    plt.xlabel("Failure Rate")
-    plt.ylabel("Durschn. Hops")
-    plt.title("Durschn. Hops, n = 40 , k = 5 ")
-    # Adding legend, which helps us recognize the curve according to it's color
-    plt.legend(fontsize="x-small")
-    #plt.legend()
     plt.show()
