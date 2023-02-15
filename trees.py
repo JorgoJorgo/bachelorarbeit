@@ -380,7 +380,7 @@ def multiple_trees_pre_invert_order_of_edps_mod(graph):
                     paths[source] = {}
                     paths[source][destination] = {'trees': trees, 'edps': edps}
 
-    print("Bei einem count von " , count , " und insgesamt Graph Kanten " , all_graph_edge_number, " ergeben sich " , all_tree_edge_number , " Baumkanten bei der modifizierten Variante")
+    print("Bei einem count von " , count , " und insgesamt Graph Kanten " , all_graph_edge_number, " ergeben sich " , all_tree_edge_number , " Baumkanten bei der modifizierten (invert) Variante")
                 
     return paths
 
@@ -693,7 +693,7 @@ def multiple_trees_pre_num_of_trees_mod(graph):
                 else:
                     paths[source] = {}
                     paths[source][destination] = {'trees': trees, 'edps': edps}
-    print("Bei einem count von " , count , " und insgesamt Graph Kanten " , all_graph_edge_number, " ergeben sich " , all_tree_edge_number , " Baumkanten bei der modifizierten Variante")
+    print("Bei einem count von " , count , " und insgesamt Graph Kanten " , all_graph_edge_number, " ergeben sich " , all_tree_edge_number , " Baumkanten bei der modifizierten (num of trees) Variante")
                 
     return paths
 
@@ -898,7 +898,7 @@ def multiple_trees_pre_breite_mod(graph):
                     paths[source] = {}
                     paths[source][destination] = {'trees': trees, 'edps': edps}
 
-    input("...")            
+    #input("...")            
     return paths
 
 def multiple_trees_breite_mod(source, destination, graph, all_edps ,limitX):
@@ -1045,7 +1045,7 @@ def multiple_trees_pre_parallel(graph):
                     paths[source] = {}
                     paths[source][destination] = {'trees': trees, 'edps': edps}
 
-    print("Bei einem count von " , count , " und insgesamt Graph Kanten " , all_graph_edge_number, " ergeben sich " , all_tree_edge_number , " Baumkanten bei der modifizierten Variante")            
+    print("Bei einem count von " , count , " und insgesamt Graph Kanten " , all_graph_edge_number, " ergeben sich " , all_tree_edge_number , " Baumkanten bei der modifizierten (parallel) Variante")            
     return paths
 
 #in dieser funktion werden die trees parallel gebaut, das bedeutet, dass pro tree jeweils 1 Kante eingebaut wird
@@ -1426,7 +1426,7 @@ def multiple_trees_pre_parallel_and_inverse(graph):
                     paths[source] = {}
                     paths[source][destination] = {'trees': trees, 'edps': edps}
 
-    print("Bei einem count von " , count , " und insgesamt Graph Kanten " , all_graph_edge_number, " ergeben sich " , all_tree_edge_number , " Baumkanten bei der modifizierten Variante")            
+    print("Bei einem count von " , count , " und insgesamt Graph Kanten " , all_graph_edge_number, " ergeben sich " , all_tree_edge_number , " Baumkanten bei der modifizierten (parallel + inverse) Variante")            
     return paths
 
 #in dieser funktion werden die trees parallel gebaut, das bedeutet, dass pro tree jeweils 1 Kante eingebaut wird
@@ -1603,7 +1603,7 @@ def multiple_trees_pre_breite_mod_and_inverse(graph):
                     paths[source] = {}
                     paths[source][destination] = {'trees': trees, 'edps': edps}
 
-    input("...")            
+    #input("...")            
     return paths
 
 def multiple_trees_breite_mod_and_inverse(source, destination, graph, all_edps ,limitX):
@@ -1771,7 +1771,7 @@ def multiple_trees_pre_num_of_trees_mod_and_random_order(graph):
                 else:
                     paths[source] = {}
                     paths[source][destination] = {'trees': trees, 'edps': edps}
-    print("Bei einem count von " , count , " und insgesamt Graph Kanten " , all_graph_edge_number, " ergeben sich " , all_tree_edge_number , " Baumkanten bei der modifizierten Variante")
+    print("Bei einem count von " , count , " und insgesamt Graph Kanten " , all_graph_edge_number, " ergeben sich " , all_tree_edge_number , " Baumkanten bei der modifizierten  (num + random order) Variante")
                 
     return paths
 
@@ -1781,14 +1781,11 @@ def multiple_trees_num_of_trees_mod_and_random_order(source, destination, graph,
 
     
     debug = False
-    
-    #reihenfolge wird zufällig gewählt
-    print("Randomizinig EDPs")
-    print("EDPs before shuffle : " , all_edps)
+
     random.shuffle(all_edps)
-    print("EDPs after shuffle : " , all_edps)
 
     number_of_wanted_trees = 3 #diese Zahl muss geändert werden, damit man die Anzahl an zu bauenden Bäumen einschränkt
+
     number_of_edps = len(all_edps)
     
     print("Versuche " , number_of_wanted_trees , " aus " , number_of_edps , " zu bilden ")
@@ -1816,10 +1813,7 @@ def multiple_trees_num_of_trees_mod_and_random_order(source, destination, graph,
 
    
     #reihenfolge wird zufällig gewählt
-    print("Randomizinig EDPs")
-    print("EDPs before shuffle : " , all_edps)
     random.shuffle(all_edps)
-    print("EDPs after shuffle : " , all_edps)
     
         
 

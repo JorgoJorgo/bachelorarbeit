@@ -606,6 +606,49 @@ if (plotfig):
 
     ############################################### MULTIPLETREES vs MULTIPLETREES INVERSE ORDER MOD ##################################
 
+    # plt.figure()
+    # #PLOT1
+    # X = [0,1,2,3,4,5,6,7,8,9,10]
+    # # Assign variables to the y axis part of the curve
+
+    # y = [1, 1, 1.0, 1.0, 1.0, 0.8999999999999999, 0.7999999999999999, 0.65, 0.45000000000000007, 0.35, 0.15]
+
+
+    # z = [1, 1, 1.0, 1.0, 1.0, 0.95, 0.925, 0.925, 0.6749999999999999, 0.475, 0.24000000000000005]
+
+    # # Plotting both the curves simultaneously
+    # plt.subplot(221)
+    # plt.plot(X, y, color='r', label='MultipleTrees')
+    # plt.plot(X, z, color='g', label='MultipleTrees Mod')
+    # # Naming the x-axis, y-axis and the whole graph
+    # plt.xlabel("Failure Rate")
+    # plt.ylabel("Resilienz")
+    # plt.title("Resilienz, n = 40 , k = 5 ")
+    # # Adding legend, which helps us recognize the curve according to it's color
+    # plt.legend(fontsize="x-small")
+
+    # # # #PLOT2 
+    # X = [2,3,4,5,6,7,8,9,10]
+
+    # y = alg1_hops
+
+    # z = alg2_hops
+
+    # # Plotting both the curves simultaneously
+    # plt.subplot(222)
+    # plt.plot(X, y, color='r', label='MultipleTrees')
+    # plt.plot(X, z, color='g', label='MultipleTrees Mod')
+    # # Naming the x-axis, y-axis and the whole graph
+    # plt.xlabel("Failure Rate")
+    # plt.ylabel("Durschn. Hops")
+    # plt.title("Durschn. Hops, n = 40 , k = 5 ")
+    # # Adding legend, which helps us recognize the curve according to it's color
+    # plt.legend(fontsize="x-small")
+    # #plt.legend()
+    # plt.show()
+
+    ################################# KOMBINATIONEN ####################################################################
+
     plt.figure()
     #PLOT1
     X = [0,1,2,3,4,5,6,7,8,9,10]
