@@ -629,10 +629,53 @@ def PrepareSQ1(G, d):
     R = build_residual_network(H, 'capacity')
     SQ1 = {n: {} for n in G}
     for u in G.nodes():
+        
         if (u != d):
+            print("Baue die Struktur für " , u , " nach " , d)
             k = sorted(list(nx.edge_disjoint_paths(
                 G, u, d, auxiliary=H, residual=R)), key=len)
             SQ1[u][d] = k
+            print(" ")
+            print("SQ : " , SQ1)
+    print(" ")
+    print("PREPARE SQ1 FERTIG")
+
+def PrepareSQ1(G) :
+    global SQ1
+    H = build_auxiliary_edge_connectivity(G)
+    R = build_residual_network(H, 'capacity')
+
+    SQ1 = {n: {} for n in G}
+    for key in SQ1 :
+        print(key)
+        print(SQ1[key])
+        for n in G.nodes():
+            if key != n:
+                SQ1[key][n] = {}
+        print(SQ1[key])
+
+    for s in G.nodes():
+        for d in G.nodes():
+            if (s != d):
+                #print("SQ vorher : " , SQ1)
+                #print("Baue die Struktur für " , s , " nach " , d)
+                k = sorted(list(nx.edge_disjoint_paths(
+                    G, s, d, auxiliary=H, residual=R)), key=len)
+                if len(SQ1[s][d]) > 0:
+                    SQ1[s][d].append(k)
+                else:
+                    SQ1[s][d] = k
+                
+                #print(" ")
+                #print("SQ nachher : " , SQ1)
+
+    #print(" ")
+    #print("PREPARE SQ1 FERTIG")
+    return SQ1
+
+
+def returnSQ1():
+    return SQ1
 
 # Route with Square One algorithm
 # source s
@@ -640,6 +683,11 @@ def PrepareSQ1(G, d):
 # link failure set fails
 # arborescence decomposition T
 def RouteSQ1(s, d, fails, T):
+    #print(" ")
+    #print("Source :  ", s , " Destination : ", d )
+    #print(" ")
+    #print("SQ1[s][d] : ", SQ1[s][d])
+    #print(" ")
     curRoute = SQ1[s][d][0]
     k = len(SQ1[s][d])
     detour_edges = []
@@ -647,7 +695,12 @@ def RouteSQ1(s, d, fails, T):
     hops = 0
     switches = 0
     c = s  # current node
-    n = len(T[0].nodes())
+    print(T)
+    # n = len(T[0].nodes())
+    n = len(T[0])
+    #print(" ")
+    #print("len(T[0]) : ",n)
+    #print(" ")
     while (c != d):
         nxt = curRoute[index]
         if (nxt, c) in fails or (c, nxt) in fails:
