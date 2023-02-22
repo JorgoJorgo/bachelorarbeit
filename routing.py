@@ -647,12 +647,12 @@ def PrepareSQ1(G) :
 
     SQ1 = {n: {} for n in G}
     for key in SQ1 :
-        print(key)
-        print(SQ1[key])
+        #print(key)
+        #print(SQ1[key])
         for n in G.nodes():
             if key != n:
                 SQ1[key][n] = {}
-        print(SQ1[key])
+        #print(SQ1[key])
 
     for s in G.nodes():
         for d in G.nodes():
@@ -695,9 +695,9 @@ def RouteSQ1(s, d, fails, T):
     hops = 0
     switches = 0
     c = s  # current node
-    print(T)
+    #print(T)
     # n = len(T[0].nodes())
-    n = len(T[0])
+    n = len(T[s])
     #print(" ")
     #print("len(T[0]) : ",n)
     #print(" ")

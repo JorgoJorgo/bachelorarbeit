@@ -8,8 +8,8 @@ import random
 import time
 import glob
 from objective_function_experiments import *
-from trees import multiple_trees_pre, multiple_trees_pre_breite_mod, multiple_trees_pre_num_of_trees_mod, multiple_trees_pre_order_of_edps_mod, multiple_trees_pre_parallel
-from routing import RouteMultipleTrees
+from trees import multiple_trees_pre, multiple_trees_pre_breite_mod, multiple_trees_pre_invert_order_of_edps_mod, multiple_trees_pre_num_of_trees_mod, multiple_trees_pre_order_of_edps_mod, multiple_trees_pre_parallel, multiple_trees_pre_parallel_and_inverse, multiple_trees_pre_random_order_of_edps_mod, one_tree_pre
+from routing import RouteMultipleTrees, RouteSQ1, PrepareSQ1,RouteOneTree
 DEBUG = True
 
 # Data structure containing the algorithms under
@@ -33,11 +33,13 @@ DEBUG = True
 # algorithms to this data structure to compare the performance
 # of additional algorithms.
 #algos = {'One Tree': [one_tree_pre, RouteOneTree], 'Greedy': [GreedyArborescenceDecomposition, RouteDetCirc]}
-algos = {'MultipleTrees': [multiple_trees_pre, RouteMultipleTrees],
-'MultipleTrees Mod Breite': [multiple_trees_pre_breite_mod, RouteMultipleTrees],
-'MultipleTrees Mod Anzahl': [multiple_trees_pre_num_of_trees_mod, RouteMultipleTrees],
-'MultipleTrees Mod Reihenfolge': [multiple_trees_pre_order_of_edps_mod, RouteMultipleTrees],
-'MultipleTrees Mod Parallel': [multiple_trees_pre_parallel, RouteMultipleTrees]
+algos = {#'MultipleTrees FR2': [multiple_trees_pre, RouteMultipleTrees],
+#'OneTree FR2': [one_tree_pre, RouteOneTree],
+#'Parallel and Inverse FR2': [multiple_trees_pre_parallel_and_inverse, RouteMultipleTrees],
+'SquareOne': [PrepareSQ1, RouteSQ1],
+#'MultipleTrees Mod Parallel': [multiple_trees_pre_parallel, RouteMultipleTrees],
+#'MultipleTrees Invert Order Mod FR2': [multiple_trees_pre_invert_order_of_edps_mod, RouteMultipleTrees],
+#'MultipleTrees Random Order Mod FR2': [multiple_trees_pre_random_order_of_edps_mod, RouteMultipleTrees]
 }
 
 # run one experiment with graph g
@@ -122,7 +124,7 @@ def run_AS(out=None, seed=0, rep=5):
 def run_zoo(out=None, seed=0, rep=5):
     global f_num
     fr = 10 #die zahl muss geändert werden damit man die fr ändert
-    min_connectivity = 4
+    min_connectivity = 2
     original_params = [n, rep, k, samplesize, f_num, seed, name]
     if DEBUG:
         print('n_before, n_after, m_after, connectivity, degree')
@@ -133,14 +135,11 @@ def run_zoo(out=None, seed=0, rep=5):
             continue
         kk = nx.edge_connectivity(g)
         nn = len(g.nodes())
-        if nn > 30:
+        if nn > 20:
             mm = len(g.edges())
             ss = min(int(nn / 2), samplesize)
             f_num = kk * fr
             fn = min(int(mm / 4), f_num)
-            if(fn == int(mm/4)):
-                continue
-
             print("Fehleranzahl : ", fn)
             set_parameters([nn, rep, kk, ss, fn, seed, name + "zoo-"])
             print("Node Number : " , nn)
@@ -225,11 +224,11 @@ def experiments(switch="all", seed=0, rep=100):
 
 
 if __name__ == "__main__":
-    f_num = 15 #number of failed links
+    f_num = 5 #number of failed links
     n = 60 # number of nodes
     k = 5 #base connectivity
     samplesize = 5 #number of sources to route a packet to destination
-    rep = 3 #number of experiments
+    rep = 8 #number of experiments
     switch = 'all' #which experiments to run with same parameters
     seed = 0  #random seed
     name = "benchmark-" #result files start with this name
