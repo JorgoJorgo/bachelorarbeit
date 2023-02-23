@@ -1,5 +1,5 @@
 In diesem Repository befindet sich der Code zur Bachelorarbeit "Analyse, Verbesserung und Evaluation von baumbasierten Fast Failover Routingalgorithmen" von Georgios Karamoussanlis.
-Es gelten die Infomationen der read.me aus dem ursprünglichen ["fast failover"]{https://gitlab.cs.univie.ac.at/ct-papers/fast-failover} Framework auf dem dieses Repository basiert.
+Es gelten die Infomationen der read.me aus dem ursprünglichen [fast failover]{https://gitlab.cs.univie.ac.at/ct-papers/fast-failover} Framework auf dem dieses Repository basiert.
 
 
 ## Überblick
