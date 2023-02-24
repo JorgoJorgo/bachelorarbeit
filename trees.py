@@ -46,6 +46,8 @@ def multiple_trees_pre(graph):
                 edps.sort(key=len, reverse=True) #Sortierung der EDPs
                 
                 print("Start building trees with MultipleTrees Base for ", source , " to ", destination)
+                #
+                #print("all EDPS : " , edps)
                 trees = multiple_trees(source,destination,graph,edps)
                 
                 trees = remove_single_node_trees(trees)#EDPs die nicht erweitert werden konnten, da andere Bäume die Kanten schon vorher verbaut haben,
@@ -96,6 +98,12 @@ def multiple_trees(source, destination, graph, all_edps):
     #endfor
 
     assert len(trees) == len(all_edps), 'Not every edp got a tree!'
+
+    #if(source == 1 and destination == 0):
+    #        o = 0 
+    #        for tree in trees:
+    #            o = o  +1 
+    #            PG = nx.nx_pydot.write_dot(tree, "./realTopoPrints/AonlyEdpTree_"+str(source)+"_"+str(destination)+"_"+str(o))
 
     for i in range(0,len(all_edps)): #jeden edp einmal durchgehen
                                       #um zu versuchen aus jedem edp einen Baum zu bauen
@@ -159,6 +167,12 @@ def multiple_trees(source, destination, graph, all_edps):
 
         changed = True 
 
+        #if(source == 1 and destination == 0):
+        #    o = 0 
+        #    for tree in trees:
+        #        o = o  +1 
+        #        PG = nx.nx_pydot.write_dot(tree, "./realTopoPrints/AlongTree_"+str(source)+"_"+str(destination)+"_"+str(o))
+
         while changed == True: #solange versuchen zu kürzen bis nicht mehr gekürzt werden kann 
             old_tree = tree.copy()
             remove_redundant_paths(source, destination, tree, graph) 
@@ -170,6 +184,15 @@ def multiple_trees(source, destination, graph, all_edps):
         if( tree.order() > 1 ):
             rank_tree(tree , source,all_edps[i])
             connect_leaf_to_destination(tree, source,destination)
+
+            #falls der letzte Knoten im EDP nicht ein Blatt ist sondern auch über andere Wege zum Ziel kommt und daher erweitert wurde
+            #print("all_edps : ", all_edps)
+            #print("Len(all_edps[i]) : " , len(all_edps[i])-1 )
+            #print("Zugriff : " , all_edps[len(all_edps[i])-1])
+            #print("Trying to add edge : " , (all_edps[i][len(all_edps[i])-2],destination))
+            tree.add_edge(all_edps[i][len(all_edps[i])-2],destination)
+
+            #print("Tree Edges : ", tree.edges)
             tree.nodes[destination]["rank"] = -1
         #endif
         
@@ -178,7 +201,11 @@ def multiple_trees(source, destination, graph, all_edps):
             tree.add_edge(source,destination)
             tree.nodes[destination]["rank"] = -1
         #endif
-        
+        #if(source == 1 and destination == 0):
+        #    o = 0 
+        #    for tree in trees:
+        #        o = o  +1 
+        #        PG = nx.nx_pydot.write_dot(tree, "./realTopoPrints/shortTree_"+str(source)+"_"+str(destination)+"_"+str(o))
     #endfor
     
     return trees
@@ -325,6 +352,7 @@ def multiple_trees_order_of_edps_mod(source, destination, graph, all_edps):
         if( tree.order() > 1 ):
             rank_tree(tree , source, all_edps[i])
             connect_leaf_to_destination(tree, source,destination)
+            tree.add_edge(all_edps[i][len(all_edps[i])-2],destination)
             tree.nodes[destination]["rank"] = -1
         #endif
 
@@ -491,6 +519,7 @@ def multiple_trees_invert_order_of_edps_mod(source, destination, graph, all_edps
         if( tree.order() > 1 ):
             rank_tree(tree , source, all_edps[i])
             connect_leaf_to_destination(tree, source,destination)
+            tree.add_edge(all_edps[i][len(all_edps[i])-2],destination)
             tree.nodes[destination]["rank"] = -1
         #endif
 
@@ -644,6 +673,7 @@ def multiple_trees_random_order_of_edps_mod(source, destination, graph, all_edps
         if( tree.order() > 1 ):
             rank_tree(tree , source, all_edps[i])
             connect_leaf_to_destination(tree, source,destination)
+            tree.add_edge(all_edps[i][len(all_edps[i])-2],destination)
             tree.nodes[destination]["rank"] = -1
         #endif
 
@@ -847,6 +877,7 @@ def multiple_trees_num_of_trees_mod(source, destination, graph, all_edps):
         if( tree.order() > 1 ):
             rank_tree(tree , source,all_edps[i])
             connect_leaf_to_destination(tree, source,destination)
+            tree.add_edge(all_edps[i][len(all_edps[i])-2],destination)
             tree.nodes[destination]["rank"] = -1
         #endif
 
@@ -887,7 +918,7 @@ def multiple_trees_pre_breite_mod(graph):
                 i = 0
                 for tree in trees:    
                     i = i + 1
-                    PG5 = nx.nx_pydot.write_dot(tree , "./breite_mod_trees/tree_"+ str(source) + "_" + str(destination) + "_" + str(i) + "_M")
+                    #PG5 = nx.nx_pydot.write_dot(tree , "./breite_mod_trees/tree_"+ str(source) + "_" + str(destination) + "_" + str(i) + "_M")
                 
                 #print_trees(source,destination,trees)
 
@@ -992,6 +1023,7 @@ def multiple_trees_breite_mod(source, destination, graph, all_edps ,limitX):
         if( tree.order() > 1 ):
             rank_tree(tree , source,all_edps[i])
             connect_leaf_to_destination(tree, source,destination)
+            tree.add_edge(all_edps[i][len(all_edps[i])-2],destination)
             tree.nodes[destination]["rank"] = -1
         #endif
 
@@ -1033,7 +1065,7 @@ def multiple_trees_pre_parallel(graph):
                 i = 0
                 for tree in trees:    
                     i = i + 1
-                    PG5 = nx.nx_pydot.write_dot(tree , "./breite_mod_trees/tree_"+ str(source) + "_" + str(destination) + "_" + str(i) + "_M")
+                    #PG5 = nx.nx_pydot.write_dot(tree , "./breite_mod_trees/tree_"+ str(source) + "_" + str(destination) + "_" + str(i) + "_M")
                 count = count + 1
                 print("Die Kanten dieses Laufs (modifiziert) : " , edges_of_this_run)
                 print(" ")
@@ -1157,6 +1189,7 @@ def multiple_trees_parallel(source, destination, graph, all_edps):
         if( tree.order() > 1 ):
             rank_tree(tree , source,all_edps[edpIndex])
             connect_leaf_to_destination(tree, source,destination)
+            tree.add_edge(all_edps[i][len(all_edps[i])-2],destination)
             tree.nodes[destination]["rank"] = -1
             edpIndex = edpIndex+1
         #endif
@@ -1263,7 +1296,7 @@ def one_tree(source, destination, graph, longest_edp):
     rank_tree(tree , source,longest_edp)
     
     connect_leaf_to_destination(tree, source, destination)
-
+    tree.add_edge(longest_edp[len(longest_edp)-2],destination)
     #add 'rank' property to the added destinaton, -1 for highest priorty in routing
     tree.nodes[destination]["rank"] = -1
 
@@ -1292,7 +1325,7 @@ def one_tree_pre_breite_mod(graph):
 
                 
                 tree = one_tree_breite_mod(source,destination,graph,longest_edp,2) #HIER KANN DER LETZTE FUNKTIONSPARAMETER GEÄNDERT WERDEN JE NACH GEWÜNSCHTER BREITE
-                PG5 = nx.nx_pydot.write_dot(tree , "./breite_mod_trees/treeMOD_"+ str(source) + "_" + str(destination))
+                #PG5 = nx.nx_pydot.write_dot(tree , "./breite_mod_trees/treeMOD_"+ str(source) + "_" + str(destination))
                 
                 #print("Versuche auf index ", source , " und ", destination ," zuzugreifen ")
                 if source in paths:
@@ -1376,7 +1409,7 @@ def one_tree_breite_mod(source, destination, graph, longest_edp,limitX):
 
     rank_tree(tree , source , longest_edp)
     connect_leaf_to_destination(tree, source, destination)
-
+    tree.add_edge(longest_edp[len(longest_edp)-2],destination)
     #add 'rank' property to the added destinaton, -1 for highest priorty in routing
     tree.nodes[destination]["rank"] = -1
 
@@ -1414,7 +1447,7 @@ def multiple_trees_pre_parallel_and_inverse(graph):
                 i = 0
                 for tree in trees:    
                     i = i + 1
-                    PG5 = nx.nx_pydot.write_dot(tree , "./breite_mod_trees/tree_"+ str(source) + "_" + str(destination) + "_" + str(i) + "_M")
+                    #PG5 = nx.nx_pydot.write_dot(tree , "./breite_mod_trees/tree_"+ str(source) + "_" + str(destination) + "_" + str(i) + "_M")
                 count = count + 1
                 print("Die Kanten dieses Laufs (modifiziert) : " , edges_of_this_run)
                 print(" ")
@@ -1556,6 +1589,7 @@ def multiple_trees_parallel_and_inverse(source, destination, graph, all_edps):
         if( tree.order() > 1 ):
             rank_tree(tree , source,all_edps[edpIndex])
             connect_leaf_to_destination(tree, source,destination)
+            tree.add_edge(all_edps[i][len(all_edps[i])-2],destination)
             tree.nodes[destination]["rank"] = -1
             edpIndex = edpIndex+1
         #endif
@@ -1592,7 +1626,7 @@ def multiple_trees_pre_breite_mod_and_inverse(graph):
                 i = 0
                 for tree in trees:    
                     i = i + 1
-                    PG5 = nx.nx_pydot.write_dot(tree , "./breite_mod_trees/tree_"+ str(source) + "_" + str(destination) + "_" + str(i) + "_M")
+                    #PG5 = nx.nx_pydot.write_dot(tree , "./breite_mod_trees/tree_"+ str(source) + "_" + str(destination) + "_" + str(i) + "_M")
                 
                 #print_trees(source,destination,trees)
 
@@ -1715,6 +1749,7 @@ def multiple_trees_breite_mod_and_inverse(source, destination, graph, all_edps ,
         if( tree.order() > 1 ):
             rank_tree(tree , source,all_edps[i])
             connect_leaf_to_destination(tree, source,destination)
+            tree.add_edge(all_edps[i][len(all_edps[i])-2],destination)
             tree.nodes[destination]["rank"] = -1
         #endif
 
@@ -1937,6 +1972,7 @@ def multiple_trees_num_of_trees_mod_and_random_order(source, destination, graph,
         if( tree.order() > 1 ):
             rank_tree(tree , source,all_edps[i])
             connect_leaf_to_destination(tree, source,destination)
+            tree.add_edge(all_edps[i][len(all_edps[i])-2],destination)
             tree.nodes[destination]["rank"] = -1
         #endif
 
