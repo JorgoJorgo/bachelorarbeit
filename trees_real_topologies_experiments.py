@@ -133,7 +133,7 @@ def run_zoo(out=None, seed=0, rep=5):
             continue
         kk = nx.edge_connectivity(g)
         nn = len(g.nodes())
-        if nn > 30:
+        if nn > 20:
             mm = len(g.edges())
             ss = min(int(nn / 2), samplesize)
             f_num = kk * fr

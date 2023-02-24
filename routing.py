@@ -52,7 +52,10 @@ def RouteMultipleTrees(s,d,fails,paths):
     trees = paths[s][d]['trees']
     print(" ")
     print('Routing started for ' , s , " to " , d )
-
+    #o = 0
+    #for tree in trees:
+    #    o = o +1 
+    #    PG = nx.nx_pydot.write_dot(tree, "./realTopoPrints/Atree_"+str(s)+"_"+str(d)+"_"+str(o))
     if(not skip_trees):
 
         print(" ")
@@ -92,6 +95,9 @@ def RouteMultipleTrees(s,d,fails,paths):
                         children.append(nodes[1])
                     #endfor
                     
+                    #print("Versuche auf die Kinder zuzugreifen : " , children)
+                    #for child in children:
+                    #    print("Kind Rang " , child , " : " , getRank(tree,child))
                     children.sort(key=lambda x: (getRank(tree, x)))
 
 
@@ -702,6 +708,7 @@ def RouteSQ1(s, d, fails, T):
     #print("len(T[0]) : ",n)
     #print(" ")
     while (c != d):
+        #print("CurRoute :" , curRoute)
         nxt = curRoute[index]
         if (nxt, c) in fails or (c, nxt) in fails:
             for i in range(2, index+1):

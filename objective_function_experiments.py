@@ -676,24 +676,37 @@ def read_zoo(j, min_connectivity):
         sys.exit()
     if len(zoo_list) <= j:
         return None
+    #print(" J : " , j ) 
+    #print(" Zoo_List  : " , zoo_list )
+    #print("Zoo_List[j] : " , zoo_list[j]) 
     g1 = nx.Graph(nx.read_graphml(zoo_list[j]))
     g2 = nx.convert_node_labels_to_integers(g1)
     g2.remove_edges_from(nx.selfloop_edges(g2))
     g2 = g2.to_directed()
     # print(nx.edge_connectivity(g2),',', len(g2.nodes))
     n_before = len(g2.nodes)
+
+    
+    #print("Nodes befor Trimming : " , len(g2.nodes))
     degree = min(3, min_connectivity)
     degree = min(1, min_connectivity)
+    #print("Start Trimming")
     while nx.edge_connectivity(g2) < min_connectivity:
+        #print("G2 Degree before Trim : " , nx.edge_connectivity(g2) , " Nodes : " , len(g2.nodes))
         g2 = trim2(g2, degree)
         if len(g2.nodes) == 0:
             # print(zoo_list[j],"too sparse",len(g1.nodes), len(g1.edges))
             return None
+        #print("G2 Degree after Trim : " , nx.edge_connectivity(g2) , " Nodes : " , len(g2.nodes))
         degree += 1
     #if len(g2.nodes) <= 10:
     #    return None
+    #print(" ")
     g = g2.to_directed()
     print(j, zoo_list[j],'n_before=', n_before, 'n_after=', len(g.nodes), 'm_after=', len(g.edges), 'connectivity=', nx.edge_connectivity(g2), 'degree=', degree)
+
+    #print(" ")
+    #print(" ")
     for (u, v) in g.edges():
         g[u][v]['arb'] = -1
     prepare_graph(g, nx.edge_connectivity(g), seed)

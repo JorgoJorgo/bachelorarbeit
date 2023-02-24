@@ -33,12 +33,12 @@ DEBUG = True
 # algorithms to this data structure to compare the performance
 # of additional algorithms.
 #algos = {'One Tree': [one_tree_pre, RouteOneTree], 'Greedy': [GreedyArborescenceDecomposition, RouteDetCirc]}
-algos = {'MultipleTrees': [multiple_trees_pre, RouteMultipleTrees],
-'MultipleTrees Mod Breite': [multiple_trees_pre_breite_mod, RouteMultipleTrees],
-'MultipleTrees Mod Anzahl': [multiple_trees_pre_num_of_trees_mod, RouteMultipleTrees],
-'MultipleTrees Mod Reihenfolge': [multiple_trees_pre_order_of_edps_mod, RouteMultipleTrees],
-'MultipleTrees Mod Parallel': [multiple_trees_pre_parallel, RouteMultipleTrees],
-'One Tree Breite Mod': [one_tree_pre_breite_mod,RouteOneTree]
+algos = {'MultipleTrees FR2': [multiple_trees_pre, RouteMultipleTrees],
+'MultipleTrees Mod Breite FR2': [multiple_trees_pre_breite_mod, RouteMultipleTrees],
+'MultipleTrees Mod Anzahl FR2': [multiple_trees_pre_num_of_trees_mod, RouteMultipleTrees],
+'MultipleTrees Mod Reihenfolge FR2': [multiple_trees_pre_order_of_edps_mod, RouteMultipleTrees],
+'MultipleTrees Mod Parallel FR2': [multiple_trees_pre_parallel, RouteMultipleTrees],
+'One Tree Breite Mod FR2': [one_tree_pre_breite_mod,RouteOneTree]
 }
 
 # run one experiment with graph g
@@ -201,7 +201,7 @@ def experiments(switch="all", seed=0, rep=100):
         out.close()
 
     if switch in ["zoo", "all"]:
-        out = start_file("results/benchmark-zoo-all-multiple-trees-" + str(k))
+        out = start_file("results/benchmark-zoo-all-multiple-trees-TIME-FR2" + str(k))
         run_zoo(out=out, seed=seed, rep=rep)
         out.close()
 
@@ -220,7 +220,11 @@ def experiments(switch="all", seed=0, rep=100):
 if __name__ == "__main__":
     f_num = 2 #number of failed links
     n = 50 # number of nodes
+
+
     k = 2 #base connectivity
+    
+    
     samplesize = 5 #number of sources to route a packet to destination
     rep = 3 #number of experiments
     switch = 'all' #which experiments to run with same parameters
