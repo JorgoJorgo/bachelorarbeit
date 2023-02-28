@@ -13,3 +13,4 @@ log*
 *.txt
 graph
 breite_mod_trees/
+fixTruncation/
