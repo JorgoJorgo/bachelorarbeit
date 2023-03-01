@@ -15,8 +15,8 @@ import math
 # MultipleTrees Mod Parallel , MultipleTrees Invert Order Mod FR2
 # MultipleTrees Random Order Mod FR2s
 
-
-count = 8
+#FÜR die neuen Real Topos :
+#count = 8
 # algorithm1 = 'baseMT'
 # algorithm2 = 'baseOT'
 # TitleAlgo1 = " MultipleTrees"
@@ -35,6 +35,25 @@ count = 8
 # algorithm1 = 'mtrom'
 # TitleAlgo1 = " MultipleTrees Random Order Mod"
 
+
+
+
+#FÜR die Computation Time
+algorithm1 = "mt"
+algorithm2 = "otbM"
+TitleAlgo1 = " MultipleTrees"
+TitleAlgo2 = " One Tree Breite Mod"
+
+# algorithm1 = "mtmB"
+# algorithm2 = "mtmA"
+# TitleAlgo1 = " MultipleTrees Mod Breite"
+# TitleAlgo2 = " MultipleTrees Mod Anzahl"
+
+# algorithm1 = "mtmR"
+# algorithm2 = "mtmP"
+# TitleAlgo1 = " MultipleTrees Mod Reihenfolge"
+# TitleAlgo2 = " MultipleTrees Mod Parallel"
+
 alg1_hops = []
 alg2_hops = []
 alg1_resilience = [1,1]
@@ -49,7 +68,8 @@ for i in range(2,11):
     number = str(i)
 
     
-    filepath = "NewRealTopos/benchmark-zoo-RealTopos-FR"+number+"-5.txt"
+    #filepath = "NewRealTopos/benchmark-zoo-RealTopos-FR"+number+"-5.txt"
+    filepath = "ComputationTimeExperiments/benchmark-regular-all-multiple-trees-50-"+number+".txt"
     FR = '_fr'+number
 
     ###################################################################################################################
@@ -79,8 +99,8 @@ for i in range(2,11):
         algorithm2 +"_fr8": {"count": 0, "stretch": 0, "load": 0, "hops": 0, "success": 0, "routing_computation_time" : 0, "pre_computation_time" : 0},
         algorithm2 + "_fr9": {"count": 0, "stretch": 0, "load": 0, "hops": 0, "success": 0, "routing_computation_time" : 0, "pre_computation_time" : 0},
         algorithm2 + "_fr10": {"count": 0, "stretch": 0, "load": 0, "hops": 0, "success": 0, "routing_computation_time" : 0, "pre_computation_time" : 0},
-        algorithm2 + "_fr11": {"count": 0, "stretch": 0, "load": 0, "hops": 0, "success": 0, "routing_computation_time" : 0, "pre_computation_time" : 0},
-        algorithm2 + "_fr12": {"count": 0, "stretch": 0, "load": 0, "hops": 0, "success": 0, "routing_computation_time" : 0, "pre_computation_time" : 0},
+        # algorithm2 + "_fr11": {"count": 0, "stretch": 0, "load": 0, "hops": 0, "success": 0, "routing_computation_time" : 0, "pre_computation_time" : 0},
+        # algorithm2 + "_fr12": {"count": 0, "stretch": 0, "load": 0, "hops": 0, "success": 0, "routing_computation_time" : 0, "pre_computation_time" : 0},
 
 
         algorithm1 + "_fr2": {"count": 0, "stretch": 0, "load": 0, "hops": 0, "success": 0, "routing_computation_time" : 0, "pre_computation_time" : 0},
@@ -92,8 +112,8 @@ for i in range(2,11):
         algorithm1 +"_fr8": {"count": 0, "stretch": 0, "load": 0, "hops": 0, "success": 0, "routing_computation_time" : 0, "pre_computation_time" : 0},
         algorithm1 + "_fr9": {"count": 0, "stretch": 0, "load": 0, "hops": 0, "success": 0, "routing_computation_time" : 0, "pre_computation_time" : 0},
         algorithm1 + "_fr10": {"count": 0, "stretch": 0, "load": 0, "hops": 0, "success": 0, "routing_computation_time" : 0, "pre_computation_time" : 0},
-        algorithm1 + "_fr11": {"count": 0, "stretch": 0, "load": 0, "hops": 0, "success": 0, "routing_computation_time" : 0, "pre_computation_time" : 0},
-        algorithm1 + "_fr12": {"count": 0, "stretch": 0, "load": 0, "hops": 0, "success": 0, "routing_computation_time" : 0, "pre_computation_time" : 0},
+        # algorithm1 + "_fr11": {"count": 0, "stretch": 0, "load": 0, "hops": 0, "success": 0, "routing_computation_time" : 0, "pre_computation_time" : 0},
+        # algorithm1 + "_fr12": {"count": 0, "stretch": 0, "load": 0, "hops": 0, "success": 0, "routing_computation_time" : 0, "pre_computation_time" : 0},
         #... hier muss dann für jeden algorithmus den ich habe ein dict erstellt werden
     }
 
@@ -197,24 +217,24 @@ for i in range(2,11):
             accumulated[algorithm1 + '_fr10']['routing_computation_time'] = result['routing_computation_time'] + accumulated[algorithm1 + '_fr10']['routing_computation_time']
             accumulated[algorithm1 + '_fr10']['pre_computation_time'] = result['pre_computation_time'] + accumulated[algorithm1 + '_fr10']['pre_computation_time']
 
-        if result['algorithm'] == TitleAlgo1 +" FR11":
-            accumulated[algorithm1 + '_fr10']['count'] = 1 + accumulated[algorithm1 + '_fr10']['count']
-            accumulated[algorithm1 + '_fr10']['stretch'] = result['stretch'] + accumulated[algorithm1 + '_fr10']['stretch']
-            accumulated[algorithm1 + '_fr10']['load'] = result['load'] + accumulated[algorithm1 + '_fr10']['load']
-            accumulated[algorithm1 + '_fr10']['hops'] = result['hops'] + accumulated[algorithm1 + '_fr10']['hops']
-            accumulated[algorithm1 + '_fr10']['success'] = result['success'] + accumulated[algorithm1 + '_fr10']['success']
-            accumulated[algorithm1 + '_fr10']['routing_computation_time'] = result['routing_computation_time'] + accumulated[algorithm1 + '_fr10']['routing_computation_time']
-            accumulated[algorithm1 + '_fr10']['pre_computation_time'] = result['pre_computation_time'] + accumulated[algorithm1 + '_fr10']['pre_computation_time']
+        # if result['algorithm'] == TitleAlgo1 +" FR11":
+        #     accumulated[algorithm1 + '_fr11']['count'] = 1 + accumulated[algorithm1 + '_fr11']['count']
+        #     accumulated[algorithm1 + '_fr11']['stretch'] = result['stretch'] + accumulated[algorithm1 + '_fr11']['stretch']
+        #     accumulated[algorithm1 + '_fr11']['load'] = result['load'] + accumulated[algorithm1 + '_fr11']['load']
+        #     accumulated[algorithm1 + '_fr11']['hops'] = result['hops'] + accumulated[algorithm1 + '_fr11']['hops']
+        #     accumulated[algorithm1 + '_fr11']['success'] = result['success'] + accumulated[algorithm1 + '_fr11']['success']
+        #     accumulated[algorithm1 + '_fr11']['routing_computation_time'] = result['routing_computation_time'] + accumulated[algorithm1 + '_fr11']['routing_computation_time']
+        #     accumulated[algorithm1 + '_fr11']['pre_computation_time'] = result['pre_computation_time'] + accumulated[algorithm1 + '_fr11']['pre_computation_time']
 
 
-        if result['algorithm'] == TitleAlgo1 +" FR12":
-            accumulated[algorithm1 + '_fr10']['count'] = 1 + accumulated[algorithm1 + '_fr10']['count']
-            accumulated[algorithm1 + '_fr10']['stretch'] = result['stretch'] + accumulated[algorithm1 + '_fr10']['stretch']
-            accumulated[algorithm1 + '_fr10']['load'] = result['load'] + accumulated[algorithm1 + '_fr10']['load']
-            accumulated[algorithm1 + '_fr10']['hops'] = result['hops'] + accumulated[algorithm1 + '_fr10']['hops']
-            accumulated[algorithm1 + '_fr10']['success'] = result['success'] + accumulated[algorithm1 + '_fr10']['success']
-            accumulated[algorithm1 + '_fr10']['routing_computation_time'] = result['routing_computation_time'] + accumulated[algorithm1 + '_fr10']['routing_computation_time']
-            accumulated[algorithm1 + '_fr10']['pre_computation_time'] = result['pre_computation_time'] + accumulated[algorithm1 + '_fr10']['pre_computation_time']
+        # if result['algorithm'] == TitleAlgo1 +" FR12":
+        #     accumulated[algorithm1 + '_fr12']['count'] = 1 + accumulated[algorithm1 + '_fr12']['count']
+        #     accumulated[algorithm1 + '_fr12']['stretch'] = result['stretch'] + accumulated[algorithm1 + '_fr12']['stretch']
+        #     accumulated[algorithm1 + '_fr12']['load'] = result['load'] + accumulated[algorithm1 + '_fr12']['load']
+        #     accumulated[algorithm1 + '_fr12']['hops'] = result['hops'] + accumulated[algorithm1 + '_fr12']['hops']
+        #     accumulated[algorithm1 + '_fr12']['success'] = result['success'] + accumulated[algorithm1 + '_fr12']['success']
+        #     accumulated[algorithm1 + '_fr12']['routing_computation_time'] = result['routing_computation_time'] + accumulated[algorithm1 + '_fr12']['routing_computation_time']
+        #     accumulated[algorithm1 + '_fr12']['pre_computation_time'] = result['pre_computation_time'] + accumulated[algorithm1 + '_fr12']['pre_computation_time']
 
 
         
@@ -302,23 +322,23 @@ for i in range(2,11):
             accumulated[algorithm2 + '_fr10']['routing_computation_time'] = result['routing_computation_time'] + accumulated[algorithm2 + '_fr10']['routing_computation_time']
             accumulated[algorithm2 + '_fr10']['pre_computation_time'] = result['pre_computation_time'] + accumulated[algorithm2 + '_fr10']['pre_computation_time']
 
-        if result['algorithm'] == TitleAlgo2 +" FR11":
-            accumulated[algorithm2 + '_fr10']['count'] = 1 + accumulated[algorithm2 + '_fr10']['count']
-            accumulated[algorithm2 + '_fr10']['stretch'] = result['stretch'] + accumulated[algorithm2 + '_fr10']['stretch']
-            accumulated[algorithm2 + '_fr10']['load'] = result['load'] + accumulated[algorithm2 + '_fr10']['load']
-            accumulated[algorithm2 + '_fr10']['hops'] = result['hops'] + accumulated[algorithm2 + '_fr10']['hops']
-            accumulated[algorithm2 + '_fr10']['success'] = result['success'] + accumulated[algorithm2 + '_fr10']['success']
-            accumulated[algorithm2 + '_fr10']['routing_computation_time'] = result['routing_computation_time'] + accumulated[algorithm2 + '_fr10']['routing_computation_time']
-            accumulated[algorithm2 + '_fr10']['pre_computation_time'] = result['pre_computation_time'] + accumulated[algorithm2 + '_fr10']['pre_computation_time']
+        # if result['algorithm'] == TitleAlgo2 +" FR11":
+        #     accumulated[algorithm2 + '_fr11']['count'] = 1 + accumulated[algorithm2 + '_fr11']['count']
+        #     accumulated[algorithm2 + '_fr11']['stretch'] = result['stretch'] + accumulated[algorithm2 + '_fr11']['stretch']
+        #     accumulated[algorithm2 + '_fr11']['load'] = result['load'] + accumulated[algorithm2 + '_fr11']['load']
+        #     accumulated[algorithm2 + '_fr11']['hops'] = result['hops'] + accumulated[algorithm2 + '_fr11']['hops']
+        #     accumulated[algorithm2 + '_fr11']['success'] = result['success'] + accumulated[algorithm2 + '_fr11']['success']
+        #     accumulated[algorithm2 + '_fr11']['routing_computation_time'] = result['routing_computation_time'] + accumulated[algorithm2 + '_fr11']['routing_computation_time']
+        #     accumulated[algorithm2 + '_fr11']['pre_computation_time'] = result['pre_computation_time'] + accumulated[algorithm2 + '_fr11']['pre_computation_time']
         
-        if result['algorithm'] == TitleAlgo2 +" FR12":
-            accumulated[algorithm2 + '_fr10']['count'] = 1 + accumulated[algorithm2 + '_fr10']['count']
-            accumulated[algorithm2 + '_fr10']['stretch'] = result['stretch'] + accumulated[algorithm2 + '_fr10']['stretch']
-            accumulated[algorithm2 + '_fr10']['load'] = result['load'] + accumulated[algorithm2 + '_fr10']['load']
-            accumulated[algorithm2 + '_fr10']['hops'] = result['hops'] + accumulated[algorithm2 + '_fr10']['hops']
-            accumulated[algorithm2 + '_fr10']['success'] = result['success'] + accumulated[algorithm2 + '_fr10']['success']
-            accumulated[algorithm2 + '_fr10']['routing_computation_time'] = result['routing_computation_time'] + accumulated[algorithm2 + '_fr10']['routing_computation_time']
-            accumulated[algorithm2 + '_fr10']['pre_computation_time'] = result['pre_computation_time'] + accumulated[algorithm2 + '_fr10']['pre_computation_time']
+        # if result['algorithm'] == TitleAlgo2 +" FR12":
+        #     accumulated[algorithm2 + '_fr12']['count'] = 1 + accumulated[algorithm2 + '_fr12']['count']
+        #     accumulated[algorithm2 + '_fr12']['stretch'] = result['stretch'] + accumulated[algorithm2 + '_fr12']['stretch']
+        #     accumulated[algorithm2 + '_fr12']['load'] = result['load'] + accumulated[algorithm2 + '_fr12']['load']
+        #     accumulated[algorithm2 + '_fr12']['hops'] = result['hops'] + accumulated[algorithm2 + '_fr12']['hops']
+        #     accumulated[algorithm2 + '_fr12']['success'] = result['success'] + accumulated[algorithm2 + '_fr12']['success']
+        #     accumulated[algorithm2 + '_fr12']['routing_computation_time'] = result['routing_computation_time'] + accumulated[algorithm2 + '_fr12']['routing_computation_time']
+        #     accumulated[algorithm2 + '_fr12']['pre_computation_time'] = result['pre_computation_time'] + accumulated[algorithm2 + '_fr12']['pre_computation_time']
 
     #ÄNDERN
     print(filepath)
@@ -382,7 +402,9 @@ print(algorithm2 + "_mit_infs_Resilienz = ", alg2_real_resilience)
 print(" ")
 print(algorithm1 + "_Hops = ", alg1_hops)
 print(algorithm2 + "_Hops = ", alg2_hops)
-
+print(" ")
+print(algorithm1 + "_hops = " + alg1_hops)
+print(algorithm2 + "_hops = " + alg2_hops)
 # sum1 = 0
 # for number in alg1_resilience:
 #     sum1 = sum1 + number

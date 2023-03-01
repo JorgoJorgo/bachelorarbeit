@@ -223,7 +223,7 @@ if __name__ == "__main__":
     n = 50 # number of nodes
 
 
-    k = 2 #base connectivity
+    k = 8 #base connectivity
     
     
     samplesize = 5 #number of sources to route a packet to destination
