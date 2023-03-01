@@ -8,7 +8,7 @@ import random
 import time
 import glob
 from objective_function_experiments import *
-from trees import multiple_trees_pre_recycling,multiple_trees_pre, multiple_trees_pre_breite_mod, multiple_trees_pre_num_of_trees_mod, multiple_trees_pre_order_of_edps_mod, multiple_trees_pre_parallel, one_tree_pre_breite_mod
+from trees import multiple_trees_pre_recycling,multiple_trees_pre, multiple_trees_pre_breite_mod, multiple_trees_pre_num_of_trees_mod, multiple_trees_pre_order_of_edps_mod, multiple_trees_pre_parallel, one_tree_pre, one_tree_pre_breite_mod
 from routing import RouteMultipleTrees, RouteOneTree
 DEBUG = True
 
@@ -33,13 +33,14 @@ DEBUG = True
 # algorithms to this data structure to compare the performance
 # of additional algorithms.
 #algos = {'One Tree': [one_tree_pre, RouteOneTree], 'Greedy': [GreedyArborescenceDecomposition, RouteDetCirc]}
-algos = {#'MultipleTrees': [multiple_trees_pre, RouteMultipleTrees],
-#'MultipleTrees Mod Breite': [multiple_trees_pre_breite_mod, RouteMultipleTrees],
+algos = {'MultipleTrees': [multiple_trees_pre, RouteMultipleTrees],
+'MultipleTrees Mod Breite': [multiple_trees_pre_breite_mod, RouteMultipleTrees],
 'MultipleTrees Mod Anzahl': [multiple_trees_pre_num_of_trees_mod, RouteMultipleTrees],
-#'MultipleTrees Mod Reihenfolge': [multiple_trees_pre_order_of_edps_mod, RouteMultipleTrees],
-#'MultipleTrees Mod Parallel': [multiple_trees_pre_parallel, RouteMultipleTrees],
-#'One Tree Breite Mod': [one_tree_pre_breite_mod,RouteOneTree],
-#'MultipleTrees Recycle Mod ': [multiple_trees_pre_recycling, RouteMultipleTrees]
+'MultipleTrees Mod Reihenfolge': [multiple_trees_pre_order_of_edps_mod, RouteMultipleTrees],
+'MultipleTrees Mod Parallel': [multiple_trees_pre_parallel, RouteMultipleTrees],
+'One Tree Breite Mod': [one_tree_pre_breite_mod,RouteOneTree],
+'MultipleTrees Recycle Mod ': [multiple_trees_pre_recycling, RouteMultipleTrees],
+'OneTree' : [one_tree_pre , RouteOneTree]
 }
 
 # run one experiment with graph g
@@ -195,7 +196,13 @@ def start_file(filename):
 # switch determines which experiments are run
 
 #hier kann rep geändert werden
-def experiments(switch="all", seed=0, rep=100):
+def experiments(switch="all", seed=0, rep=3):
+    if switch in ["custom", "all"]:
+        #hier steht wo die ergebnisse des durchlaufs gespeichert werden : results/benchmark-cusutom-5.txt
+        out = start_file("results/benchmark-custom-num-multtrees-" + str(k))
+        run_custom(out=out, seed=seed, rep=rep)
+        out.close()
+
     if switch in ["regular", "all"]:
         out = start_file("results/benchmark-regular-all-multiple-trees-" + str(n) + "-" + str(k))
         run_regular(out=out, seed=seed, rep=rep)
@@ -216,7 +223,30 @@ def experiments(switch="all", seed=0, rep=100):
         print('%s \t %.5E' % (algoname, np.mean(algo[2:])))
     print("\nlower is better")
 
+def run_custom(out=None, seed=0, rep=5):
 
+    original_params = [n, rep, k, samplesize, f_num, seed, name]
+    graphs = []
+    fails = []
+
+    graph1, fail1 = create_custom_graph()
+    graphs.append(graph1)
+    fails.append(fail1) 
+
+    for i in range(0, len(graphs)):
+        random.seed(seed)
+        kk = 5
+        g = graphs[i]
+        g.graph['k'] = kk
+        nn = len(g.nodes())
+        mm = len(g.edges())
+        ss = min(int(nn / 2), samplesize)
+        fn = min(int(mm / 2), f_num)
+        fails = fails[i]
+        g.graph['fails'] = fails
+        set_parameters([nn, rep, kk, ss, fn, seed, name + "CUSTOM"])
+        shuffle_and_run(g, out, seed, rep, graphs[i])
+        set_parameters(original_params)
 
 if __name__ == "__main__":
     f_num = 2 #number of failed links

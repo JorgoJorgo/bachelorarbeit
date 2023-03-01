@@ -9,7 +9,7 @@ import time
 import glob
 from arborescences import reset_arb_attribute
 from objective_function_experiments import *
-from trees import multiple_trees_pre_num_of_trees_mod
+from trees import multiple_trees_pre, multiple_trees_pre_num_of_trees_mod
 from routing import RouteMultipleTrees, SimulateGraph, Statistic
 DEBUG = True
 
