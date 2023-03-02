@@ -10,10 +10,7 @@ import math
 #Hier müssen die algorithm1 , algorithm2 , TitleAlgo1 . TitleAlgo1 NACH JEDEM BEENDETEM PLOT geändert werden
 
 
-# MultipleTrees FR2 , OneTree FR2
-# Parallel and Inverse FR2 , SquareOne FR2
-# MultipleTrees Mod Parallel , MultipleTrees Invert Order Mod FR2
-# MultipleTrees Random Order Mod FR2s
+
 
 #FÜR die neuen Real Topos :
 #count = 8
@@ -39,20 +36,21 @@ import math
 
 
 #FÜR die Computation Time
-algorithm1 = "mt"
-algorithm2 = "otbM"
-TitleAlgo1 = " MultipleTrees"
-TitleAlgo2 = " One Tree Breite Mod"
+count = 8
+# algorithm1 = "mt"
+# algorithm2 = "otbM"
+# TitleAlgo1 = " MultipleTrees"
+# TitleAlgo2 = " One Tree Breite Mod"
 
 # algorithm1 = "mtmB"
 # algorithm2 = "mtmA"
 # TitleAlgo1 = " MultipleTrees Mod Breite"
 # TitleAlgo2 = " MultipleTrees Mod Anzahl"
 
-# algorithm1 = "mtmR"
-# algorithm2 = "mtmP"
-# TitleAlgo1 = " MultipleTrees Mod Reihenfolge"
-# TitleAlgo2 = " MultipleTrees Mod Parallel"
+algorithm1 = "mtmR"
+algorithm2 = "mtmP"
+TitleAlgo1 = " MultipleTrees Mod Reihenfolge"
+TitleAlgo2 = " MultipleTrees Mod Parallel"
 
 alg1_hops = []
 alg2_hops = []
@@ -403,8 +401,8 @@ print(" ")
 print(algorithm1 + "_Hops = ", alg1_hops)
 print(algorithm2 + "_Hops = ", alg2_hops)
 print(" ")
-print(algorithm1 + "_hops = " + alg1_hops)
-print(algorithm2 + "_hops = " + alg2_hops)
+print(algorithm1 + "_time = " , alg1_time)
+print(algorithm2 + "_time = " , alg2_time)
 # sum1 = 0
 # for number in alg1_resilience:
 #     sum1 = sum1 + number
@@ -419,7 +417,7 @@ print(algorithm2 + "_hops = " + alg2_hops)
 
 
 
-plotfig = False
+plotfig = True
 if (plotfig):
     print(" ")
     ##############################'ONETREE VS MULTIPLETREES VS SQUARE ONE######################################################
@@ -898,84 +896,117 @@ if (plotfig):
     # plt.legend(fontsize="x-small")
     # plt.show()
 
-    ################################ REAL TOPOLOGIES #########################################################
-    
+    ################################ COMPUTATION TIME #######################################################
+
+
     plt.figure()
 
-    X = [2,3,4,5,6,7,8,9,10]
-    
-    multipletre_trees_Resilienz =            [1, 1, 0.8693333333333332, 0.808333333333333, 0.7449275362318837, 0.7014925373134325, 0.6262295081967211, 0.5962962962962963, 0.5615384615384618, 0.5173913043478262, 0.47804878048780475]
-    multipletre_trees_mit_infs_Resilienz =   [1, 1, 0.8693333333333332, 0.7759999999999997, 0.685333333333333, 0.6266666666666664, 0.5093333333333332, 0.42933333333333334, 0.3893333333333335, 0.3173333333333334, 0.26133333333333325]  
-    one_tree_Resilienz =                     [1, 1, 0.8773333333333331, 0.833333333333333, 0.7599999999999997, 0.7130434782608694, 0.6338461538461537, 0.606896551724138, 0.5535714285714286, 0.5058823529411764, 0.47234042553191474]
-    one_tree_mit_infs_Resilienz =            [1, 1, 0.8773333333333331, 0.7999999999999997, 0.709333333333333, 0.6559999999999998, 0.5493333333333332, 0.4693333333333334, 0.4133333333333334, 0.344, 0.2959999999999999]
-    parallel_inverse_Resilienz =             [1, 1, 0.8639999999999998, 0.8111111111111108, 0.742028985507246, 0.6941176470588232, 0.6196721311475408, 0.5890909090909092, 0.5615384615384618, 0.5063829787234043, 0.4558139534883719]
-    parallel_inverse_mit_infs_Resilienz =    [1, 1, 0.8639999999999998, 0.7786666666666664, 0.6826666666666663, 0.629333333333333, 0.5039999999999999, 0.43200000000000005, 0.3893333333333335, 0.31733333333333336, 0.2613333333333332]
-    square_one_Resilienz =                   [1, 1, 0.8506666666666661, 0.8027777777777774, 0.7428571428571425, 0.6898550724637679, 0.6, 0.5862068965517241, 0.5418181818181819, 0.4959999999999999, 0.46666666666666656]
-    square_one_mit_infs_Resilienz =          [1, 1, 0.8506666666666661, 0.7706666666666663, 0.693333333333333, 0.6346666666666664, 0.512, 0.4533333333333333, 0.39733333333333337, 0.3306666666666666, 0.27999999999999997]
-    parallel_Resilienz =                     [1, 1, 0.8746666666666666, 0.8194444444444441, 0.7428571428571424, 0.6898550724637678, 0.6129032258064515, 0.585714285714286, 0.5481481481481483, 0.49795918367346936, 0.4651162790697672]
-    invert_Resilienz =                       [1, 1, 0.8666666666666665, 0.8055555555555552, 0.7441176470588231, 0.6823529411764703, 0.6098360655737705, 0.5709090909090909, 0.5461538461538462, 0.52, 0.4829268292682925]
-    parallel_mit_infs_Resilienz =            [1, 1, 0.8746666666666666, 0.7866666666666663, 0.6933333333333329, 0.6346666666666663, 0.5066666666666666, 0.43733333333333346, 0.3946666666666668, 0.3253333333333333, 0.26666666666666655]
-    invert_mit_infs_Resilienz =              [1, 1, 0.8666666666666665, 0.7733333333333331, 0.6746666666666663, 0.6186666666666664, 0.49599999999999994, 0.4186666666666667, 0.37866666666666676, 0.312, 0.2639999999999999]  
-    random_Resilienz =                       [1, 1, 0.8666666666666665, 0.8028169014084504, 0.7470588235294114, 0.6895522388059697, 0.6133333333333333, 0.6000000000000001, 0.5647058823529414, 0.5227272727272727, 0.5025641025641024]
-    random_mit_infs_Resilienz =              [1, 1, 0.8666666666666665, 0.7599999999999997, 0.677333333333333, 0.6159999999999997, 0.49066666666666664, 0.42400000000000004, 0.3840000000000002, 0.30666666666666664, 0.26133333333333325]
-    
-    
-    sq1_mit_infs_Resilienz =  [1, 1, 0.975, 0.9249999999999999, 0.7250000000000001, 0.675, 0.65, 0.65, 0.625, 0.525, 0.975]
-    parallelInverse_mit_infs_Resilienz =  [1, 1, 0.975, 0.95, 0.775, 0.75, 0.75, 0.7250000000000001, 0.7, 0.55, 0.975]
+    X = [1,2,3,4,5,6,7,8,9]
 
+    for i in range(0, len(X)):
+        X[i] = X[i] * 50
+
+    mt_time =  [77.32267133333333, 48.845689, 81.448652, 122.17995533333333, 167.94597866666666, 229.81547299999997, 308.94882200000006, 368.6160713333333, 460.62677866666667]
+    otbM_time =  [29.739345666666665, 4.216385333333334, 6.597391333333333, 7.048780000000001, 7.8528926666666665, 8.021870666666667, 7.971387666666666, 9.272190666666667, 8.196245]
+    mtmB_time =  [29.74375533333333, 27.40294966666667, 38.087102, 62.297391000000005, 64.81008133333334, 107.90556266666668, 134.95438166666665, 141.93827766666666, 189.03758066666668]
+    mtmA_time =  [9.231850999999999, 12.291334666666666, 11.799994333333332, 14.849939, 15.638326999999999, 19.513328666666666, 20.34446766666667, 16.08910033333333, 19.533797333333336]
+    mtmR_time =  [80.51002633333333, 51.413677666666665, 75.714287, 119.014935, 165.62308499999997, 232.689798, 318.464939, 365.40515999999997, 469.14956466666666]
+    mtmP_time =  [12.541610666666669, 22.845202, 31.498940666666666, 63.022454333333336, 78.37081966666666, 108.58506433333334, 142.37752033333334, 140.24766766666667, 188.01580633333333]
 
     plt.subplot(221)
 
-    #print("X length : ", len(X))
-    #print("multtrees length : " , len(multipletre_trees_mit_infs_Resilienz))
-    #print("multtrees cut length : " , len(multipletre_trees_mit_infs_Resilienz[2:11]))
-    multTreesCut = multipletre_trees_mit_infs_Resilienz[2:11]
-    #print(multTreesCut)
+    plt.plot(X, mt_time, color='r', label='MultipleTrees')
+    plt.plot(X, otbM_time, color='g', label='OneTree Breite Mod')
+    plt.plot(X, mtmB_time, color='b', label='MultipleTrees Breite Mod')
+    plt.plot(X, mtmA_time, color='m', label='MultipleTrees Anzahl Mod')
+    plt.plot(X, mtmR_time, color='y', label='MultipleTrees Reihenfolge Mod')
+    plt.plot(X, mtmP_time, color='c', label='MultipleTrees Parallel Mod')
 
-    #erster plot
-    #plt.plot(X, multTreesCut, '--', color='r', label='MultipleTrees')
-    #plt.plot(X, one_tree_mit_infs_Resilienz[2:11], '--', color='g', label='OneTree')
-    #plt.plot(X, square_one_mit_infs_Resilienz[2:11],'--' , color='c', label='SquareOne')
-    #plt.plot(X, parallel_inverse_mit_infs_Resilienz[2:11], color='m', label='Parallel & Invers')
-
-
-    #zweiter plot
-    #plt.plot(X, parallel_mit_infs_Resilienz[2:11], color='y', label='Parallel')
-    #plt.plot(X, invert_mit_infs_Resilienz[2:11],'--', color='m', label='Invers')
-    #plt.plot(X, random_mit_infs_Resilienz[2:11], color='b', label='Randomisiert')
-
-    # Naming the x-axis, y-axis and the whole graph
-    #plt.xlabel("Failure Rate")
-    #plt.ylabel("Resilienz")
-    #plt.title("Resilienz, reale Topologien ")
-    # Adding legend, which helps us recognize the curve according to it's color
-    #plt.legend(fontsize="x-small")
-
-    #plt.subplot(222)
-
-    Y = [2,3,4,5,6,7,8,9,10]
-
-    parallel_Hops =                          [16.36, 15.347222222222221, 16.12857142857143, 14.695652173913043, 12.596774193548388, 12.25, 11.907407407407407, 10.714285714285714, 9.511627906976743]
-    invert_Hops =                            [11.973333333333333, 12.027777777777779, 12.338235294117647, 11.411764705882353, 9.80327868852459, 10.036363636363637, 9.153846153846153, 8.377777777777778, 7.7073170731707314]
-    parallel_inverse_Hops =                  [11.133333333333333, 10.75, 11.753623188405797, 10.691176470588236, 9.639344262295081, 9.618181818181819, 9.115384615384615, 8.0, 7.093023255813954]
-    square_one_Hops =                        [9.666666666666666, 9.402777777777779, 9.814285714285715, 9.043478260869565, 7.796875, 7.5, 6.9818181818181815, 6.48, 5.822222222222222]
-    multipletre_trees_Hops =                 [16.253333333333334, 15.722222222222221, 16.92753623188406, 15.149253731343284, 13.163934426229508, 13.074074074074074, 12.884615384615385, 10.978260869565217, 9.292682926829269]
-    one_tree_Hops =                          [10.626666666666667, 10.555555555555555, 10.542857142857143, 10.53623188405797, 9.338461538461539, 8.758620689655173, 7.732142857142857, 7.294117647058823, 7.212765957446808]
-    random_Hops =                            [14.333333333333334, 13.47887323943662, 14.485294117647058, 12.701492537313433, 11.4, 11.622641509433961, 10.666666666666666, 10.090909090909092, 9.179487179487179]
-
-    plt.plot(Y, multipletre_trees_Hops, '--', color='r', label='MultipleTrees')
-    plt.plot(Y,one_tree_Hops, '--', color='g', label='OneTree')
-    plt.plot(Y, square_one_Hops,'--' , color='c', label='SquareOne')
-    plt.plot(Y, parallel_inverse_Hops, color='m', label='Parallel & Invers')
-    plt.plot(Y, parallel_Hops, color='y', label='Parallel')
-    plt.plot(Y, invert_Hops,'--', color='m', label='Invers')
-    plt.plot(Y, random_Hops, color='b', label='Randomisiert')
-
-    # Naming the x-axis, y-axis and the whole graph
-    plt.xlabel("Failure Rate")
-    plt.ylabel("Hops")
-    plt.title("Hop-Anzahl, reale Topologien ")
+    plt.xlabel("Kantenanzahl")
+    plt.ylabel("Zeit in s")
+    plt.title("Rechenzeit, n = 50, Konnektivität von 1 bis 9")
     # Adding legend, which helps us recognize the curve according to it's color
     plt.legend(fontsize="x-small")
 
     plt.show()
+    ################################ REAL TOPOLOGIES OLD #########################################################
+    
+    # plt.figure()
+
+    # X = [2,3,4,5,6,7,8,9,10]
+    
+    # multipletre_trees_Resilienz =            [1, 1, 0.8693333333333332, 0.808333333333333, 0.7449275362318837, 0.7014925373134325, 0.6262295081967211, 0.5962962962962963, 0.5615384615384618, 0.5173913043478262, 0.47804878048780475]
+    # multipletre_trees_mit_infs_Resilienz =   [1, 1, 0.8693333333333332, 0.7759999999999997, 0.685333333333333, 0.6266666666666664, 0.5093333333333332, 0.42933333333333334, 0.3893333333333335, 0.3173333333333334, 0.26133333333333325]  
+    # one_tree_Resilienz =                     [1, 1, 0.8773333333333331, 0.833333333333333, 0.7599999999999997, 0.7130434782608694, 0.6338461538461537, 0.606896551724138, 0.5535714285714286, 0.5058823529411764, 0.47234042553191474]
+    # one_tree_mit_infs_Resilienz =            [1, 1, 0.8773333333333331, 0.7999999999999997, 0.709333333333333, 0.6559999999999998, 0.5493333333333332, 0.4693333333333334, 0.4133333333333334, 0.344, 0.2959999999999999]
+    # parallel_inverse_Resilienz =             [1, 1, 0.8639999999999998, 0.8111111111111108, 0.742028985507246, 0.6941176470588232, 0.6196721311475408, 0.5890909090909092, 0.5615384615384618, 0.5063829787234043, 0.4558139534883719]
+    # parallel_inverse_mit_infs_Resilienz =    [1, 1, 0.8639999999999998, 0.7786666666666664, 0.6826666666666663, 0.629333333333333, 0.5039999999999999, 0.43200000000000005, 0.3893333333333335, 0.31733333333333336, 0.2613333333333332]
+    # square_one_Resilienz =                   [1, 1, 0.8506666666666661, 0.8027777777777774, 0.7428571428571425, 0.6898550724637679, 0.6, 0.5862068965517241, 0.5418181818181819, 0.4959999999999999, 0.46666666666666656]
+    # square_one_mit_infs_Resilienz =          [1, 1, 0.8506666666666661, 0.7706666666666663, 0.693333333333333, 0.6346666666666664, 0.512, 0.4533333333333333, 0.39733333333333337, 0.3306666666666666, 0.27999999999999997]
+    # parallel_Resilienz =                     [1, 1, 0.8746666666666666, 0.8194444444444441, 0.7428571428571424, 0.6898550724637678, 0.6129032258064515, 0.585714285714286, 0.5481481481481483, 0.49795918367346936, 0.4651162790697672]
+    # invert_Resilienz =                       [1, 1, 0.8666666666666665, 0.8055555555555552, 0.7441176470588231, 0.6823529411764703, 0.6098360655737705, 0.5709090909090909, 0.5461538461538462, 0.52, 0.4829268292682925]
+    # parallel_mit_infs_Resilienz =            [1, 1, 0.8746666666666666, 0.7866666666666663, 0.6933333333333329, 0.6346666666666663, 0.5066666666666666, 0.43733333333333346, 0.3946666666666668, 0.3253333333333333, 0.26666666666666655]
+    # invert_mit_infs_Resilienz =              [1, 1, 0.8666666666666665, 0.7733333333333331, 0.6746666666666663, 0.6186666666666664, 0.49599999999999994, 0.4186666666666667, 0.37866666666666676, 0.312, 0.2639999999999999]  
+    # random_Resilienz =                       [1, 1, 0.8666666666666665, 0.8028169014084504, 0.7470588235294114, 0.6895522388059697, 0.6133333333333333, 0.6000000000000001, 0.5647058823529414, 0.5227272727272727, 0.5025641025641024]
+    # random_mit_infs_Resilienz =              [1, 1, 0.8666666666666665, 0.7599999999999997, 0.677333333333333, 0.6159999999999997, 0.49066666666666664, 0.42400000000000004, 0.3840000000000002, 0.30666666666666664, 0.26133333333333325]
+    
+    
+    # sq1_mit_infs_Resilienz =  [1, 1, 0.975, 0.9249999999999999, 0.7250000000000001, 0.675, 0.65, 0.65, 0.625, 0.525, 0.975]
+    # parallelInverse_mit_infs_Resilienz =  [1, 1, 0.975, 0.95, 0.775, 0.75, 0.75, 0.7250000000000001, 0.7, 0.55, 0.975]
+
+
+    # plt.subplot(221)
+
+    # #print("X length : ", len(X))
+    # #print("multtrees length : " , len(multipletre_trees_mit_infs_Resilienz))
+    # #print("multtrees cut length : " , len(multipletre_trees_mit_infs_Resilienz[2:11]))
+    # multTreesCut = multipletre_trees_mit_infs_Resilienz[2:11]
+    # #print(multTreesCut)
+
+    # #erster plot
+    # #plt.plot(X, multTreesCut, '--', color='r', label='MultipleTrees')
+    # #plt.plot(X, one_tree_mit_infs_Resilienz[2:11], '--', color='g', label='OneTree')
+    # #plt.plot(X, square_one_mit_infs_Resilienz[2:11],'--' , color='c', label='SquareOne')
+    # #plt.plot(X, parallel_inverse_mit_infs_Resilienz[2:11], color='m', label='Parallel & Invers')
+
+
+    # #zweiter plot
+    # #plt.plot(X, parallel_mit_infs_Resilienz[2:11], color='y', label='Parallel')
+    # #plt.plot(X, invert_mit_infs_Resilienz[2:11],'--', color='m', label='Invers')
+    # #plt.plot(X, random_mit_infs_Resilienz[2:11], color='b', label='Randomisiert')
+
+    # # Naming the x-axis, y-axis and the whole graph
+    # #plt.xlabel("Failure Rate")
+    # #plt.ylabel("Resilienz")
+    # #plt.title("Resilienz, reale Topologien ")
+    # # Adding legend, which helps us recognize the curve according to it's color
+    # #plt.legend(fontsize="x-small")
+
+    # #plt.subplot(222)
+
+    # Y = [2,3,4,5,6,7,8,9,10]
+
+    # parallel_Hops =                          [16.36, 15.347222222222221, 16.12857142857143, 14.695652173913043, 12.596774193548388, 12.25, 11.907407407407407, 10.714285714285714, 9.511627906976743]
+    # invert_Hops =                            [11.973333333333333, 12.027777777777779, 12.338235294117647, 11.411764705882353, 9.80327868852459, 10.036363636363637, 9.153846153846153, 8.377777777777778, 7.7073170731707314]
+    # parallel_inverse_Hops =                  [11.133333333333333, 10.75, 11.753623188405797, 10.691176470588236, 9.639344262295081, 9.618181818181819, 9.115384615384615, 8.0, 7.093023255813954]
+    # square_one_Hops =                        [9.666666666666666, 9.402777777777779, 9.814285714285715, 9.043478260869565, 7.796875, 7.5, 6.9818181818181815, 6.48, 5.822222222222222]
+    # multipletre_trees_Hops =                 [16.253333333333334, 15.722222222222221, 16.92753623188406, 15.149253731343284, 13.163934426229508, 13.074074074074074, 12.884615384615385, 10.978260869565217, 9.292682926829269]
+    # one_tree_Hops =                          [10.626666666666667, 10.555555555555555, 10.542857142857143, 10.53623188405797, 9.338461538461539, 8.758620689655173, 7.732142857142857, 7.294117647058823, 7.212765957446808]
+    # random_Hops =                            [14.333333333333334, 13.47887323943662, 14.485294117647058, 12.701492537313433, 11.4, 11.622641509433961, 10.666666666666666, 10.090909090909092, 9.179487179487179]
+
+    # plt.plot(Y, multipletre_trees_Hops, '--', color='r', label='MultipleTrees')
+    # plt.plot(Y,one_tree_Hops, '--', color='g', label='OneTree')
+    # plt.plot(Y, square_one_Hops,'--' , color='c', label='SquareOne')
+    # plt.plot(Y, parallel_inverse_Hops, color='m', label='Parallel & Invers')
+    # plt.plot(Y, parallel_Hops, color='y', label='Parallel')
+    # plt.plot(Y, invert_Hops,'--', color='m', label='Invers')
+    # plt.plot(Y, random_Hops, color='b', label='Randomisiert')
+
+    # # Naming the x-axis, y-axis and the whole graph
+    # plt.xlabel("Failure Rate")
+    # plt.ylabel("Hops")
+    # plt.title("Hop-Anzahl, reale Topologien ")
+    # # Adding legend, which helps us recognize the curve according to it's color
+    # plt.legend(fontsize="x-small")
+
+    # plt.show()

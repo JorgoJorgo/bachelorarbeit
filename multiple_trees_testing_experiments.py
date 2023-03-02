@@ -34,13 +34,13 @@ DEBUG = True
 # of additional algorithms.
 #algos = {'One Tree': [one_tree_pre, RouteOneTree], 'Greedy': [GreedyArborescenceDecomposition, RouteDetCirc]}
 algos = {'MultipleTrees': [multiple_trees_pre, RouteMultipleTrees],
-'MultipleTrees Mod Breite': [multiple_trees_pre_breite_mod, RouteMultipleTrees],
-'MultipleTrees Mod Anzahl': [multiple_trees_pre_num_of_trees_mod, RouteMultipleTrees],
+#'MultipleTrees Mod Breite': [multiple_trees_pre_breite_mod, RouteMultipleTrees],
+#'MultipleTrees Mod Anzahl': [multiple_trees_pre_num_of_trees_mod, RouteMultipleTrees],
 'MultipleTrees Mod Reihenfolge': [multiple_trees_pre_order_of_edps_mod, RouteMultipleTrees],
 'MultipleTrees Mod Parallel': [multiple_trees_pre_parallel, RouteMultipleTrees],
-'One Tree Breite Mod': [one_tree_pre_breite_mod,RouteOneTree],
-'MultipleTrees Recycle Mod ': [multiple_trees_pre_recycling, RouteMultipleTrees],
-'OneTree' : [one_tree_pre , RouteOneTree]
+#'One Tree Breite Mod': [one_tree_pre_breite_mod,RouteOneTree],
+#'MultipleTrees Recycle Mod ': [multiple_trees_pre_recycling, RouteMultipleTrees],
+#'OneTree' : [one_tree_pre , RouteOneTree]
 }
 
 # run one experiment with graph g
@@ -251,9 +251,9 @@ def run_custom(out=None, seed=0, rep=5):
 if __name__ == "__main__":
     f_num = 2 #number of failed links
     n = 30 # number of nodes
-    k = 3 #base connectivity
+    k = 4 #base connectivity
     samplesize = 5 #number of sources to route a packet to destination
-    rep = 3 #number of experiments
+    rep = 2 #number of experiments
     switch = 'all' #which experiments to run with same parameters
     seed = 0  #random seed
     name = "benchmark-" #result files start with this name
