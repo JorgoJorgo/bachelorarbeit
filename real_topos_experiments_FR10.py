@@ -138,13 +138,14 @@ def run_zoo(out=None, seed=0, rep=2):
         print("Len(g) = " , len(g.nodes))
         kk = nx.edge_connectivity(g)
         nn = len(g.nodes())
-        if nn == 105 or nn == 39:
+        if nn == 39 and len( list(g.edges)) == 141:
         #if nn == 39 and len(g.edges) == 163:
             print("Passender Graph ")
             mm = len(g.edges())
             ss = min(int(nn / 2), samplesize)
-            f_num = kk * fr
-            fn = min(int(mm / 4), f_num)
+            #f_num = kk * fr
+            #fn = min(int(mm / 4), f_num)
+            fn = 98
             if fn == int(mm / 4):
                 print("SKIP ITERATION")
                 continue
@@ -232,7 +233,7 @@ def experiments(switch="all", seed=0, rep=100):
 
 
 if __name__ == "__main__":
-    f_num = 5 #number of failed links
+    f_num = 30 #number of failed links
     n = 60 # number of nodes
     k = 5 #base connectivity
     samplesize = 5 #number of sources to route a packet to destination

@@ -13,11 +13,11 @@ import math
 
 
 #FÜR die neuen Real Topos :
-#count = 8
+count = 8
 # algorithm1 = 'baseMT'
-# algorithm2 = 'baseOT'
+algorithm2 = 'baseOT'
 # TitleAlgo1 = " MultipleTrees"
-# TitleAlgo2 = " OneTree"
+TitleAlgo2 = " OneTree"
 
 # algorithm1 = 'sq1'
 # algorithm2 = 'parallelInverse'
@@ -29,14 +29,14 @@ import math
 # TitleAlgo1 = " MultipleTrees Mod Parallel"
 # TitleAlgo2 = " MultipleTrees Invert Order Mod"
 
-# algorithm1 = 'mtrom'
-# TitleAlgo1 = " MultipleTrees Random Order Mod"
+algorithm1 = 'mtrom'
+TitleAlgo1 = " MultipleTrees Random Order Mod"
 
 
 
 
 #FÜR die Computation Time
-count = 8
+#count = 8
 # algorithm1 = "mt"
 # algorithm2 = "otbM"
 # TitleAlgo1 = " MultipleTrees"
@@ -47,10 +47,10 @@ count = 8
 # TitleAlgo1 = " MultipleTrees Mod Breite"
 # TitleAlgo2 = " MultipleTrees Mod Anzahl"
 
-algorithm1 = "mtmR"
-algorithm2 = "mtmP"
-TitleAlgo1 = " MultipleTrees Mod Reihenfolge"
-TitleAlgo2 = " MultipleTrees Mod Parallel"
+# algorithm1 = "mtmR"
+# algorithm2 = "mtmP"
+# TitleAlgo1 = " MultipleTrees Mod Reihenfolge"
+# TitleAlgo2 = " MultipleTrees Mod Parallel"
 
 alg1_hops = []
 alg2_hops = []
@@ -66,8 +66,8 @@ for i in range(2,11):
     number = str(i)
 
     
-    #filepath = "NewRealTopos/benchmark-zoo-RealTopos-FR"+number+"-5.txt"
-    filepath = "ComputationTimeExperiments/benchmark-regular-all-multiple-trees-50-"+number+".txt"
+    filepath = "NewRealTopos/benchmark-zoo-RealTopos-FR"+number+"-5.txt"
+    #filepath = "ComputationTimeExperiments/benchmark-regular-all-multiple-trees-50-"+number+".txt"
     FR = '_fr'+number
 
     ###################################################################################################################
@@ -97,8 +97,8 @@ for i in range(2,11):
         algorithm2 +"_fr8": {"count": 0, "stretch": 0, "load": 0, "hops": 0, "success": 0, "routing_computation_time" : 0, "pre_computation_time" : 0},
         algorithm2 + "_fr9": {"count": 0, "stretch": 0, "load": 0, "hops": 0, "success": 0, "routing_computation_time" : 0, "pre_computation_time" : 0},
         algorithm2 + "_fr10": {"count": 0, "stretch": 0, "load": 0, "hops": 0, "success": 0, "routing_computation_time" : 0, "pre_computation_time" : 0},
-        # algorithm2 + "_fr11": {"count": 0, "stretch": 0, "load": 0, "hops": 0, "success": 0, "routing_computation_time" : 0, "pre_computation_time" : 0},
-        # algorithm2 + "_fr12": {"count": 0, "stretch": 0, "load": 0, "hops": 0, "success": 0, "routing_computation_time" : 0, "pre_computation_time" : 0},
+        algorithm2 + "_fr11": {"count": 0, "stretch": 0, "load": 0, "hops": 0, "success": 0, "routing_computation_time" : 0, "pre_computation_time" : 0},
+        algorithm2 + "_fr12": {"count": 0, "stretch": 0, "load": 0, "hops": 0, "success": 0, "routing_computation_time" : 0, "pre_computation_time" : 0},
 
 
         algorithm1 + "_fr2": {"count": 0, "stretch": 0, "load": 0, "hops": 0, "success": 0, "routing_computation_time" : 0, "pre_computation_time" : 0},
@@ -110,8 +110,8 @@ for i in range(2,11):
         algorithm1 +"_fr8": {"count": 0, "stretch": 0, "load": 0, "hops": 0, "success": 0, "routing_computation_time" : 0, "pre_computation_time" : 0},
         algorithm1 + "_fr9": {"count": 0, "stretch": 0, "load": 0, "hops": 0, "success": 0, "routing_computation_time" : 0, "pre_computation_time" : 0},
         algorithm1 + "_fr10": {"count": 0, "stretch": 0, "load": 0, "hops": 0, "success": 0, "routing_computation_time" : 0, "pre_computation_time" : 0},
-        # algorithm1 + "_fr11": {"count": 0, "stretch": 0, "load": 0, "hops": 0, "success": 0, "routing_computation_time" : 0, "pre_computation_time" : 0},
-        # algorithm1 + "_fr12": {"count": 0, "stretch": 0, "load": 0, "hops": 0, "success": 0, "routing_computation_time" : 0, "pre_computation_time" : 0},
+        algorithm1 + "_fr11": {"count": 0, "stretch": 0, "load": 0, "hops": 0, "success": 0, "routing_computation_time" : 0, "pre_computation_time" : 0},
+        algorithm1 + "_fr12": {"count": 0, "stretch": 0, "load": 0, "hops": 0, "success": 0, "routing_computation_time" : 0, "pre_computation_time" : 0},
         #... hier muss dann für jeden algorithmus den ich habe ein dict erstellt werden
     }
 
@@ -215,24 +215,24 @@ for i in range(2,11):
             accumulated[algorithm1 + '_fr10']['routing_computation_time'] = result['routing_computation_time'] + accumulated[algorithm1 + '_fr10']['routing_computation_time']
             accumulated[algorithm1 + '_fr10']['pre_computation_time'] = result['pre_computation_time'] + accumulated[algorithm1 + '_fr10']['pre_computation_time']
 
-        # if result['algorithm'] == TitleAlgo1 +" FR11":
-        #     accumulated[algorithm1 + '_fr11']['count'] = 1 + accumulated[algorithm1 + '_fr11']['count']
-        #     accumulated[algorithm1 + '_fr11']['stretch'] = result['stretch'] + accumulated[algorithm1 + '_fr11']['stretch']
-        #     accumulated[algorithm1 + '_fr11']['load'] = result['load'] + accumulated[algorithm1 + '_fr11']['load']
-        #     accumulated[algorithm1 + '_fr11']['hops'] = result['hops'] + accumulated[algorithm1 + '_fr11']['hops']
-        #     accumulated[algorithm1 + '_fr11']['success'] = result['success'] + accumulated[algorithm1 + '_fr11']['success']
-        #     accumulated[algorithm1 + '_fr11']['routing_computation_time'] = result['routing_computation_time'] + accumulated[algorithm1 + '_fr11']['routing_computation_time']
-        #     accumulated[algorithm1 + '_fr11']['pre_computation_time'] = result['pre_computation_time'] + accumulated[algorithm1 + '_fr11']['pre_computation_time']
+        if result['algorithm'] == TitleAlgo1 +" FR11":
+            accumulated[algorithm1 + '_fr11']['count'] = 1 + accumulated[algorithm1 + '_fr11']['count']
+            accumulated[algorithm1 + '_fr11']['stretch'] = result['stretch'] + accumulated[algorithm1 + '_fr11']['stretch']
+            accumulated[algorithm1 + '_fr11']['load'] = result['load'] + accumulated[algorithm1 + '_fr11']['load']
+            accumulated[algorithm1 + '_fr11']['hops'] = result['hops'] + accumulated[algorithm1 + '_fr11']['hops']
+            accumulated[algorithm1 + '_fr11']['success'] = result['success'] + accumulated[algorithm1 + '_fr11']['success']
+            accumulated[algorithm1 + '_fr11']['routing_computation_time'] = result['routing_computation_time'] + accumulated[algorithm1 + '_fr11']['routing_computation_time']
+            accumulated[algorithm1 + '_fr11']['pre_computation_time'] = result['pre_computation_time'] + accumulated[algorithm1 + '_fr11']['pre_computation_time']
 
 
-        # if result['algorithm'] == TitleAlgo1 +" FR12":
-        #     accumulated[algorithm1 + '_fr12']['count'] = 1 + accumulated[algorithm1 + '_fr12']['count']
-        #     accumulated[algorithm1 + '_fr12']['stretch'] = result['stretch'] + accumulated[algorithm1 + '_fr12']['stretch']
-        #     accumulated[algorithm1 + '_fr12']['load'] = result['load'] + accumulated[algorithm1 + '_fr12']['load']
-        #     accumulated[algorithm1 + '_fr12']['hops'] = result['hops'] + accumulated[algorithm1 + '_fr12']['hops']
-        #     accumulated[algorithm1 + '_fr12']['success'] = result['success'] + accumulated[algorithm1 + '_fr12']['success']
-        #     accumulated[algorithm1 + '_fr12']['routing_computation_time'] = result['routing_computation_time'] + accumulated[algorithm1 + '_fr12']['routing_computation_time']
-        #     accumulated[algorithm1 + '_fr12']['pre_computation_time'] = result['pre_computation_time'] + accumulated[algorithm1 + '_fr12']['pre_computation_time']
+        if result['algorithm'] == TitleAlgo1 +" FR12":
+            accumulated[algorithm1 + '_fr12']['count'] = 1 + accumulated[algorithm1 + '_fr12']['count']
+            accumulated[algorithm1 + '_fr12']['stretch'] = result['stretch'] + accumulated[algorithm1 + '_fr12']['stretch']
+            accumulated[algorithm1 + '_fr12']['load'] = result['load'] + accumulated[algorithm1 + '_fr12']['load']
+            accumulated[algorithm1 + '_fr12']['hops'] = result['hops'] + accumulated[algorithm1 + '_fr12']['hops']
+            accumulated[algorithm1 + '_fr12']['success'] = result['success'] + accumulated[algorithm1 + '_fr12']['success']
+            accumulated[algorithm1 + '_fr12']['routing_computation_time'] = result['routing_computation_time'] + accumulated[algorithm1 + '_fr12']['routing_computation_time']
+            accumulated[algorithm1 + '_fr12']['pre_computation_time'] = result['pre_computation_time'] + accumulated[algorithm1 + '_fr12']['pre_computation_time']
 
 
         
@@ -320,23 +320,23 @@ for i in range(2,11):
             accumulated[algorithm2 + '_fr10']['routing_computation_time'] = result['routing_computation_time'] + accumulated[algorithm2 + '_fr10']['routing_computation_time']
             accumulated[algorithm2 + '_fr10']['pre_computation_time'] = result['pre_computation_time'] + accumulated[algorithm2 + '_fr10']['pre_computation_time']
 
-        # if result['algorithm'] == TitleAlgo2 +" FR11":
-        #     accumulated[algorithm2 + '_fr11']['count'] = 1 + accumulated[algorithm2 + '_fr11']['count']
-        #     accumulated[algorithm2 + '_fr11']['stretch'] = result['stretch'] + accumulated[algorithm2 + '_fr11']['stretch']
-        #     accumulated[algorithm2 + '_fr11']['load'] = result['load'] + accumulated[algorithm2 + '_fr11']['load']
-        #     accumulated[algorithm2 + '_fr11']['hops'] = result['hops'] + accumulated[algorithm2 + '_fr11']['hops']
-        #     accumulated[algorithm2 + '_fr11']['success'] = result['success'] + accumulated[algorithm2 + '_fr11']['success']
-        #     accumulated[algorithm2 + '_fr11']['routing_computation_time'] = result['routing_computation_time'] + accumulated[algorithm2 + '_fr11']['routing_computation_time']
-        #     accumulated[algorithm2 + '_fr11']['pre_computation_time'] = result['pre_computation_time'] + accumulated[algorithm2 + '_fr11']['pre_computation_time']
+        if result['algorithm'] == TitleAlgo2 +" FR11":
+            accumulated[algorithm2 + '_fr11']['count'] = 1 + accumulated[algorithm2 + '_fr11']['count']
+            accumulated[algorithm2 + '_fr11']['stretch'] = result['stretch'] + accumulated[algorithm2 + '_fr11']['stretch']
+            accumulated[algorithm2 + '_fr11']['load'] = result['load'] + accumulated[algorithm2 + '_fr11']['load']
+            accumulated[algorithm2 + '_fr11']['hops'] = result['hops'] + accumulated[algorithm2 + '_fr11']['hops']
+            accumulated[algorithm2 + '_fr11']['success'] = result['success'] + accumulated[algorithm2 + '_fr11']['success']
+            accumulated[algorithm2 + '_fr11']['routing_computation_time'] = result['routing_computation_time'] + accumulated[algorithm2 + '_fr11']['routing_computation_time']
+            accumulated[algorithm2 + '_fr11']['pre_computation_time'] = result['pre_computation_time'] + accumulated[algorithm2 + '_fr11']['pre_computation_time']
         
-        # if result['algorithm'] == TitleAlgo2 +" FR12":
-        #     accumulated[algorithm2 + '_fr12']['count'] = 1 + accumulated[algorithm2 + '_fr12']['count']
-        #     accumulated[algorithm2 + '_fr12']['stretch'] = result['stretch'] + accumulated[algorithm2 + '_fr12']['stretch']
-        #     accumulated[algorithm2 + '_fr12']['load'] = result['load'] + accumulated[algorithm2 + '_fr12']['load']
-        #     accumulated[algorithm2 + '_fr12']['hops'] = result['hops'] + accumulated[algorithm2 + '_fr12']['hops']
-        #     accumulated[algorithm2 + '_fr12']['success'] = result['success'] + accumulated[algorithm2 + '_fr12']['success']
-        #     accumulated[algorithm2 + '_fr12']['routing_computation_time'] = result['routing_computation_time'] + accumulated[algorithm2 + '_fr12']['routing_computation_time']
-        #     accumulated[algorithm2 + '_fr12']['pre_computation_time'] = result['pre_computation_time'] + accumulated[algorithm2 + '_fr12']['pre_computation_time']
+        if result['algorithm'] == TitleAlgo2 +" FR12":
+            accumulated[algorithm2 + '_fr12']['count'] = 1 + accumulated[algorithm2 + '_fr12']['count']
+            accumulated[algorithm2 + '_fr12']['stretch'] = result['stretch'] + accumulated[algorithm2 + '_fr12']['stretch']
+            accumulated[algorithm2 + '_fr12']['load'] = result['load'] + accumulated[algorithm2 + '_fr12']['load']
+            accumulated[algorithm2 + '_fr12']['hops'] = result['hops'] + accumulated[algorithm2 + '_fr12']['hops']
+            accumulated[algorithm2 + '_fr12']['success'] = result['success'] + accumulated[algorithm2 + '_fr12']['success']
+            accumulated[algorithm2 + '_fr12']['routing_computation_time'] = result['routing_computation_time'] + accumulated[algorithm2 + '_fr12']['routing_computation_time']
+            accumulated[algorithm2 + '_fr12']['pre_computation_time'] = result['pre_computation_time'] + accumulated[algorithm2 + '_fr12']['pre_computation_time']
 
     #ÄNDERN
     print(filepath)
@@ -899,36 +899,77 @@ if (plotfig):
     ################################ COMPUTATION TIME #######################################################
 
 
+    # plt.figure()
+
+    # X = [1,2,3,4,5,6,7,8,9]
+
+    # for i in range(0, len(X)):
+    #     X[i] = X[i] * 50
+
+    # mt_time =  [77.32267133333333, 48.845689, 81.448652, 122.17995533333333, 167.94597866666666, 229.81547299999997, 308.94882200000006, 368.6160713333333, 460.62677866666667]
+    # otbM_time =  [29.739345666666665, 4.216385333333334, 6.597391333333333, 7.048780000000001, 7.8528926666666665, 8.021870666666667, 7.971387666666666, 9.272190666666667, 8.196245]
+    # mtmB_time =  [29.74375533333333, 27.40294966666667, 38.087102, 62.297391000000005, 64.81008133333334, 107.90556266666668, 134.95438166666665, 141.93827766666666, 189.03758066666668]
+    # mtmA_time =  [9.231850999999999, 12.291334666666666, 11.799994333333332, 14.849939, 15.638326999999999, 19.513328666666666, 20.34446766666667, 16.08910033333333, 19.533797333333336]
+    # mtmR_time =  [80.51002633333333, 51.413677666666665, 75.714287, 119.014935, 165.62308499999997, 232.689798, 318.464939, 365.40515999999997, 469.14956466666666]
+    # mtmP_time =  [12.541610666666669, 22.845202, 31.498940666666666, 63.022454333333336, 78.37081966666666, 108.58506433333334, 142.37752033333334, 140.24766766666667, 188.01580633333333]
+
+    # plt.subplot(221)
+
+    # plt.plot(X, mt_time, color='r', label='MultipleTrees')
+    # plt.plot(X, otbM_time, color='g', label='OneTree Breite Mod')
+    # plt.plot(X, mtmB_time, color='b', label='MultipleTrees Breite Mod')
+    # plt.plot(X, mtmA_time, color='m', label='MultipleTrees Anzahl Mod')
+    # plt.plot(X, mtmR_time, color='y', label='MultipleTrees Reihenfolge Mod')
+    # plt.plot(X, mtmP_time, color='c', label='MultipleTrees Parallel Mod')
+
+    # plt.xlabel("Kantenanzahl")
+    # plt.ylabel("Zeit in s")
+    # plt.title("Rechenzeit, n = 50, Konnektivität von 1 bis 9")
+    # # Adding legend, which helps us recognize the curve according to it's color
+    # plt.legend(fontsize="x-small")
+
+    # plt.show()
+    ################################ REAL TOPOLOGIES NEW #########################################################
+
     plt.figure()
 
-    X = [1,2,3,4,5,6,7,8,9]
+    X = [2,3,4,5,6,7,8,9,10,11,12]
 
-    for i in range(0, len(X)):
-        X[i] = X[i] * 50
-
-    mt_time =  [77.32267133333333, 48.845689, 81.448652, 122.17995533333333, 167.94597866666666, 229.81547299999997, 308.94882200000006, 368.6160713333333, 460.62677866666667]
-    otbM_time =  [29.739345666666665, 4.216385333333334, 6.597391333333333, 7.048780000000001, 7.8528926666666665, 8.021870666666667, 7.971387666666666, 9.272190666666667, 8.196245]
-    mtmB_time =  [29.74375533333333, 27.40294966666667, 38.087102, 62.297391000000005, 64.81008133333334, 107.90556266666668, 134.95438166666665, 141.93827766666666, 189.03758066666668]
-    mtmA_time =  [9.231850999999999, 12.291334666666666, 11.799994333333332, 14.849939, 15.638326999999999, 19.513328666666666, 20.34446766666667, 16.08910033333333, 19.533797333333336]
-    mtmR_time =  [80.51002633333333, 51.413677666666665, 75.714287, 119.014935, 165.62308499999997, 232.689798, 318.464939, 365.40515999999997, 469.14956466666666]
-    mtmP_time =  [12.541610666666669, 22.845202, 31.498940666666666, 63.022454333333336, 78.37081966666666, 108.58506433333334, 142.37752033333334, 140.24766766666667, 188.01580633333333]
+    baseMT_mit_infs_Resilienz =  [1, 1, 0.975, 0.95, 0.775, 0.75, 0.75, 0.7250000000000001, 0.7, 0.55, 0.5000000000000001]
+    baseOT_mit_infs_Resilienz =  [1, 1, 0.975, 0.95, 0.775, 0.75, 0.75, 0.7250000000000001, 0.7, 0.55, 0.5250000000000001]
+    sq1_mit_infs_Resilienz =  [1, 1, 0.975, 0.9249999999999999, 0.7250000000000001, 0.675, 0.65, 0.65, 0.625, 0.525, 0.5000000000000001]
+    parallelInverse_mit_infs_Resilienz =  [1, 1, 0.975, 0.95, 0.775, 0.75, 0.75, 0.7250000000000001, 0.7, 0.55, 0.5000000000000001]
+    mtmp_mit_infs_Resilienz =  [1, 1, 0.975, 0.95, 0.775, 0.75, 0.75, 0.7250000000000001, 0.7, 0.55, 0.5000000000000001]
+    mtiom_mit_infs_Resilienz =  [1, 1, 0.975, 0.95, 0.775, 0.75, 0.75, 0.7250000000000001, 0.7, 0.55, 0.5250000000000001]
+    mtrom_mit_infs_Resilienz =  [1, 1, 0.975, 0.95, 0.775, 0.75, 0.7250000000000001, 0.7250000000000001, 0.7, 0.55, 0.5250000000000001]
 
     plt.subplot(221)
 
-    plt.plot(X, mt_time, color='r', label='MultipleTrees')
-    plt.plot(X, otbM_time, color='g', label='OneTree Breite Mod')
-    plt.plot(X, mtmB_time, color='b', label='MultipleTrees Breite Mod')
-    plt.plot(X, mtmA_time, color='m', label='MultipleTrees Anzahl Mod')
-    plt.plot(X, mtmR_time, color='y', label='MultipleTrees Reihenfolge Mod')
-    plt.plot(X, mtmP_time, color='c', label='MultipleTrees Parallel Mod')
+    plt.plot(X, baseMT_mit_infs_Resilienz, color='r', label='MultipleTrees')
+    plt.plot(X, baseOT_mit_infs_Resilienz, color='g', label='OneTree')
+    plt.plot(X, sq1_mit_infs_Resilienz, color='b', label='SquareOne')
+    plt.plot(X, parallelInverse_mit_infs_Resilienz, color='m', label='MultipleTrees parallel & invers')
+    plt.plot(X, mtmp_mit_infs_Resilienz, color='y', label='MultipleTrees parallel')
+    plt.plot(X, mtiom_mit_infs_Resilienz, color='c', label='MultipleTrees invers')
+    plt.plot(X, mtrom_mit_infs_Resilienz, '--' ,color='r', label='MultipleTrees random')
 
-    plt.xlabel("Kantenanzahl")
-    plt.ylabel("Zeit in s")
-    plt.title("Rechenzeit, n = 50, Konnektivität von 1 bis 9")
+    plt.xlabel("Failure Rate")
+    plt.ylabel("Resilienz")
+    plt.title("Resilienz, Reale Topologien")
     # Adding legend, which helps us recognize the curve according to it's color
     plt.legend(fontsize="x-small")
 
     plt.show()
+
+
+    mtrom_Hops =  [12.0, 10.25, 9.5, 9.75, 10.25, 12.375, 12.125, 11.5, 10.875]
+    mtmp_Hops =  [13.125, 14.125, 11.875, 11.75, 11.625, 11.625, 11.375, 12.125, 11.25]
+    mtiom_Hops =  [8.375, 9.75, 9.75, 9.5, 9.5, 11.625, 11.375, 10.0, 9.25]
+    baseMT_Hops =  [13.125, 14.125, 11.875, 11.75, 11.625, 11.625, 11.375, 12.125, 11.25]
+    baseOT_Hops =  [8.375, 9.5, 9.625, 10.625, 10.625, 10.625, 10.375, 9.0, 9.5]
+    sq1_Hops =  [8.375, 9.25, 6.875, 6.75, 6.625, 6.625, 6.625, 7.375, 7.125]
+    parallelInverse_Hops =  [8.375, 9.75, 9.75, 9.375, 9.5, 10.875, 10.625, 9.25, 7.125]
+
     ################################ REAL TOPOLOGIES OLD #########################################################
     
     # plt.figure()
