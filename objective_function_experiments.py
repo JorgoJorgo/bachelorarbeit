@@ -506,20 +506,29 @@ def write_graphs():
 def create_custom_graph():
     #jetziger graph ist der beispielgraph für die motivation von mod breite in multipletrees
     g = nx.Graph()
-    max_node = 9
+    max_node = 7
     for i in range(1,max_node):#geht von 1 bis max_node -1
         g.add_node(i)
     #endfor 
-    g.add_edge(1 ,2 )
-    g.add_edge( 1,4)
-    g.add_edge( 2,3 )
-    g.add_edge( 2,5 )
-    g.add_edge( 3,4 )
-    g.add_edge( 4,7 )
-    g.add_edge( 5,6 )
-    g.add_edge( 6,7 )
-    g.add_edge( 6,8 )
-    g.add_edge( 7,8 )
+
+    g.add_edge(1,2)
+    g.add_edge(1,3)
+    g.add_edge(2,4)
+    g.add_edge(2,5)
+    g.add_edge(3,5)
+    g.add_edge(4,6)
+    g.add_edge(5,6)
+    ###########################################################################
+    # g.add_edge(1 ,2 )
+    # g.add_edge( 1,4)
+    # g.add_edge( 2,3 )
+    # g.add_edge( 2,5 )
+    # g.add_edge( 3,4 )
+    # g.add_edge( 4,7 )
+    # g.add_edge( 5,6 )
+    # g.add_edge( 6,7 )
+    # g.add_edge( 6,8 )
+    # g.add_edge( 7,8 )
     ############################################################################
     #g.add_edge(1,2)
     #g.add_edge(1,3)
@@ -584,7 +593,7 @@ def create_custom_graph():
     #fails.append((random1,random2))
     #fails.append((random3,random4))
 
-    fails.append((2,3))
+    fails.append((4,6))
     ################################################
     #fails.append((1,6))
     #################################################

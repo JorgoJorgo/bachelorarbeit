@@ -1257,9 +1257,9 @@ def multiple_trees_parallel(source, destination, graph, all_edps):
             tree.nodes[destination]["rank"] = -1
         #endif
 
-        if source == 1 and destination == 8 : 
-            PG5 = nx.nx_pydot.write_dot(tree , "./fixTruncation/"+ str(source) + "_" + str(destination) + "_" + str(i) + "_EAafterMultipleTreesParallel")
-        i = i+1
+        #if source == 1 and destination == 8 : 
+        #    PG5 = nx.nx_pydot.write_dot(tree , "./fixTruncation/"+ str(source) + "_" + str(destination) + "_" + str(i) + "_EAafterMultipleTreesParallel")
+        #i = i+1
     #endfor
     print("In parallel removed_edges : ", removed_edges)
     removed_edges_parallel.append(removed_edges)
@@ -1320,8 +1320,8 @@ def multiple_trees_recycling(source, destination, graph, all_edps):
     removed_edges = 0
     trees = []
     nodes_in_tree = []
-    if source == 1 and destination == 8 :
-        all_edps = [[1,2,5,8],[1,4,7,8]]
+    #if source == 1 and destination == 6 :
+    #    all_edps = [[1,3,5,6],[1,2,4,6]]
     print("All Edps : ", all_edps)
     #für jeden tree muss hier sein edp eingefügt werden in den graph 
     for i in range(0,len(all_edps)):
@@ -1432,8 +1432,8 @@ def multiple_trees_recycling(source, destination, graph, all_edps):
         removed_edges = removed_edges + (old_edges - new_edges)
         
         #man muss prüfen ob nur die source im baum ist , da man im nächsten schritt der destination einen Rang geben muss
-        if source == 1 and destination == 8 :
-            PG5 = nx.nx_pydot.write_dot(tree , "./fixTruncation/"+ str(source) + "_" + str(destination) + "_" + str(i) + "_BAafterMultipleTreesRecyclingParallel")
+        if source == 1 and destination == 6 :
+            PG5 = nx.nx_pydot.write_dot(tree , "./fixTruncation/"+ str(source) + "_" + str(destination) + "_" + str(i) + "_BABeforeRecycling")
         i = i +1
     #endfor
     print("In parallel removed_edges : ", removed_edges)
@@ -1488,7 +1488,22 @@ def recycleTrees(trees,source,destination,graph,all_edps):
         tree = trees[i] # Baum der zuvor gekürzt wurde
         pathToExtend = list(tree.nodes)
 
+        ################# DEBUG ONLY ################
         tree_before_recycling = tree.copy()
+        if( tree_before_recycling.order() > 1 ):
+            rank_tree(tree_before_recycling , source,all_edps[i])
+            connect_leaf_to_destination(tree_before_recycling, source,destination)
+            tree_before_recycling.add_edge(all_edps[i][len(all_edps[i])-2],destination)
+            tree_before_recycling.nodes[destination]["rank"] = -1
+            
+        #endif
+        #edps direkt von s->d kommen müssen gesondert betrachtet werden
+        if(tree_before_recycling.order() == 1 and len(all_edps[i]) == 2):
+            tree_before_recycling.add_edge(source,destination)
+            tree_before_recycling.nodes[destination]["rank"] = -1
+        #endif
+        ##############################################
+
 
         nodes = pathToExtend[:len(pathToExtend) -1]#in nodes stehen dann alle knoten drin die wir besuchen wollen um deren nachbarn auch reinzupacken
                                                    # am anfang ganzer edp drin und -2 damit die destination nicht mit drin steht
@@ -1547,7 +1562,7 @@ def recycleTrees(trees,source,destination,graph,all_edps):
 
         changed = True 
 
-        #if source == 1 and destination == 8 :
+        #if source == 1 and destination == 6 :
         #    PG = nx.nx_pydot.write_dot(tree, "./fixTruncation/" + str(source)+"_"+str(destination)+"_"+str(i) +  "_BBRecyclingBeforeTruncation_")
 
         #old_edges = len(tree.edges)
@@ -1565,7 +1580,7 @@ def recycleTrees(trees,source,destination,graph,all_edps):
         #print("New edges : ", new_edges)
         #removed_edges =  removed_edges + (old_edges - new_edges)
         
-        #if source == 1 and destination == 8 :
+        #if source == 1 and destination == 6 :
         #    PG = nx.nx_pydot.write_dot(tree, "./fixTruncation/" + str(source)+"_"+str(destination)+"_"+str(i) +  "_BCafterTruncationTree_")
 
         #man muss prüfen ob nur die source im baum ist , da man im nächsten schritt der destination einen Rang geben muss
@@ -1587,13 +1602,13 @@ def recycleTrees(trees,source,destination,graph,all_edps):
             tree.add_edge(source,destination)
             tree.nodes[destination]["rank"] = -1
         #endif
-        #if source == 1 and destination == 8 :
+        #if source == 1 and destination == 6 :
         #    PG = nx.nx_pydot.write_dot(tree, "./fixTruncation/" + str(source)+"_"+str(destination)+"_"+str(i) +  "_BDfinishedRecycling_")
         #PG = nx.nx_pydot.write_dot(tree, "./fixTruncation/" + str(source)+"_"+str(destination)+"_"+str(i) +  "_inRecycling_")
         tree_after_truncation = tree.copy()
         #if list(tree_before_recycling.nodes) != list(tree_after_truncation.nodes) and list(tree_before_recycling.edges) != list(tree_after_truncation.edges):
-        #    PG = nx.nx_pydot.write_dot(tree_before_recycling, "./fixTruncation/" + str(source)+"_"+str(destination)+"_"+str(i) +  "_beforeRecycling_")
-        #    PG = nx.nx_pydot.write_dot(tree_after_truncation, "./fixTruncation/" + str(source)+"_"+str(destination)+"_"+str(i) +  "_CafterRecyclingTruncation_")        
+        #    PG = nx.nx_pydot.write_dot(tree_before_recycling, "./fixTruncation/" + str(source)+"_"+str(destination)+"_"+str(i) +  "_CHANGEDbeforeRecycling_")
+        #    PG = nx.nx_pydot.write_dot(tree_after_truncation, "./fixTruncation/" + str(source)+"_"+str(destination)+"_"+str(i) +  "_CHANGEDCafterRecyclingTruncation_")        
     #endfor
     return trees
 ####################################################################################################################################

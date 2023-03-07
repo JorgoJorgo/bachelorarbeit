@@ -29,7 +29,8 @@ def set_routing_params(params):
 
 
 def RouteMultipleTrees(s,d,fails,paths):
-
+    
+    print("FAIL ANZAHL : ", len(fails))
     #########################################   FOR DEBUG ONLY                #####################################################
     skip_edps = True
     skip_trees = False

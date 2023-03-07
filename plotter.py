@@ -13,26 +13,26 @@ import math
 
 
 #FÜR die neuen Real Topos :
-count = 8
+#count = 8
 # algorithm1 = 'baseMT'
-algorithm2 = 'baseOT'
+#algorithm2 = 'baseOT'
 # TitleAlgo1 = " MultipleTrees"
-TitleAlgo2 = " OneTree"
+#TitleAlgo2 = " OneTree"
 
-# algorithm1 = 'sq1'
-# algorithm2 = 'parallelInverse'
-# TitleAlgo1 = " SquareOne"
-# TitleAlgo2 = " Parallel and Inverse"
+#algorithm1 = 'sq1'
+#algorithm2 = 'parallelInverse'
+#TitleAlgo1 = " SquareOne"
+#TitleAlgo2 = " Parallel and Inverse"
 
 # algorithm1 = 'mtmp'
 # algorithm2 = 'mtiom'
 # TitleAlgo1 = " MultipleTrees Mod Parallel"
 # TitleAlgo2 = " MultipleTrees Invert Order Mod"
 
-algorithm1 = 'mtrom'
-TitleAlgo1 = " MultipleTrees Random Order Mod"
+#algorithm1 = 'mtrom'
+#TitleAlgo1 = " MultipleTrees Random Order Mod"
 
-
+#count = 5
 
 
 #FÜR die Computation Time
@@ -52,6 +52,22 @@ TitleAlgo1 = " MultipleTrees Random Order Mod"
 # TitleAlgo1 = " MultipleTrees Mod Reihenfolge"
 # TitleAlgo2 = " MultipleTrees Mod Parallel"
 
+#FÜR MT vs MTP vs MTRecycle
+# count= 5
+# algorithm1 = 'baseMT'
+# TitleAlgo1 = " MultipleTrees"
+# algorithm2 = "mtmP"
+# TitleAlgo2 = " MultipleTrees Mod Parallel"
+#algorithm1 = "MTRecycle"
+#TitleAlgo1 = " MultipleTrees Recycle Mod"
+
+# FÜR MT vs MTP
+algorithm1 = 'baseMT'
+TitleAlgo1 = " MultipleTrees"
+algorithm2 = "mtmP"
+TitleAlgo2 = " MultipleTrees Mod Parallel"
+count = 8 
+
 alg1_hops = []
 alg2_hops = []
 alg1_resilience = [1,1]
@@ -61,13 +77,16 @@ alg2_real_resilience = [1,1]
 alg1_time = []
 alg2_time = []
 
-for i in range(2,11):
+for i in range(2,12):
 
     number = str(i)
 
     
-    filepath = "NewRealTopos/benchmark-zoo-RealTopos-FR"+number+"-5.txt"
+    #filepath = "NewRealTopos/benchmark-zoo-RealTopos-FR"+number+"-5.txt"
     #filepath = "ComputationTimeExperiments/benchmark-regular-all-multiple-trees-50-"+number+".txt"
+    #filepath = "results/benchmark-zoo-RealTopos-"+number+"-5.txt"
+    #filepath = "results/benchmark-regular-all-multiple-trees-FR"+number+"-40-5.txt"
+    filepath = "ParallelNew/benchmark-regular-all-multiple-trees-FR"+number+"-40-5.txt"
     FR = '_fr'+number
 
     ###################################################################################################################
@@ -931,44 +950,68 @@ if (plotfig):
     # plt.show()
     ################################ REAL TOPOLOGIES NEW #########################################################
 
-    plt.figure()
 
-    X = [2,3,4,5,6,7,8,9,10,11,12]
+    #DAS IST DER PLOT DEN ICH PROF. FÖRSTER AM FREITAG 3.3 zeige
+    # plt.figure()
 
-    baseMT_mit_infs_Resilienz =  [1, 1, 0.975, 0.95, 0.775, 0.75, 0.75, 0.7250000000000001, 0.7, 0.55, 0.5000000000000001]
-    baseOT_mit_infs_Resilienz =  [1, 1, 0.975, 0.95, 0.775, 0.75, 0.75, 0.7250000000000001, 0.7, 0.55, 0.5250000000000001]
-    sq1_mit_infs_Resilienz =  [1, 1, 0.975, 0.9249999999999999, 0.7250000000000001, 0.675, 0.65, 0.65, 0.625, 0.525, 0.5000000000000001]
-    parallelInverse_mit_infs_Resilienz =  [1, 1, 0.975, 0.95, 0.775, 0.75, 0.75, 0.7250000000000001, 0.7, 0.55, 0.5000000000000001]
-    mtmp_mit_infs_Resilienz =  [1, 1, 0.975, 0.95, 0.775, 0.75, 0.75, 0.7250000000000001, 0.7, 0.55, 0.5000000000000001]
-    mtiom_mit_infs_Resilienz =  [1, 1, 0.975, 0.95, 0.775, 0.75, 0.75, 0.7250000000000001, 0.7, 0.55, 0.5250000000000001]
-    mtrom_mit_infs_Resilienz =  [1, 1, 0.975, 0.95, 0.775, 0.75, 0.7250000000000001, 0.7250000000000001, 0.7, 0.55, 0.5250000000000001]
+    # X = [2,3,4,5,6,7,8,9,10,11,12]
 
-    plt.subplot(221)
+    # baseMT_mit_infs_Resilienz =           [1, 1, 0.975, 0.95, 0.775, 0.75, 0.75, 0.72, 0.7, 0.55, 0.500]
+    # baseOT_mit_infs_Resilienz =           [1, 1, 0.975, 0.95, 0.775, 0.75, 0.75, 0.72, 0.7, 0.55, 0.525]
+    # sq1_mit_infs_Resilienz =              [1, 1, 0.975, 0.92, 0.725, 0.67, 0.65, 0.65, 0.625, 0.525, 0.500]
+    # parallelInverse_mit_infs_Resilienz =  [1, 1, 0.975, 0.95, 0.775, 0.75, 0.75, 0.72, 0.7, 0.55, 0.500]
+    # mtmp_mit_infs_Resilienz =             [1, 1, 0.975, 0.95, 0.775, 0.75, 0.75, 0.72, 0.7, 0.55, 0.500]
+    # mtiom_mit_infs_Resilienz =            [1, 1, 0.975, 0.95, 0.775, 0.75, 0.75, 0.721, 0.7, 0.55, 0.525]
+    # mtrom_mit_infs_Resilienz =            [1, 1, 0.975, 0.95, 0.775, 0.75, 0.72, 0.725, 0.7, 0.55, 0.525]
 
-    plt.plot(X, baseMT_mit_infs_Resilienz, color='r', label='MultipleTrees')
-    plt.plot(X, baseOT_mit_infs_Resilienz, color='g', label='OneTree')
-    plt.plot(X, sq1_mit_infs_Resilienz, color='b', label='SquareOne')
-    plt.plot(X, parallelInverse_mit_infs_Resilienz, color='m', label='MultipleTrees parallel & invers')
-    plt.plot(X, mtmp_mit_infs_Resilienz, color='y', label='MultipleTrees parallel')
-    plt.plot(X, mtiom_mit_infs_Resilienz, color='c', label='MultipleTrees invers')
-    plt.plot(X, mtrom_mit_infs_Resilienz, '--' ,color='r', label='MultipleTrees random')
+    # plt.subplot(221)
 
-    plt.xlabel("Failure Rate")
-    plt.ylabel("Resilienz")
-    plt.title("Resilienz, Reale Topologien")
-    # Adding legend, which helps us recognize the curve according to it's color
-    plt.legend(fontsize="x-small")
+    # plt.plot(X, baseMT_mit_infs_Resilienz, color='r', label='MultipleTrees')
+    # plt.plot(X, baseOT_mit_infs_Resilienz, color='g', label='OneTree')
+    # plt.plot(X, sq1_mit_infs_Resilienz, color='b', label='SquareOne')
+    # plt.plot(X, parallelInverse_mit_infs_Resilienz, color='m', label='MultipleTrees parallel & invers')
+    # plt.plot(X, mtmp_mit_infs_Resilienz, color='y', label='MultipleTrees parallel')
+    # plt.plot(X, mtiom_mit_infs_Resilienz, color='c', label='MultipleTrees invers')
+    # plt.plot(X, mtrom_mit_infs_Resilienz, '--' ,color='r', label='MultipleTrees random')
 
-    plt.show()
+    # plt.xlabel("Failure Rate")
+    # plt.ylabel("Resilienz")
+    # plt.title("Resilienz, Reale Topologien")
+    # # Adding legend, which helps us recognize the curve according to it's color
+    # plt.legend(fontsize="x-small")
+
+    # plt.show()
 
 
-    mtrom_Hops =  [12.0, 10.25, 9.5, 9.75, 10.25, 12.375, 12.125, 11.5, 10.875]
-    mtmp_Hops =  [13.125, 14.125, 11.875, 11.75, 11.625, 11.625, 11.375, 12.125, 11.25]
-    mtiom_Hops =  [8.375, 9.75, 9.75, 9.5, 9.5, 11.625, 11.375, 10.0, 9.25]
-    baseMT_Hops =  [13.125, 14.125, 11.875, 11.75, 11.625, 11.625, 11.375, 12.125, 11.25]
-    baseOT_Hops =  [8.375, 9.5, 9.625, 10.625, 10.625, 10.625, 10.375, 9.0, 9.5]
-    sq1_Hops =  [8.375, 9.25, 6.875, 6.75, 6.625, 6.625, 6.625, 7.375, 7.125]
-    parallelInverse_Hops =  [8.375, 9.75, 9.75, 9.375, 9.5, 10.875, 10.625, 9.25, 7.125]
+
+    #plt.subplot(222)
+
+    # Y = [2,3,4,5,6,7,8,9,10]
+
+    # mtrom_Hops =  [12.0, 10.25, 9.5, 9.75, 10.25, 12.375, 12.125, 11.5, 10.875]
+    # mtmp_Hops =  [13.125, 14.125, 11.875, 11.75, 11.625, 11.625, 11.375, 12.125, 11.25]
+    # mtiom_Hops =  [8.375, 9.75, 9.75, 9.5, 9.5, 11.625, 11.375, 10.0, 9.25]
+    # baseMT_Hops =  [13.125, 14.125, 11.875, 11.75, 11.625, 11.625, 11.375, 12.125, 11.25]
+    # baseOT_Hops =  [8.375, 9.5, 9.625, 10.625, 10.625, 10.625, 10.375, 9.0, 9.5]
+    # sq1_Hops =  [8.375, 9.25, 6.875, 6.75, 6.625, 6.625, 6.625, 7.375, 7.125]
+    # parallelInverse_Hops =  [8.375, 9.75, 9.75, 9.375, 9.5, 10.875, 10.625, 9.25, 7.125]
+
+    # plt.plot(Y, baseMT_Hops, '--', color='r', label='MultipleTrees')
+    # plt.plot(Y,baseOT_Hops, '--', color='g', label='OneTree')
+    # plt.plot(Y, sq1_Hops,'--' , color='c', label='SquareOne')
+    # plt.plot(Y, parallelInverse_Hops, color='m', label='Parallel & Invers')
+    # plt.plot(Y, mtmp_Hops, color='y', label='Parallel')
+    # plt.plot(Y, mtiom_Hops,'--', color='m', label='Invers')
+    # plt.plot(Y, mtrom_Hops, color='b', label='Randomisiert')
+
+    # # Naming the x-axis, y-axis and the whole graph
+    # plt.xlabel("Failure Rate")
+    # plt.ylabel("Hops")
+    # plt.title("Hop-Anzahl, reale Topologien ")
+    # # Adding legend, which helps us recognize the curve according to it's color
+    # plt.legend(fontsize="x-small")
+
+    # plt.show()
 
     ################################ REAL TOPOLOGIES OLD #########################################################
     
@@ -1051,3 +1094,102 @@ if (plotfig):
     # plt.legend(fontsize="x-small")
 
     # plt.show()
+
+    ############################# REAL TOPOS WEITERE EXPERIMENTE ####################################
+
+
+    # plt.figure()
+
+    # X = [2,3,4,5,6,7,8,9,10,11,12]
+
+    # mtmp_mit_infs_Resilienz =    [1, 1, 1.0, 0.96, 0.64, 0.64, 0.64, 0.64, 0.64, 0.44000000000000006, 0.31999999999999995]
+    # mtiom_mit_infs_Resilienz =   [1, 1, 1.0, 1.0, 0.72, 0.72, 0.72, 0.72, 0.72, 0.44000000000000006, 0.31999999999999995]
+    # baseMT_mit_infs_Resilienz =  [1, 1, 1.0, 1.0, 0.72, 0.72, 0.72, 0.72, 0.72, 0.44000000000000006, 0.31999999999999995]
+    # baseOT_mit_infs_Resilienz =  [1, 1, 1.0, 1.0, 0.72, 0.72, 0.72, 0.72, 0.72, 0.44000000000000006, 0.31999999999999995]
+    # sq1_mit_infs_Resilienz =     [1, 1, 1.0, 0.96, 0.64, 0.64, 0.64, 0.64, 0.64, 0.44000000000000006, 0.31999999999999995]
+    # parallelInverse_mit_infs_Resilienz =  [1, 1, 1.0, 1.0, 0.6799999999999999, 0.6799999999999999, 0.6799999999999999, 0.6799999999999999, 0.6799999999999999, 0.44000000000000006, 0.31999999999999995]
+    # mtrom_mit_infs_Resilienz =  [1, 1, 1.0, 1.0, 0.72, 0.72, 0.72, 0.72, 0.72, 0.44000000000000006, 0.31999999999999995]
+ 
+    # mtrom_Hops =  [10.2, 14.2, 14.75, 12.5, 14.0, 13.75, 13.25, 9.0, 9.25]
+    # sq1_Hops =  [9.4, 11.6, 7.25, 7.25, 7.25, 7.25, 7.25, 5.0, 5.0]
+    # parallelInverse_Hops =  [9.4, 11.6, 9.5, 9.5, 9.5, 9.5, 9.5, 5.0, 5.0]
+    # baseMT_Hops =  [15.2, 25.0, 18.75, 15.25, 15.25, 15.25, 14.75, 10.5, 9.75]
+    # baseOT_Hops =  [9.6, 12.2, 12.5, 12.5, 12.5, 12.5, 12.0, 5.5, 5.25]
+    # mtmp_Hops =  [15.2, 28.0, 16.5, 13.0, 13.0, 13.0, 12.5, 10.5, 9.75]
+    # mtiom_Hops =  [9.4, 11.6, 12.0, 12.0, 12.0, 12.0, 11.5, 5.0, 5.0]
+
+    # plt.subplot(221)
+
+    # plt.plot(X, baseMT_mit_infs_Resilienz, color='r', label='MultipleTrees')
+    # plt.plot(X, baseOT_mit_infs_Resilienz, color='g', label='OneTree')
+    # plt.plot(X, sq1_mit_infs_Resilienz, color='b', label='SquareOne')
+    # plt.plot(X, parallelInverse_mit_infs_Resilienz, color='m', label='MultipleTrees parallel & invers')
+    # plt.plot(X, mtmp_mit_infs_Resilienz, color='y', label='MultipleTrees parallel')
+    # plt.plot(X, mtiom_mit_infs_Resilienz, color='c', label='MultipleTrees invers')
+    # plt.plot(X, mtrom_mit_infs_Resilienz, '--' ,color='r', label='MultipleTrees random')
+
+    # plt.xlabel("Failure Rate")
+    # plt.ylabel("Resilienz")
+    # plt.title("Resilienz, Reale Topologien")
+    # # Adding legend, which helps us recognize the curve according to it's color
+    # plt.legend(fontsize="x-small")
+
+    # plt.show()
+
+    ############################### MT vs MTP vs MTRecycle ############################
+
+    plt.figure()
+
+    X = [1,2,3,4,5,6,7,8,9,10,11,12]
+    plt.subplot(221)
+
+    MTRecycle_mit_infs_Resilienz =  [1, 1, 1.0, 1.0, 0.8799999999999999, 0.72, 0.56, 0.24, 0.2, 0.2, 0.12000000000000002, 0.04]
+    mtmP_mit_infs_Resilienz =  [1, 1, 1.0, 0.96, 0.8400000000000001, 0.72, 0.56, 0.24, 0.16, 0.16, 0.12000000000000002, 0.04]
+    baseMT_mit_infs_Resilienz =  [1, 1, 1.0, 1.0, 0.9199999999999999, 0.76, 0.56, 0.27999999999999997, 0.2, 0.2, 0.12000000000000002, 0.04]
+    
+    plt.plot(X, baseMT_mit_infs_Resilienz, color='r', label='MultipleTrees')
+    plt.plot(X, MTRecycle_mit_infs_Resilienz, color='g', label='MultipleTrees Recycle')
+    plt.plot(X, mtmP_mit_infs_Resilienz, color='b', label='MultipleTrees Parallel')
+
+    plt.xlabel("Failure Rate")
+    plt.ylabel("Resilienz")
+    plt.title("Resilienz, randomisiert, n = 40 , k = 5 ")
+
+    plt.legend(fontsize="x-small")
+
+    plt.subplot(222)
+    Y = [1,2,3,4,5,6,7,8,9,10]
+    MTRecycle_Hops =  [7.4, 10.8, 11.0, 17.8, 12.8, 10.25, 7.666666666666667, 6.0, 6.0, 2.0]
+    mtmP_Hops =  [11.4, 14.8, 14.6, 11.6, 7.2, 6.75, 5.0, 4.333333333333333, 4.0, 2.0]
+    baseMT_Hops =  [6.6, 9.6, 11.6, 14.4, 12.4, 11.0, 7.666666666666667, 6.0, 6.0, 2.0]
+    plt.plot(Y, baseMT_Hops, color='r', label='MultipleTrees')
+    plt.plot(Y, MTRecycle_Hops, color='g', label='MultipleTrees Recycle')
+    plt.plot(Y, mtmP_Hops, color='b', label='MultipleTrees Parallel')
+    plt.xlabel("Failue Rate")
+    plt.ylabel("Hops")
+    plt.title("Resilienz, randomisiert,  n = 40 , k = 5 ")
+    plt.legend(fontsize="x-small")
+    plt.show()
+    ################################ MT  vs MTP NEW ##################################
+
+    # plt.figure()
+
+    # X = [1,2,3,4,5,6,7,8,9,10,11,12]
+
+    # baseMT_mit_infs_Resilienz =  [1, 1, 1.0, 1.0, 0.9249999999999999, 0.85, 0.725, 0.5499999999999999, 0.39999999999999997, 0.22499999999999998, 0.175, 0.175]
+    # mtmP_mit_infs_Resilienz =  [1, 1, 1.0, 0.8249999999999998, 0.8249999999999998, 0.6250000000000001, 0.5000000000000001, 0.39999999999999997, 0.24999999999999997, 0.15, 0.125, 0.125]
+    
+    # plt.plot(X, baseMT_mit_infs_Resilienz, color='r', label='MultipleTrees')
+    # plt.plot(X, mtmP_mit_infs_Resilienz, color='b', label='MultipleTrees Parallel')
+
+    # plt.xlabel("Failure Rate")
+    # plt.ylabel("Resilienz")
+    # plt.title("Resilienz, n = 40 , k = 5 ")
+
+    # plt.legend(fontsize="x-small")
+
+    # plt.show()
+
+    # baseMT_Hops =  [6.875, 6.875, 10.625, 13.75, 15.125, 11.125, 11.714285714285714, 9.428571428571429, 7.2, 6.4]
+    # mtmP_Hops =  [12.25, 11.5, 12.0, 15.375, 9.25, 7.142857142857143, 4.833333333333333, 6.75, 6.25, 5.25]
+ 

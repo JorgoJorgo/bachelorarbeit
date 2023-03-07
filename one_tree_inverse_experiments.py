@@ -199,7 +199,7 @@ def start_file(filename):
 #hier kann rep geändert werden
 def experiments(switch="all", seed=0, rep=100):
     if switch in ["regular", "all"]:
-        out = start_file("results/benchmark-regular-inverseOneTree-FR2-" + str(n) + "-" + str(k))
+        out = start_file("results/benchmark-regular-inverseOneTree-FR"+ str(i) + "-" + str(n) + "-" + str(k))
         run_regular(out=out, seed=seed, rep=rep)
         out.close()
 
@@ -219,33 +219,35 @@ def experiments(switch="all", seed=0, rep=100):
     print("\nlower is better")
 
 
-
 if __name__ == "__main__":
-    f_num = 10 #number of failed links
-    n = 40 # number of nodes
-    k = 5 #base connectivity
-    samplesize = 5 #number of sources to route a packet to destination
-    rep = 8 #number of experiments
-    switch = 'all' #which experiments to run with same parameters
-    seed = 0  #random seed
-    name = "benchmark-FR2-" #result files start with this name
-    short = None #if true only small zoo graphs < 25 nodes are run
-    start = time.time()
-    print(time.asctime(time.localtime(start)))
-    if len(sys.argv) > 1:
-        switch = sys.argv[1]
-    if len(sys.argv) > 2:
-        seed = int(sys.argv[2])
-    if len(sys.argv) > 3:
-        rep = int(sys.argv[3])
-    if len(sys.argv) > 4:
-        n = int(sys.argv[4])
-    if len(sys.argv) > 4:
-        samplesize = int(sys.argv[5])
-    random.seed(seed)
-    set_parameters([n, rep, k, samplesize, f_num, seed, "benchmark-"])
-    experiments(switch=switch, seed=seed, rep=rep)
-    end = time.time()
-    print("time elapsed", end - start)
-    print("start time", time.asctime(time.localtime(start)))
-    print("end time", time.asctime(time.localtime(end)))
+    f_num = 10
+    for i in range(1,13):
+        failure_rate = i
+        n = 40 # number of nodes
+        k = 5 #base connectivity
+        samplesize = 5 #number of sources to route a packet to destination
+        rep = 8 #number of experiments
+        switch = 'all' #which experiments to run with same parameters
+        seed = 0  #random seed
+        name = "benchmark-" #result files start with this name
+        short = None #if true only small zoo graphs < 25 nodes are run
+        start = time.time()
+        print(time.asctime(time.localtime(start)))
+        if len(sys.argv) > 1:
+            switch = sys.argv[1]
+        if len(sys.argv) > 2:
+            seed = int(sys.argv[2])
+        if len(sys.argv) > 3:
+            rep = int(sys.argv[3])
+        if len(sys.argv) > 4:
+            n = int(sys.argv[4])
+        if len(sys.argv) > 4:
+            samplesize = int(sys.argv[5])
+        random.seed(seed)
+        set_parameters([n, rep, k, samplesize, f_num, seed, "benchmark-"])
+        experiments(switch=switch, seed=seed, rep=rep)
+        end = time.time()
+        print("time elapsed", end - start)
+        print("start time", time.asctime(time.localtime(start)))
+        print("end time", time.asctime(time.localtime(end)))
+        f_num = f_num + 7
