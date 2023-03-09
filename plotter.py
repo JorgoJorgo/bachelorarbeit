@@ -62,11 +62,24 @@ import math
 #TitleAlgo1 = " MultipleTrees Recycle Mod"
 
 # FÜR MT vs MTP
+# algorithm1 = 'baseMT'
+# TitleAlgo1 = " MultipleTrees"
+# algorithm2 = "mtmP"
+# TitleAlgo2 = " MultipleTrees Mod Parallel"
+# count = 8 
+
+
+
+
+
+#FÜR OT vs OTInverse
+count = 3
 algorithm1 = 'baseMT'
 TitleAlgo1 = " MultipleTrees"
-algorithm2 = "mtmP"
-TitleAlgo2 = " MultipleTrees Mod Parallel"
-count = 8 
+algorithm2 = 'baseOT'
+TitleAlgo2 = " OneTree"
+#algorithm2 = 'OTInverse'
+#TitleAlgo2 = " OneTree Inverse Mod"
 
 alg1_hops = []
 alg2_hops = []
@@ -77,7 +90,7 @@ alg2_real_resilience = [1,1]
 alg1_time = []
 alg2_time = []
 
-for i in range(2,12):
+for i in range(2,11):
 
     number = str(i)
 
@@ -86,7 +99,11 @@ for i in range(2,12):
     #filepath = "ComputationTimeExperiments/benchmark-regular-all-multiple-trees-50-"+number+".txt"
     #filepath = "results/benchmark-zoo-RealTopos-"+number+"-5.txt"
     #filepath = "results/benchmark-regular-all-multiple-trees-FR"+number+"-40-5.txt"
-    filepath = "ParallelNew/benchmark-regular-all-multiple-trees-FR"+number+"-40-5.txt"
+    #filepath = "ParallelNew/benchmark-regular-all-multiple-trees-FR"+number+"-40-5.txt"
+    #filepath = "OneTreeInverseNew/benchmark-regular-inverseOneTree-FR"+number+"-40-5.txt"
+    #filepath = "OneTreeInverse/benchmark-regular-inverseOneTree-FR"+number+"-40-5.txt"
+    #filepath = "OneTreeInverse/benchmark-regular-inverseOneTree-FR"+number+"-40-5.txt"
+    filepath = "results/benchmark-regular-inverseOneTree-FR"+number+"-40-5.txt"
     FR = '_fr'+number
 
     ###################################################################################################################
@@ -1138,38 +1155,38 @@ if (plotfig):
 
     ############################### MT vs MTP vs MTRecycle ############################
 
-    plt.figure()
+    # plt.figure()
 
-    X = [1,2,3,4,5,6,7,8,9,10,11,12]
-    plt.subplot(221)
+    # X = [1,2,3,4,5,6,7,8,9,10,11,12]
+    # plt.subplot(221)
 
-    MTRecycle_mit_infs_Resilienz =  [1, 1, 1.0, 1.0, 0.8799999999999999, 0.72, 0.56, 0.24, 0.2, 0.2, 0.12000000000000002, 0.04]
-    mtmP_mit_infs_Resilienz =  [1, 1, 1.0, 0.96, 0.8400000000000001, 0.72, 0.56, 0.24, 0.16, 0.16, 0.12000000000000002, 0.04]
-    baseMT_mit_infs_Resilienz =  [1, 1, 1.0, 1.0, 0.9199999999999999, 0.76, 0.56, 0.27999999999999997, 0.2, 0.2, 0.12000000000000002, 0.04]
+    # MTRecycle_mit_infs_Resilienz =  [1, 1, 1.0, 1.0, 0.8799999999999999, 0.72, 0.56, 0.24, 0.2, 0.2, 0.12000000000000002, 0.04]
+    # mtmP_mit_infs_Resilienz =  [1, 1, 1.0, 0.96, 0.8400000000000001, 0.72, 0.56, 0.24, 0.16, 0.16, 0.12000000000000002, 0.04]
+    # baseMT_mit_infs_Resilienz =  [1, 1, 1.0, 1.0, 0.9199999999999999, 0.76, 0.56, 0.27999999999999997, 0.2, 0.2, 0.12000000000000002, 0.04]
     
-    plt.plot(X, baseMT_mit_infs_Resilienz, color='r', label='MultipleTrees')
-    plt.plot(X, MTRecycle_mit_infs_Resilienz, color='g', label='MultipleTrees Recycle')
-    plt.plot(X, mtmP_mit_infs_Resilienz, color='b', label='MultipleTrees Parallel')
+    # plt.plot(X, baseMT_mit_infs_Resilienz, color='r', label='MultipleTrees')
+    # plt.plot(X, MTRecycle_mit_infs_Resilienz, color='g', label='MultipleTrees Recycle')
+    # plt.plot(X, mtmP_mit_infs_Resilienz, color='b', label='MultipleTrees Parallel')
 
-    plt.xlabel("Failure Rate")
-    plt.ylabel("Resilienz")
-    plt.title("Resilienz, randomisiert, n = 40 , k = 5 ")
+    # plt.xlabel("Failure Rate")
+    # plt.ylabel("Resilienz")
+    # plt.title("Resilienz, randomisiert, n = 40 , k = 5 ")
 
-    plt.legend(fontsize="x-small")
+    # plt.legend(fontsize="x-small")
 
-    plt.subplot(222)
-    Y = [1,2,3,4,5,6,7,8,9,10]
-    MTRecycle_Hops =  [7.4, 10.8, 11.0, 17.8, 12.8, 10.25, 7.666666666666667, 6.0, 6.0, 2.0]
-    mtmP_Hops =  [11.4, 14.8, 14.6, 11.6, 7.2, 6.75, 5.0, 4.333333333333333, 4.0, 2.0]
-    baseMT_Hops =  [6.6, 9.6, 11.6, 14.4, 12.4, 11.0, 7.666666666666667, 6.0, 6.0, 2.0]
-    plt.plot(Y, baseMT_Hops, color='r', label='MultipleTrees')
-    plt.plot(Y, MTRecycle_Hops, color='g', label='MultipleTrees Recycle')
-    plt.plot(Y, mtmP_Hops, color='b', label='MultipleTrees Parallel')
-    plt.xlabel("Failue Rate")
-    plt.ylabel("Hops")
-    plt.title("Resilienz, randomisiert,  n = 40 , k = 5 ")
-    plt.legend(fontsize="x-small")
-    plt.show()
+    # plt.subplot(222)
+    # Y = [1,2,3,4,5,6,7,8,9,10]
+    # MTRecycle_Hops =  [7.4, 10.8, 11.0, 17.8, 12.8, 10.25, 7.666666666666667, 6.0, 6.0, 2.0]
+    # mtmP_Hops =  [11.4, 14.8, 14.6, 11.6, 7.2, 6.75, 5.0, 4.333333333333333, 4.0, 2.0]
+    # baseMT_Hops =  [6.6, 9.6, 11.6, 14.4, 12.4, 11.0, 7.666666666666667, 6.0, 6.0, 2.0]
+    # plt.plot(Y, baseMT_Hops, color='r', label='MultipleTrees')
+    # plt.plot(Y, MTRecycle_Hops, color='g', label='MultipleTrees Recycle')
+    # plt.plot(Y, mtmP_Hops, color='b', label='MultipleTrees Parallel')
+    # plt.xlabel("Failue Rate")
+    # plt.ylabel("Hops")
+    # plt.title("Resilienz, randomisiert,  n = 40 , k = 5 ")
+    # plt.legend(fontsize="x-small")
+    # plt.show()
     ################################ MT  vs MTP NEW ##################################
 
     # plt.figure()
@@ -1193,3 +1210,35 @@ if (plotfig):
     # baseMT_Hops =  [6.875, 6.875, 10.625, 13.75, 15.125, 11.125, 11.714285714285714, 9.428571428571429, 7.2, 6.4]
     # mtmP_Hops =  [12.25, 11.5, 12.0, 15.375, 9.25, 7.142857142857143, 4.833333333333333, 6.75, 6.25, 5.25]
  
+    ####################### ONETREE VS ONETREEINVERSE ####################################
+
+    plt.figure()
+
+    X = [2,3,4,5,6,7,8,9,10]
+    plt.subplot(221)
+
+    OTInverse_mit_infs_Resilienz =  [1.0, 1.0, 0.9333333333333332, 0.6, 0.3333333333333333, 0.19999999999999998, 0.13333333333333333, 0.13333333333333333, 0.13333333333333333]
+    baseOT_mit_infs_Resilienz =  [1.0, 1.0, 1.0, 0.6, 0.4000000000000001, 0.26666666666666666, 0.13333333333333333, 0.13333333333333333, 0.13333333333333333]
+
+    OTInverse_Hops =  [5.333333333333333, 6.0, 11.333333333333334, 9.0, 7.0, 7.0, 7.0, 7.0, 7.0]
+    baseOT_Hops =  [5.333333333333333, 6.0, 14.333333333333334, 11.666666666666666, 12.5, 15.0, 7.0, 7.0, 7.0]
+    
+    plt.plot(X,baseOT_mit_infs_Resilienz, color='r', label='OneTree')
+    plt.plot(X, OTInverse_mit_infs_Resilienz, color='g', label='OneTree Mod')
+
+    plt.xlabel("Failure Rate")
+    plt.ylabel("Resilienz")
+    plt.title("Resilienz, randomisiert, n = 40 , k = 5 ")
+
+    plt.legend(fontsize="x-small")
+
+    plt.subplot(222)
+    Y = [2,3,4,5,6,7,8,9,10]
+
+    plt.plot(Y, baseOT_Hops, color='r', label='OneTree')
+    plt.plot(Y, OTInverse_Hops, color='g', label='OneTree Mod')
+    plt.xlabel("Failue Rate")
+    plt.ylabel("Hops")
+    plt.title("durchschn. Hops, randomisiert,  n = 40 , k = 5 ")
+    plt.legend(fontsize="x-small")
+    plt.show()

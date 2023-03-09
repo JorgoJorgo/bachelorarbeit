@@ -33,16 +33,11 @@ DEBUG = True
 # algorithms to this data structure to compare the performance
 # of additional algorithms.
 #algos = {'One Tree': [one_tree_pre, RouteOneTree], 'Greedy': [GreedyArborescenceDecomposition, RouteDetCirc]}
-algos = {#'MultipleTrees Mod Recycling': [multiple_trees_pre_recycling, RouteMultipleTrees],
-'MultipleTrees FR2': [multiple_trees_pre, RouteMultipleTrees],
-#'MultipleTrees Mod Breite': [multiple_trees_pre_breite_mod, RouteMultipleTrees],
-#'MultipleTrees Mod Anzahl': [multiple_trees_pre_num_of_trees_mod, RouteMultipleTrees],
-#'MultipleTrees Mod Reihenfolge': [multiple_trees_pre_order_of_edps_mod, RouteMultipleTrees],
-#'MultipleTrees Mod Parallel': [multiple_trees_pre_parallel, RouteMultipleTrees],
-#'One Tree Breite Mod': [one_tree_pre_breite_mod,RouteOneTree],
-'OneTree Inverse Mod FR2': [one_tree_pre_mod_inverse,RouteOneTree],
-'OneTree FR2': [one_tree_pre,RouteOneTree]
-}
+# algos = {
+#     'MultipleTrees FR2': [multiple_trees_pre, RouteMultipleTrees],
+#     'OneTree Inverse Mod FR2': [one_tree_pre_mod_inverse,RouteOneTree],
+#     'OneTree FR2': [one_tree_pre,RouteOneTree]
+#     }
 
 # run one experiment with graph g
 # out denotes file handle to write results to
@@ -166,7 +161,7 @@ def shuffle_and_run(g, out, seed, rep, x):
 # out denotes file handle to write results to
 # seed is used for pseudorandom number generation in this run
 # rep denotes the number of repetitions in the secondary for loop
-def run_regular(out=None, seed=0, rep=5):
+def run_regular(out=None, seed=7, rep=5):
     ss = min(int(n / 2), samplesize)
     fn = min(int(n * k / 4), f_num)
     set_parameters([n, rep, k, ss, fn, seed, name + "regular-"])
@@ -220,15 +215,30 @@ def experiments(switch="all", seed=0, rep=100):
 
 
 if __name__ == "__main__":
+    algos = {
+    'MultipleTrees FR2': [multiple_trees_pre, RouteMultipleTrees],
+    'OneTree Inverse Mod FR2': [one_tree_pre_mod_inverse,RouteOneTree],
+    'OneTree FR2': [one_tree_pre,RouteOneTree]
+    }
     f_num = 10
     for i in range(1,13):
         failure_rate = i
+
+
+        algos = {
+        'MultipleTrees FR'+ str(i)  : [multiple_trees_pre, RouteMultipleTrees],
+        'OneTree Inverse Mod FR' + str(i) : [one_tree_pre_mod_inverse,RouteOneTree],
+        'OneTree FR' + str(i) : [one_tree_pre,RouteOneTree]
+        }
+
+
+
         n = 40 # number of nodes
         k = 5 #base connectivity
         samplesize = 5 #number of sources to route a packet to destination
-        rep = 8 #number of experiments
+        rep = 3 #number of experiments
         switch = 'all' #which experiments to run with same parameters
-        seed = 0  #random seed
+        seed = 7 #random seed
         name = "benchmark-" #result files start with this name
         short = None #if true only small zoo graphs < 25 nodes are run
         start = time.time()
