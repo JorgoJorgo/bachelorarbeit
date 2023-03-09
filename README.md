@@ -17,7 +17,7 @@ Es gelten die Infomationen der read.me aus dem ursprünglichen [fast failover](h
 Die Topologien sind zu finden unter [Rocketfuel](https://research.cs.washington.edu/networking/rocketfuel/) und [Internet topology zoo](http://www.topology-zoo.org/), diese müssen runtergeladen und in benchmark_graphs eingefügt werden.
 
 
-Um einen Durchlauf des Experiments zu starten:
+Um einen Durchlauf des Experiments zu starten muss Folgendes eingegeben werden *und die auszuführende Datei muss im Hauptverzeichnis liegen*: 
 ```
 python3 multiple_trees_experiments.py
 ```
