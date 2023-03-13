@@ -1,6 +1,7 @@
 In diesem Repository befindet sich der Code zur Bachelorarbeit "Analyse, Verbesserung und Evaluation von baumbasierten Fast Failover Routingalgorithmen" von Georgios Karamoussanlis.
 Es gelten die Infomationen der read.me aus dem ursprünglichen [fast failover](https://gitlab.cs.univie.ac.at/ct-papers/fast-failover) Framework auf dem dieses Repository basiert.
 
+Die Ergebnisse, Dateien zu den Ausführungen und Log-Dateien aus den Plots der Arbeit sind in den ".._vs_.." Ordnern zu finden. Im Ordner Bsp. : "./MultipleTrees_vs_MultipleTrees_Anzahl_Mod/" sind die Log-Dateien mit "log_....txt", die Ergebnisse in "benchmark..." und auszuführenden Dateien "...experiments_FR..".
 
 ## Überblick
 
