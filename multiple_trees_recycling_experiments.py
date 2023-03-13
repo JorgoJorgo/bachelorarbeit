@@ -29,18 +29,10 @@ DEBUG = True
 # Examples for precomputation algorithms can be found in
 # routing.py
 #
-# In this example we compare Bonsai and Greedy. You can add more
-# algorithms to this data structure to compare the performance
-# of additional algorithms.
-#algos = {'One Tree': [one_tree_pre, RouteOneTree], 'Greedy': [GreedyArborescenceDecomposition, RouteDetCirc]}
-algos = {'MultipleTrees Mod Recycling': [multiple_trees_pre_recycling, RouteMultipleTrees],
-#'MultipleTrees': [multiple_trees_pre, RouteMultipleTrees],
-#'MultipleTrees Mod Breite': [multiple_trees_pre_breite_mod, RouteMultipleTrees],
-#'MultipleTrees Mod Anzahl': [multiple_trees_pre_num_of_trees_mod, RouteMultipleTrees],
-#'MultipleTrees Mod Reihenfolge': [multiple_trees_pre_order_of_edps_mod, RouteMultipleTrees],
-#'MultipleTrees Mod Parallel': [multiple_trees_pre_parallel, RouteMultipleTrees],
-#'One Tree Breite Mod': [one_tree_pre_breite_mod,RouteOneTree]
-}
+
+
+#Hier erfolgt die Ausführung von MultipleTrees mit Kanten-Recycling
+algos = {'MultipleTrees Mod Recycling': [multiple_trees_pre_recycling, RouteMultipleTrees]}
 
 # run one experiment with graph g
 # out denotes file handle to write results to

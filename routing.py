@@ -28,6 +28,8 @@ def set_routing_params(params):
     [n, rep, k, samplesize, f_num, seed, name] = params
 
 
+#in dieser funktion findet das routing eines source-destination-paares für multipletrees statt
+#dies geschieht indem man nach weiterleitung eines pakets an jedem knoten den nächst besten rang bestimmt
 def RouteMultipleTrees(s,d,fails,paths):
     
     print("FAIL ANZAHL : ", len(fails))
@@ -53,10 +55,7 @@ def RouteMultipleTrees(s,d,fails,paths):
     trees = paths[s][d]['trees']
     print(" ")
     print('Routing started for ' , s , " to " , d )
-    #o = 0
-    #for tree in trees:
-    #    o = o +1 
-    #    PG = nx.nx_pydot.write_dot(tree, "./realTopoPrints/Atree_"+str(s)+"_"+str(d)+"_"+str(o))
+
     if(not skip_trees):
 
         print(" ")
@@ -97,8 +96,7 @@ def RouteMultipleTrees(s,d,fails,paths):
                     #endfor
                     
                     #print("Versuche auf die Kinder zuzugreifen : " , children)
-                    #for child in children:
-                    #    print("Kind Rang " , child , " : " , getRank(tree,child))
+                    
                     children.sort(key=lambda x: (getRank(tree, x)))
 
 
@@ -242,9 +240,8 @@ def RouteMultipleTrees(s,d,fails,paths):
 
 
 
-#neue routingmethode, welche die alte RouteOneTree verbessert in dem punkt, dass nur lokale informationen nötig sind zum routen
-#denn bei fehlern wurde das paket nicht zurück an die source geführt bei den edps sondern dort "hinteleportiert" in dem man den currentnode
-#auf den ersten index des edps gesetzt hat
+#routing methode von onetree um zwischen einem source-destination paar zu routen
+#dies geschieht indem man nach weiterleitung eines pakets an jedem knoten den nächst besten rang bestimmt
 def RouteOneTree (s,d,fails,paths):
     if s != d :
         currentNode = -1

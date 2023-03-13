@@ -7,9 +7,11 @@ import itertools
 import random
 import time
 import glob
+from multigraph import GreedyMultiArborescenceDecompositionPreferUnused
+from arborescences import GreedyArborescenceDecomposition
 from objective_function_experiments import *
-from trees import multiple_trees_pre
-from routing import  RouteMultipleTrees
+from trees import multiple_trees_pre, multiple_trees_pre_breite_mod, multiple_trees_pre_breite_mod_and_inverse, multiple_trees_pre_num_of_trees_mod, multiple_trees_pre_num_of_trees_mod_and_random_order, multiple_trees_pre_order_of_edps_mod, multiple_trees_pre_parallel, multiple_trees_pre_parallel_and_inverse, one_tree_pre
+from routing import RouteMultipleTrees, RouteOneTree, PrepareSQ1, RouteSQ1 , RouteDetCircNotSpanning
 DEBUG = True
 
 # Data structure containing the algorithms under
@@ -29,10 +31,17 @@ DEBUG = True
 # Examples for precomputation algorithms can be found in
 # routing.py
 #
-
-
-#Hier erfolgt die Ausführung von MultipleTrees
-algos = {'MultipleTrees Tree': [multiple_trees_pre, RouteMultipleTrees]}
+# In this example we compare Bonsai and Greedy. You can add more
+# algorithms to this data structure to compare the performance
+# of additional algorithms.
+#algos = {'One Tree': [one_tree_pre, RouteOneTree], 'Greedy': [GreedyArborescenceDecomposition, RouteDetCirc]}
+algos = {#'Greedy FR2': [GreedyArborescenceDecomposition, RouteDetCircNotSpanning],
+#'MultipleTrees FR2': [multiple_trees_pre, RouteMultipleTrees],
+#'OneTree FR2': [one_tree_pre, RouteOneTree],
+'Parallel and Inverse FR2': [multiple_trees_pre_parallel_and_inverse, RouteMultipleTrees],
+'Breite and Inverse FR2': [multiple_trees_pre_breite_mod_and_inverse, RouteMultipleTrees],
+'Anzahl and Random FR2' : [multiple_trees_pre_num_of_trees_mod_and_random_order, RouteMultipleTrees]
+}
 
 # run one experiment with graph g
 # out denotes file handle to write results to
@@ -129,6 +138,9 @@ def run_zoo(out=None, seed=0, rep=5):
         ss = min(int(nn / 2), samplesize)
         fn = min(int(mm / 4), f_num)
         set_parameters([nn, rep, kk, ss, fn, seed, name + "zoo-"])
+        print("Node Number : " , nn)
+        print("Connectivity : " , kk)
+        print("Failure Number : ", fn)
         #print('parameters', nn, rep, kk, ss, fn, seed)
         shuffle_and_run(g, out, seed, rep, str(i))
         set_parameters(original_params)
@@ -186,17 +198,17 @@ def start_file(filename):
 #hier kann rep geändert werden
 def experiments(switch="all", seed=0, rep=100):
     if switch in ["regular", "all"]:
-        out = start_file("results/benchmark-regular-" + str(n) + "-" + str(k))
+        out = start_file("results/benchmark-regular-combination-FR2" + str(n) + "-" + str(k))
         run_regular(out=out, seed=seed, rep=rep)
         out.close()
 
     if switch in ["zoo", "all"]:
-        out = start_file("results/benchmark-zoo-" + str(k))
+        out = start_file("results/benchmark-zoo-combination-FR2" + str(k))
         run_zoo(out=out, seed=seed, rep=rep)
         out.close()
 
     if switch in ["AS"]:
-        out = start_file("results/benchmark-as_seed_" + str(seed))
+        out = start_file("results/benchmark-as_seed_-combination-FR2" + str(seed))
         run_AS(out=out, seed=seed, rep=rep)
         out.close()
 
@@ -208,11 +220,11 @@ def experiments(switch="all", seed=0, rep=100):
 
 
 if __name__ == "__main__":
-    f_num = 15 #number of failed links
-    n = 60 # number of nodes
+    f_num = 2 #number of failed links
+    n = 10 # number of nodes
     k = 5 #base connectivity
     samplesize = 5 #number of sources to route a packet to destination
-    rep = 3 #number of experiments
+    rep = 8 #number of experiments
     switch = 'all' #which experiments to run with same parameters
     seed = 0  #random seed
     name = "benchmark-" #result files start with this name

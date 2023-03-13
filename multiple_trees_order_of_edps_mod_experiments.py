@@ -8,7 +8,7 @@ import random
 import time
 import glob
 from objective_function_experiments import *
-from trees import  multiple_trees_pre_order_of_edps_mod
+from trees import  multiple_trees_invert_order_of_edps_mod, multiple_trees_pre_invert_order_of_edps_mod, multiple_trees_pre_order_of_edps_mod, multiple_trees_pre_random_order_of_edps_mod
 from routing import RouteMultipleTrees
 DEBUG = True
 
@@ -29,11 +29,14 @@ DEBUG = True
 # Examples for precomputation algorithms can be found in
 # routing.py
 #
-# In this example we compare Bonsai and Greedy. You can add more
-# algorithms to this data structure to compare the performance
-# of additional algorithms.
-#algos = {'One Tree': [one_tree_pre, RouteOneTree], 'Greedy': [GreedyArborescenceDecomposition, RouteDetCirc]}
-algos = {'MultipleTrees Order Mod': [multiple_trees_pre_order_of_edps_mod, RouteMultipleTrees]}
+
+
+
+#Hier erfolgt die Ausführung von MultipleTrees mit veränderer Reihenfolge dabei muss in trees.py die gewünschte Reihenfolge geändert werden
+algos = {'MultipleTrees Order Mod': [multiple_trees_pre_order_of_edps_mod, RouteMultipleTrees],
+         'MultipleTrees Inverse Order Mod': [multiple_trees_pre_invert_order_of_edps_mod, RouteMultipleTrees],
+         'MultipleTrees Random Order Mod': [multiple_trees_pre_random_order_of_edps_mod, RouteMultipleTrees]
+        }
 
 # run one experiment with graph g
 # out denotes file handle to write results to
@@ -186,10 +189,10 @@ def start_file(filename):
 
 #hier kann rep geändert werden
 def experiments(switch="all", seed=0, rep=100):
-    #if switch in ["regular", "all"]:
-    #    out = start_file("results/benchmark-regular-order-of-edps-multtrees-" + str(n) + "-" + str(k))
-    #    run_regular(out=out, seed=seed, rep=rep)
-    #    out.close()
+    if switch in ["regular", "all"]:
+        out = start_file("results/benchmark-regular-order-of-edps-multtrees-" + str(n) + "-" + str(k))
+        run_regular(out=out, seed=seed, rep=rep)
+        out.close()
 
     if switch in ["zoo", "all"]:
         out = start_file("results/benchmark-zoo-order-of-edps-multtrees-" + str(k))
@@ -210,8 +213,8 @@ def experiments(switch="all", seed=0, rep=100):
 
 if __name__ == "__main__":
     f_num = 15 #number of failed links
-    n = 60 # number of nodes
-    k = 5 #base connectivity
+    n = 20 # number of nodes
+    k = 3 #base connectivity
     samplesize = 5 #number of sources to route a packet to destination
     rep = 3 #number of experiments
     switch = 'all' #which experiments to run with same parameters

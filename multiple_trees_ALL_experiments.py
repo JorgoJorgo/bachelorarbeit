@@ -8,8 +8,8 @@ import random
 import time
 import glob
 from objective_function_experiments import *
-from trees import multiple_trees_pre, multiple_trees_pre_breite_mod, multiple_trees_pre_num_of_trees_mod, multiple_trees_pre_order_of_edps_mod, multiple_trees_pre_parallel, one_tree_pre_breite_mod
-from routing import RouteMultipleTrees, RouteOneTree
+from trees import multiple_trees_pre, multiple_trees_pre_breite_mod, multiple_trees_pre_breite_mod_and_inverse, multiple_trees_pre_num_of_trees_mod, multiple_trees_pre_num_of_trees_mod_and_random_order, multiple_trees_pre_order_of_edps_mod, multiple_trees_pre_parallel, multiple_trees_pre_parallel_and_inverse, multiple_trees_pre_recycling, one_tree_pre, one_tree_pre_breite_mod, one_tree_pre_mod_inverse
+from routing import PrepareSQ1, RouteMultipleTrees, RouteOneTree, RouteSQ1
 DEBUG = True
 
 # Data structure containing the algorithms under
@@ -29,16 +29,21 @@ DEBUG = True
 # Examples for precomputation algorithms can be found in
 # routing.py
 #
-# In this example we compare Bonsai and Greedy. You can add more
-# algorithms to this data structure to compare the performance
-# of additional algorithms.
-#algos = {'One Tree': [one_tree_pre, RouteOneTree], 'Greedy': [GreedyArborescenceDecomposition, RouteDetCirc]}
+
+# Hier erfolgt der Vergleich zwischen allen Modifikationen von MultipleTrees
 algos = {'MultipleTrees': [multiple_trees_pre, RouteMultipleTrees],
 'MultipleTrees Mod Breite': [multiple_trees_pre_breite_mod, RouteMultipleTrees],
 'MultipleTrees Mod Anzahl': [multiple_trees_pre_num_of_trees_mod, RouteMultipleTrees],
 'MultipleTrees Mod Reihenfolge': [multiple_trees_pre_order_of_edps_mod, RouteMultipleTrees],
 'MultipleTrees Mod Parallel': [multiple_trees_pre_parallel, RouteMultipleTrees],
-'One Tree Breite Mod': [one_tree_pre_breite_mod,RouteOneTree]
+'One Tree Breite Mod': [one_tree_pre_breite_mod,RouteOneTree],
+'Parallel and Inverse FR2': [multiple_trees_pre_parallel_and_inverse, RouteMultipleTrees],
+'Breite and Inverse FR2': [multiple_trees_pre_breite_mod_and_inverse, RouteMultipleTrees],
+'Anzahl and Random FR2' : [multiple_trees_pre_num_of_trees_mod_and_random_order, RouteMultipleTrees],
+'OneTree' : [one_tree_pre , RouteOneTree],
+'SquareOne FR3': [PrepareSQ1, RouteSQ1],
+'MultipleTrees Mod Recycling': [multiple_trees_pre_recycling, RouteMultipleTrees],
+'OneTree Inverse Mod FR' + str(i) : [one_tree_pre_mod_inverse,RouteOneTree],
 }
 
 # run one experiment with graph g
@@ -219,10 +224,10 @@ def experiments(switch="all", seed=0, rep=100):
 
 if __name__ == "__main__":
 
-    for i in range(2,11):
+    for i in range(2,3):
         o = i 
         f_num = i * 5 #number of failed links
-        n = 40 # number of nodes
+        n = 20 # number of nodes
         k = 5 #base connectivity
         samplesize = 5 #number of sources to route a packet to destination
         rep = 3 #number of experiments

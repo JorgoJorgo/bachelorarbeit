@@ -73,13 +73,13 @@ import math
 
 
 #FÜR OT vs OTInverse
-count = 3
-algorithm1 = 'baseMT'
-TitleAlgo1 = " MultipleTrees"
-algorithm2 = 'baseOT'
-TitleAlgo2 = " OneTree"
-#algorithm2 = 'OTInverse'
-#TitleAlgo2 = " OneTree Inverse Mod"
+count = 8
+#algorithm1 = 'baseMT'
+#TitleAlgo1 = " MultipleTrees"
+algorithm1 = 'baseOT'
+TitleAlgo1 = " OneTree"
+algorithm2 = 'OTInverse'
+TitleAlgo2 = " OneTree Inverse Mod"
 
 alg1_hops = []
 alg2_hops = []
@@ -103,7 +103,8 @@ for i in range(2,11):
     #filepath = "OneTreeInverseNew/benchmark-regular-inverseOneTree-FR"+number+"-40-5.txt"
     #filepath = "OneTreeInverse/benchmark-regular-inverseOneTree-FR"+number+"-40-5.txt"
     #filepath = "OneTreeInverse/benchmark-regular-inverseOneTree-FR"+number+"-40-5.txt"
-    filepath = "results/benchmark-regular-inverseOneTree-FR"+number+"-40-5.txt"
+    #filepath = "results/benchmark-regular-inverseOneTree-FR"+number+"-40-5.txt"
+    filepath = "OneTree_vs_OneTree_Inverse_Mod/benchmark-regular-inverseOneTree-FR"+number+"-40-5.txt"
     FR = '_fr'+number
 
     ###################################################################################################################
@@ -439,21 +440,12 @@ print(algorithm2 + "_Hops = ", alg2_hops)
 print(" ")
 print(algorithm1 + "_time = " , alg1_time)
 print(algorithm2 + "_time = " , alg2_time)
-# sum1 = 0
-# for number in alg1_resilience:
-#     sum1 = sum1 + number
-
-# sum2 = 0
-# for number in alg2_resilience:
-#     sum2 = sum2 + number
-
-# print("Summe von Resilienz " , algorithm1 , " : ", sum1)
-# print("Summe von Resilienz " , algorithm1 , " : ", sum1)
 
 
 
 
-plotfig = True
+
+plotfig = False
 if (plotfig):
     print(" ")
     ##############################'ONETREE VS MULTIPLETREES VS SQUARE ONE######################################################
@@ -1212,33 +1204,33 @@ if (plotfig):
  
     ####################### ONETREE VS ONETREEINVERSE ####################################
 
-    plt.figure()
+    # plt.figure()
 
-    X = [2,3,4,5,6,7,8,9,10]
-    plt.subplot(221)
+    # X = [2,3,4,5,6,7,8,9,10]
+    # plt.subplot(221)
 
-    OTInverse_mit_infs_Resilienz =  [1.0, 1.0, 0.9333333333333332, 0.6, 0.3333333333333333, 0.19999999999999998, 0.13333333333333333, 0.13333333333333333, 0.13333333333333333]
-    baseOT_mit_infs_Resilienz =  [1.0, 1.0, 1.0, 0.6, 0.4000000000000001, 0.26666666666666666, 0.13333333333333333, 0.13333333333333333, 0.13333333333333333]
+    # OTInverse_mit_infs_Resilienz =  [1.0, 1.0, 0.9333333333333332, 0.6, 0.3333333333333333, 0.19999999999999998, 0.13333333333333333, 0.13333333333333333, 0.13333333333333333]
+    # baseOT_mit_infs_Resilienz =  [1.0, 1.0, 1.0, 0.6, 0.4000000000000001, 0.26666666666666666, 0.13333333333333333, 0.13333333333333333, 0.13333333333333333]
 
-    OTInverse_Hops =  [5.333333333333333, 6.0, 11.333333333333334, 9.0, 7.0, 7.0, 7.0, 7.0, 7.0]
-    baseOT_Hops =  [5.333333333333333, 6.0, 14.333333333333334, 11.666666666666666, 12.5, 15.0, 7.0, 7.0, 7.0]
+    # OTInverse_Hops =  [5.333333333333333, 6.0, 11.333333333333334, 9.0, 7.0, 7.0, 7.0, 7.0, 7.0]
+    # baseOT_Hops =  [5.333333333333333, 6.0, 14.333333333333334, 11.666666666666666, 12.5, 15.0, 7.0, 7.0, 7.0]
     
-    plt.plot(X,baseOT_mit_infs_Resilienz, color='r', label='OneTree')
-    plt.plot(X, OTInverse_mit_infs_Resilienz, color='g', label='OneTree Mod')
+    # plt.plot(X,baseOT_mit_infs_Resilienz, color='r', label='OneTree')
+    # plt.plot(X, OTInverse_mit_infs_Resilienz, color='g', label='OneTree Mod')
 
-    plt.xlabel("Failure Rate")
-    plt.ylabel("Resilienz")
-    plt.title("Resilienz, randomisiert, n = 40 , k = 5 ")
+    # plt.xlabel("Failure Rate")
+    # plt.ylabel("Resilienz")
+    # plt.title("Resilienz, randomisiert, n = 40 , k = 5 ")
 
-    plt.legend(fontsize="x-small")
+    # plt.legend(fontsize="x-small")
 
-    plt.subplot(222)
-    Y = [2,3,4,5,6,7,8,9,10]
+    # plt.subplot(222)
+    # Y = [2,3,4,5,6,7,8,9,10]
 
-    plt.plot(Y, baseOT_Hops, color='r', label='OneTree')
-    plt.plot(Y, OTInverse_Hops, color='g', label='OneTree Mod')
-    plt.xlabel("Failue Rate")
-    plt.ylabel("Hops")
-    plt.title("durchschn. Hops, randomisiert,  n = 40 , k = 5 ")
-    plt.legend(fontsize="x-small")
-    plt.show()
+    # plt.plot(Y, baseOT_Hops, color='r', label='OneTree')
+    # plt.plot(Y, OTInverse_Hops, color='g', label='OneTree Mod')
+    # plt.xlabel("Failue Rate")
+    # plt.ylabel("Hops")
+    # plt.title("durchschn. Hops, randomisiert,  n = 40 , k = 5 ")
+    # plt.legend(fontsize="x-small")
+    # plt.show()

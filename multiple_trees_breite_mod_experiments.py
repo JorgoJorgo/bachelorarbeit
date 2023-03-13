@@ -29,10 +29,8 @@ DEBUG = True
 # Examples for precomputation algorithms can be found in
 # routing.py
 #
-# In this example we compare Bonsai and Greedy. You can add more
-# algorithms to this data structure to compare the performance
-# of additional algorithms.
-#algos = {'One Tree': [one_tree_pre, RouteOneTree], 'Greedy': [GreedyArborescenceDecomposition, RouteDetCirc]}
+
+#Hier erfolgt die Ausführung der modifizierten Breite MultipleTrees
 algos = {'MultipleTrees Breite Mod': [multiple_trees_pre_breite_mod, RouteMultipleTrees]}
 
 # run one experiment with graph g
@@ -224,10 +222,10 @@ def start_file(filename):
 
 #hier kann rep geändert werden
 def experiments(switch="all", seed=0, rep=100):
-    #if switch in ["regular", "all"]:
-    #    out = start_file("results/benchmark-regular-" + str(n) + "-" + str(k))
-    #    run_regular(out=out, seed=seed, rep=rep)
-    #    out.close()
+    if switch in ["regular", "all"]:
+        out = start_file("results/benchmark-regular-" + str(n) + "-" + str(k))
+        run_regular(out=out, seed=seed, rep=rep)
+        out.close()
 
     if switch in ["custom"]:
         out = start_file("results/benchmark-custom-breite-mod-multipletrees" + str(k))

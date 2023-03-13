@@ -29,10 +29,9 @@ DEBUG = True
 # Examples for precomputation algorithms can be found in
 # routing.py
 #
-# In this example we compare Bonsai and Greedy. You can add more
-# algorithms to this data structure to compare the performance
-# of additional algorithms.
-#algos = {'One Tree': [one_tree_pre, RouteOneTree], 'Greedy': [GreedyArborescenceDecomposition, RouteDetCirc]}
+
+
+#Hier erfolgt die Ausführung von OneTree
 algos = {'One Tree': [one_tree_pre, RouteOneTree]}
 
 # run one experiment with graph g
@@ -222,10 +221,10 @@ def run_custom(out=None, seed=0, rep=5):
 # seed is used for pseudorandom number generation in this run
 # switch determines which experiments are run
 def experiments(switch="all", seed=0, rep=100):
-    #if switch in ["regular", "all"]:
-    #    out = start_file("results/benchmark-regular-" + str(n) + "-" + str(k))
-    #    run_regular(out=out, seed=seed, rep=rep)
-    #    out.close()
+    if switch in ["regular", "all"]:
+       out = start_file("results/benchmark-regular-" + str(n) + "-" + str(k))
+       run_regular(out=out, seed=seed, rep=rep)
+       out.close()
 
     if switch in ["custom", "all"]:
         #hier steht wo die ergebnisse des durchlaufs gespeichert werden : results/benchmark-cusutom-5.txt
