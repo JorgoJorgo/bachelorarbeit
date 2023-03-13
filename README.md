@@ -29,4 +29,8 @@ python3 multiple_trees_experiments.py (regular, für randomisiert generierte Gra
 
 Um eigene Experimente zu erstellen steht die benchmark_template.py bereit als Vorlage.
 
+## Darstellen der Ergebnisse
+
+Für die Darstellung der Ergebnisse ist die Datei "plotter.py" zuständig. Diese Datei iteriert über benchmark-Dateien (filepath) und sammelt die Ergebnisse der 2 vorher definierten Algorithmen (TitleAlgo1 & TitleAlgo2). Dabei müssen die TitleAlgos so bennant werden, wie sie in den benchmark-Dateien zu finden sind. Es können nur jeweils 2 Algorithmen gleichzeitig evaluiert werden. Durch Änderung an den For-Schleifen-Parametern kann auch die Anzahl an Dateien geändert werden, die für die Evaluation berücksichtigt werden sollen. Die Ausgabe findet in der Konsole statt.
+Im unteren Teil dieser Datei sind auch die Plots der Arbeit zu finden, diese sind auskommentiert und mit der Variable "plotfig" ausgeblendet. Es ist [matplotlib](https://matplotlib.org/stable/users/installing/index.html#installing-an-official-release) notwendig. 
 
