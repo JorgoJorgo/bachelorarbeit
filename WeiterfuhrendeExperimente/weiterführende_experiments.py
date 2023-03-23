@@ -8,8 +8,8 @@ import random
 import time
 import glob
 from objective_function_experiments import *
-from trees import multiple_trees_pre, multiple_trees_pre_breite_mod, multiple_trees_pre_breite_mod_and_inverse, multiple_trees_pre_num_of_trees_mod, multiple_trees_pre_num_of_trees_mod_and_random_order, multiple_trees_pre_order_of_edps_mod, multiple_trees_pre_parallel, multiple_trees_pre_parallel_and_inverse, multiple_trees_pre_recycling, one_tree_pre, one_tree_pre_breite_mod, one_tree_pre_mod_inverse
-from routing import PrepareSQ1, RouteMultipleTrees, RouteOneTree, RouteSQ1
+from trees import multiple_trees_pre_invert_order_of_edps_mod, multiple_trees_pre_parallel_and_inverse, one_tree_pre,one_tree_pre_mod_inverse,multiple_trees_pre, multiple_trees_pre_breite_mod, multiple_trees_pre_num_of_trees_mod, multiple_trees_pre_order_of_edps_mod, multiple_trees_pre_parallel, multiple_trees_pre_recycling, one_tree_pre_breite_mod
+from routing import RouteMultipleTrees, RouteOneTree
 DEBUG = True
 
 # Data structure containing the algorithms under
@@ -29,22 +29,15 @@ DEBUG = True
 # Examples for precomputation algorithms can be found in
 # routing.py
 #
-
-# Hier erfolgt der Vergleich zwischen allen Modifikationen von MultipleTrees
-algos = {'MultipleTrees': [multiple_trees_pre, RouteMultipleTrees],
-'MultipleTrees Mod Breite': [multiple_trees_pre_breite_mod, RouteMultipleTrees],
-'MultipleTrees Mod Anzahl': [multiple_trees_pre_num_of_trees_mod, RouteMultipleTrees],
-'MultipleTrees Mod Reihenfolge': [multiple_trees_pre_order_of_edps_mod, RouteMultipleTrees],
-'MultipleTrees Mod Parallel': [multiple_trees_pre_parallel, RouteMultipleTrees],
-'One Tree Breite Mod': [one_tree_pre_breite_mod,RouteOneTree],
-'Parallel and Inverse FR2': [multiple_trees_pre_parallel_and_inverse, RouteMultipleTrees],
-'Breite and Inverse FR2': [multiple_trees_pre_breite_mod_and_inverse, RouteMultipleTrees],
-'Anzahl and Random FR2' : [multiple_trees_pre_num_of_trees_mod_and_random_order, RouteMultipleTrees],
-'OneTree' : [one_tree_pre , RouteOneTree],
-'SquareOne FR3': [PrepareSQ1, RouteSQ1],
-'MultipleTrees Mod Recycling': [multiple_trees_pre_recycling, RouteMultipleTrees],
-'OneTree Inverse Mod FR' : [one_tree_pre_mod_inverse,RouteOneTree],
-}
+# In this example we compare Bonsai and Greedy. You can add more
+# algorithms to this data structure to compare the performance
+# of additional algorithms.
+#algos = {'One Tree': [one_tree_pre, RouteOneTree], 'Greedy': [GreedyArborescenceDecomposition, RouteDetCirc]}
+# algos = {
+#     'MultipleTrees FR2': [multiple_trees_pre, RouteMultipleTrees],
+#     'OneTree Inverse Mod FR2': [one_tree_pre_mod_inverse,RouteOneTree],
+#     'OneTree FR2': [one_tree_pre,RouteOneTree]
+#     }
 
 # run one experiment with graph g
 # out denotes file handle to write results to
@@ -168,7 +161,7 @@ def shuffle_and_run(g, out, seed, rep, x):
 # out denotes file handle to write results to
 # seed is used for pseudorandom number generation in this run
 # rep denotes the number of repetitions in the secondary for loop
-def run_regular(out=None, seed=0, rep=5):
+def run_regular(out=None, seed=7, rep=5):
     ss = min(int(n / 2), samplesize)
     fn = min(int(n * k / 4), f_num)
     set_parameters([n, rep, k, ss, fn, seed, name + "regular-"])
@@ -201,17 +194,17 @@ def start_file(filename):
 #hier kann rep geändert werden
 def experiments(switch="all", seed=0, rep=100):
     if switch in ["regular", "all"]:
-        out = start_file("results/benchmark-regular-all-multiple-trees-FR" + str(o) + "-" + str(n) + "-" + str(k))
+        out = start_file("results/benchmark-regular-weiterfuehrend-FR"+ str(i) + "-" + str(n) + "-" + str(k))
         run_regular(out=out, seed=seed, rep=rep)
         out.close()
 
     if switch in ["zoo", "all"]:
-        out = start_file("results/benchmark-zoo-all-multiple-trees-" + str(k))
+        out = start_file("results/benchmark-zoo-weiterfuehrend-FR2-" + str(k))
         run_zoo(out=out, seed=seed, rep=rep)
         out.close()
 
     if switch in ["AS"]:
-        out = start_file("results/benchmark-as_seed_-all-multiple-trees-" + str(seed))
+        out = start_file("results/benchmark-as_seed_-weiterfuehrend-FR2-" + str(seed))
         run_AS(out=out, seed=seed, rep=rep)
         out.close()
 
@@ -221,18 +214,35 @@ def experiments(switch="all", seed=0, rep=100):
     print("\nlower is better")
 
 
-
 if __name__ == "__main__":
+    algos = {
+    'MultipleTrees FR2': [multiple_trees_pre, RouteMultipleTrees],
+    'OneTree Inverse Mod FR2': [one_tree_pre_mod_inverse,RouteOneTree],
+    'OneTree FR2': [one_tree_pre,RouteOneTree]
+    }
+    #f_num = 10
+    f_num = 185 # starten bei FR = 25
+    for i in range(25,36):
+        failure_rate = i
 
-    for i in range(2,3):
-        o = i 
-        f_num = i * 5 #number of failed links
-        n = 20 # number of nodes
-        k = 5 #base connectivity
+
+        algos = {
+        'MultipleTrees FR'+ str(i)  : [multiple_trees_pre, RouteMultipleTrees],
+        'OneTree Inverse Mod FR' + str(i) : [one_tree_pre_mod_inverse,RouteOneTree],
+        'OneTree FR' + str(i) : [one_tree_pre,RouteOneTree],
+        'MultipleTrees Invers FR' + str(i) : [multiple_trees_pre_invert_order_of_edps_mod, RouteMultipleTrees],
+        'SquareOne FR' + str(i) : [PrepareSQ1, RouteSQ1],
+        'MultipleTrees Parallel Invers FR' + str(i) : [multiple_trees_pre_parallel_and_inverse, RouteMultipleTrees],
+        }
+
+
+
+        n = 80 # number of nodes
+        k = 6 #base connectivity
         samplesize = 5 #number of sources to route a packet to destination
-        rep = 3 #number of experiments
+        rep = 7 #number of experiments
         switch = 'all' #which experiments to run with same parameters
-        seed = 0  #random seed
+        seed = 7 #random seed
         name = "benchmark-" #result files start with this name
         short = None #if true only small zoo graphs < 25 nodes are run
         start = time.time()
@@ -254,3 +264,4 @@ if __name__ == "__main__":
         print("time elapsed", end - start)
         print("start time", time.asctime(time.localtime(start)))
         print("end time", time.asctime(time.localtime(end)))
+        f_num = f_num + 7
