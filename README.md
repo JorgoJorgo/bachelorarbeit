@@ -72,8 +72,10 @@ def run_custom(out=None, seed=0, rep=5):
 ```
 
 
-## Darstellen der Ergebnisse
+## Ergebnisse
 
-Für die Darstellung der Ergebnisse ist die Datei "plotter.py" zuständig. Diese Datei iteriert über benchmark-Dateien (filepath) und sammelt die Ergebnisse der 2 vorher definierten Algorithmen (TitleAlgo1 & TitleAlgo2). Dabei müssen die TitleAlgos so bennant werden, wie sie in den benchmark-Dateien zu finden sind. Es können nur jeweils 2 Algorithmen gleichzeitig evaluiert werden. Durch Änderung an den For-Schleifen-Parametern kann auch die Anzahl an Dateien geändert werden, die für die Evaluation berücksichtigt werden sollen. Die Ausgabe findet in der Konsole statt.
-Im unteren Teil dieser Datei sind auch die Plots der Arbeit zu finden, diese sind auskommentiert und mit der Variable "plotfig" ausgeblendet. Es ist [matplotlib](https://matplotlib.org/stable/users/installing/index.html#installing-an-official-release) notwendig. 
-
+Nachdem ein Algorithmus ausgeführt wurde sind die Ergebnisse in dem Ordner "results/" wiederzufinden. 
+Um Überblick über die Dateien der Ergebnisse zu behalten, können diese nach Belieben in den jeweiligen Experiment-Dateien geändert werden. Geändert kann der Dateiname in der Funktion "experiments()" der jeweiligen Experiment Datei. Eine Beispiel Zeile sieht folgendermaßen aus : 
+```
+out = start_file("results/benchmark-zoo-multiple-trees-" + str(k))
+```
