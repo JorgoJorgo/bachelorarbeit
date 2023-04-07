@@ -206,17 +206,17 @@ def experiments(switch="all", seed=0, rep=3):
         out.close()
 
     if switch in ["regular", "all"]:
-        out = start_file("results/benchmark-regular-all-multiple-trees-FR" + str(i) + "-" + str(n) + "-" + str(k))
+        out = start_file("results/benchmark-regular-all-multiple-trees-parallel-FR" + str(i) + "-" + str(n) + "-" + str(k))
         run_regular(out=out, seed=seed, rep=rep)
         out.close()
 
     if switch in ["zoo", "all"]:
-        out = start_file("results/benchmark-zoo-all-multiple-trees-" + str(k))
+        out = start_file("results/benchmark-zoo-all-multiple-trees-parallel-" + str(k))
         run_zoo(out=out, seed=seed, rep=rep)
         out.close()
 
     if switch in ["AS"]:
-        out = start_file("results/benchmark-as_seed_-all-multiple-trees-" + str(seed))
+        out = start_file("results/benchmark-as_seed_-all-multiple-trees-parallel-" + str(seed))
         run_AS(out=out, seed=seed, rep=rep)
         out.close()
 

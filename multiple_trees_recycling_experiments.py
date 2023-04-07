@@ -189,17 +189,17 @@ def start_file(filename):
 #hier kann rep geändert werden
 def experiments(switch="all", seed=0, rep=100):
     if switch in ["regular", "all"]:
-        out = start_file("results/benchmark-regular-all-multiple-trees-" + str(n) + "-" + str(k))
+        out = start_file("results/benchmark-regular-recycling-" + str(n) + "-" + str(k))
         run_regular(out=out, seed=seed, rep=rep)
         out.close()
 
     if switch in ["zoo", "all"]:
-        out = start_file("results/benchmark-zoo-all-multiple-trees-" + str(k))
+        out = start_file("results/benchmark-zoo-recycling-" + str(k))
         run_zoo(out=out, seed=seed, rep=rep)
         out.close()
 
     if switch in ["AS"]:
-        out = start_file("results/benchmark-as_seed_-all-multiple-trees-" + str(seed))
+        out = start_file("results/benchmark-as_seed_-recycling-" + str(seed))
         run_AS(out=out, seed=seed, rep=rep)
         out.close()
 

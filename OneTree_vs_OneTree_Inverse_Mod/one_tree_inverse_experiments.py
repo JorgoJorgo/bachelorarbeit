@@ -199,12 +199,12 @@ def experiments(switch="all", seed=0, rep=100):
         out.close()
 
     if switch in ["zoo", "all"]:
-        out = start_file("results/benchmark-zoo-inverseOneTree-FR2-" + str(k))
+        out = start_file("results/benchmark-zoo-inverseOneTree-" + str(k))
         run_zoo(out=out, seed=seed, rep=rep)
         out.close()
 
     if switch in ["AS"]:
-        out = start_file("results/benchmark-as_seed_-inverseOneTree-FR2-" + str(seed))
+        out = start_file("results/benchmark-as_seed_-inverseOneTree-" + str(seed))
         run_AS(out=out, seed=seed, rep=rep)
         out.close()
 

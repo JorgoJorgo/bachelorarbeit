@@ -186,17 +186,17 @@ def start_file(filename):
 #hier kann rep geändert werden
 def experiments(switch="all", seed=0, rep=100):
     if switch in ["regular", "all"]:
-        out = start_file("results/benchmark-regular-" + str(n) + "-" + str(k))
+        out = start_file("results/benchmark-regular-multipletrees-" + str(n) + "-" + str(k))
         run_regular(out=out, seed=seed, rep=rep)
         out.close()
 
     if switch in ["zoo", "all"]:
-        out = start_file("results/benchmark-zoo-" + str(k))
+        out = start_file("results/benchmark-zoo-multipletrees-" + str(k))
         run_zoo(out=out, seed=seed, rep=rep)
         out.close()
 
     if switch in ["AS"]:
-        out = start_file("results/benchmark-as_seed_" + str(seed))
+        out = start_file("results/benchmark-as_seed_multipletrees-" + str(seed))
         run_AS(out=out, seed=seed, rep=rep)
         out.close()
 

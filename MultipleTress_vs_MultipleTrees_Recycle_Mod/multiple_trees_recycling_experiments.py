@@ -7,11 +7,9 @@ import itertools
 import random
 import time
 import glob
-from multigraph import GreedyMultiArborescenceDecompositionPreferUnused
-from arborescences import GreedyArborescenceDecomposition
 from objective_function_experiments import *
-from trees import multiple_trees_pre, multiple_trees_pre_breite_mod, multiple_trees_pre_breite_mod_and_inverse, multiple_trees_pre_num_of_trees_mod, multiple_trees_pre_num_of_trees_mod_and_random_order, multiple_trees_pre_order_of_edps_mod, multiple_trees_pre_parallel, multiple_trees_pre_parallel_and_inverse, one_tree_pre
-from routing import RouteMultipleTrees, RouteOneTree, PrepareSQ1, RouteSQ1 , RouteDetCircNotSpanning
+from trees import multiple_trees_pre, multiple_trees_pre_breite_mod, multiple_trees_pre_num_of_trees_mod, multiple_trees_pre_order_of_edps_mod, multiple_trees_pre_parallel, multiple_trees_pre_recycling, one_tree_pre_breite_mod
+from routing import RouteMultipleTrees, RouteOneTree
 DEBUG = True
 
 # Data structure containing the algorithms under
@@ -31,17 +29,10 @@ DEBUG = True
 # Examples for precomputation algorithms can be found in
 # routing.py
 #
-# In this example we compare Bonsai and Greedy. You can add more
-# algorithms to this data structure to compare the performance
-# of additional algorithms.
-#algos = {'One Tree': [one_tree_pre, RouteOneTree], 'Greedy': [GreedyArborescenceDecomposition, RouteDetCirc]}
-algos = {#'Greedy FR2': [GreedyArborescenceDecomposition, RouteDetCircNotSpanning],
-#'MultipleTrees FR2': [multiple_trees_pre, RouteMultipleTrees],
-#'OneTree FR2': [one_tree_pre, RouteOneTree],
-'Parallel and Inverse FR2': [multiple_trees_pre_parallel_and_inverse, RouteMultipleTrees],
-'Breite and Inverse FR2': [multiple_trees_pre_breite_mod_and_inverse, RouteMultipleTrees],
-'Anzahl and Random FR2' : [multiple_trees_pre_num_of_trees_mod_and_random_order, RouteMultipleTrees]
-}
+
+
+#Hier erfolgt die Ausführung von MultipleTrees mit Kanten-Recycling
+algos = {'MultipleTrees Mod Recycling': [multiple_trees_pre_recycling, RouteMultipleTrees]}
 
 # run one experiment with graph g
 # out denotes file handle to write results to
@@ -198,17 +189,17 @@ def start_file(filename):
 #hier kann rep geändert werden
 def experiments(switch="all", seed=0, rep=100):
     if switch in ["regular", "all"]:
-        out = start_file("results/benchmark-regular-combination-FR2" + str(n) + "-" + str(k))
+        out = start_file("results/benchmark-regular-recycling-" + str(n) + "-" + str(k))
         run_regular(out=out, seed=seed, rep=rep)
         out.close()
 
     if switch in ["zoo", "all"]:
-        out = start_file("results/benchmark-zoo-combination-FR2" + str(k))
+        out = start_file("results/benchmark-zoo-recycling-" + str(k))
         run_zoo(out=out, seed=seed, rep=rep)
         out.close()
 
     if switch in ["AS"]:
-        out = start_file("results/benchmark-as_seed_-combination-FR2" + str(seed))
+        out = start_file("results/benchmark-as_seed_-recycling-" + str(seed))
         run_AS(out=out, seed=seed, rep=rep)
         out.close()
 
@@ -221,10 +212,10 @@ def experiments(switch="all", seed=0, rep=100):
 
 if __name__ == "__main__":
     f_num = 2 #number of failed links
-    n = 10 # number of nodes
-    k = 5 #base connectivity
-    samplesize = 5 #number of sources to route a packet to destination
-    rep = 8 #number of experiments
+    n = 30# number of nodes
+    k = 4 #base connectivity
+    samplesize = 1 #number of sources to route a packet to destination
+    rep = 1 #number of experiments
     switch = 'all' #which experiments to run with same parameters
     seed = 0  #random seed
     name = "benchmark-" #result files start with this name
