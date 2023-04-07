@@ -5,6 +5,14 @@ Die Ergebnisse, Dateien zu den Ausführungen und Log-Dateien aus den Plots der A
 Im Ordner Bsp. : "./MultipleTrees_vs_MultipleTrees_Anzahl_Mod/" sind die Log-Dateien mit "log_....txt", die Ergebnisse in "benchmark..."
 und auszuführenden Dateien "...experiments_FR..".
 
+## Anforderungen
+Getestet wurde dieses Repository mit Ubuntu 22.04.
+Weitere Module, welche installiert werden müssen sind:
+
+```
+pip install networkx numpy matplotlib pydot
+```
+
 ## Überblick
 
 * trees.py : enthält alle Algorithmen für die Baumbildung und ihre Hilfsfunktionen
