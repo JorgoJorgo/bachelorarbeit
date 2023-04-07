@@ -30,7 +30,7 @@ Die Topologien sind zu finden unter [Rocketfuel](https://research.cs.washington.
 
 Um einen Durchlauf des Experiments zu starten muss Folgendes eingegeben werden *und die auszuführende Datei muss im Hauptverzeichnis liegen*: 
 ```
-python3 multiple_trees_experiments.py
+python3 multiple_trees_experiments.py regular
 ```
 Weitere Werte können der Ausführung mitgegeben werden um spezielle Durchläufe zu erhalten:
 ```
