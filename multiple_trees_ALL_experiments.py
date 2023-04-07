@@ -36,13 +36,15 @@ algos = {'MultipleTrees': [multiple_trees_pre, RouteMultipleTrees],
 'MultipleTrees Mod Anzahl': [multiple_trees_pre_num_of_trees_mod, RouteMultipleTrees],
 'MultipleTrees Mod Reihenfolge': [multiple_trees_pre_order_of_edps_mod, RouteMultipleTrees],
 'MultipleTrees Mod Parallel': [multiple_trees_pre_parallel, RouteMultipleTrees],
-'One Tree Breite Mod': [one_tree_pre_breite_mod,RouteOneTree],
 'Parallel and Inverse FR2': [multiple_trees_pre_parallel_and_inverse, RouteMultipleTrees],
 'Breite and Inverse FR2': [multiple_trees_pre_breite_mod_and_inverse, RouteMultipleTrees],
 'Anzahl and Random FR2' : [multiple_trees_pre_num_of_trees_mod_and_random_order, RouteMultipleTrees],
-'OneTree' : [one_tree_pre , RouteOneTree],
-'SquareOne FR3': [PrepareSQ1, RouteSQ1],
 'MultipleTrees Mod Recycling': [multiple_trees_pre_recycling, RouteMultipleTrees],
+
+'SquareOne FR3': [PrepareSQ1, RouteSQ1],
+
+'One Tree Breite Mod': [one_tree_pre_breite_mod,RouteOneTree],
+'OneTree' : [one_tree_pre , RouteOneTree],
 'OneTree Inverse Mod FR' : [one_tree_pre_mod_inverse,RouteOneTree],
 }
 

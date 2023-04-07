@@ -1,10 +1,7 @@
-results/
-graphen/
 __pycache__/
 benchmark_graphs_all/
 benchmark_graphs_test/
 benchmark_graphs/
-multiple_trees_graphen/
 *.graphml
 *.gml
 *ml
@@ -12,5 +9,3 @@ log.txt
 log*
 *.txt
 graph
-breite_mod_trees/
-fixTruncation/
