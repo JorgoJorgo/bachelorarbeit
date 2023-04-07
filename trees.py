@@ -73,7 +73,7 @@ def multiple_trees(source, destination, graph, all_edps):
     removed_edges = 0
     trees = [] 
 
-    #für jeden tree muss hier sein edp eingefügt werden in den graph 
+    #für jeden tree muss hier sein edp eingefügt werden in den jeweiligen graph des trees 
 
     for i in range(0,len(all_edps)):
 
@@ -123,7 +123,7 @@ def multiple_trees(source, destination, graph, all_edps):
                                 #endif
                             #endfor
                         
-                            if not ( is_in_other_tree or (tree.has_node(neighbors[k])) ):
+                            if not ( is_in_other_tree or (tree.has_node(neighbors[k])) ):#wenn die kante weder in einem anderen baum noch in diesen baum drin ist, dann füge sie ein
                                 
                                 nodes.append(neighbors[k]) 
                                 tree.add_node(neighbors[k])
@@ -167,15 +167,14 @@ def multiple_trees(source, destination, graph, all_edps):
         
 
         #man muss prüfen ob nur die source im baum ist , da man im nächsten schritt der destination einen Rang geben muss
+        #nur die source im baum (tree.order == 1) bedeutet, dass es im graphen die kante source -> destination gibt
         if( tree.order() > 1 ):
             
 
             rank_tree(tree , source,all_edps[i])
             connect_leaf_to_destination(tree, source,destination)
 
-
             tree.add_edge(all_edps[i][len(all_edps[i])-2],destination)
-
             
             tree.nodes[destination]["rank"] = -1
         #endif
@@ -256,7 +255,7 @@ def multiple_trees_order_of_edps_mod(source, destination, graph, all_edps):
         all_edps.sort(key=len, reverse=False)
         print("EDPs after inverting : ", all_edps)
 
-    #für jeden tree muss hier sein edp eingefügt werden in den graph 
+    #für jeden tree muss hier sein edp eingefügt werden in den jeweiligen graph des trees 
     for i in range(0,len(all_edps)):
 
         current_edp = all_edps[i]
@@ -337,6 +336,7 @@ def multiple_trees_order_of_edps_mod(source, destination, graph, all_edps):
         #endwhile
 
         #man muss prüfen ob nur die source im baum ist , da man im nächsten schritt der destination einen Rang geben muss
+        #nur die source im baum (tree.order == 1) bedeutet, dass es im graphen die kante source -> destination gibt
         if( tree.order() > 1 ):
             rank_tree(tree , source, all_edps[i])
             connect_leaf_to_destination(tree, source,destination)
@@ -423,7 +423,7 @@ def multiple_trees_invert_order_of_edps_mod(source, destination, graph, all_edps
         all_edps.sort(key=len, reverse=False)
         print("EDPs after inverting : ", all_edps)
 
-    #für jeden tree muss hier sein edp eingefügt werden in den graph 
+    #für jeden tree muss hier sein edp eingefügt werden in den jeweiligen graph des trees 
     for i in range(0,len(all_edps)):
 
         current_edp = all_edps[i]
@@ -577,7 +577,7 @@ def multiple_trees_random_order_of_edps_mod(source, destination, graph, all_edps
         all_edps.sort(key=len, reverse=False)
         print("EDPs after inverting : ", all_edps)
 
-    #für jeden tree muss hier sein edp eingefügt werden in den graph 
+    #für jeden tree muss hier sein edp eingefügt werden in den jeweiligen graph des trees 
     for i in range(0,len(all_edps)):
 
         current_edp = all_edps[i]
@@ -752,7 +752,7 @@ def multiple_trees_num_of_trees_mod(source, destination, graph, all_edps):
         print('Zu viele EDPs ausgewählt, es werden alle EDPs genutzt') #wenn man versucht zu viele edps zu wählen 
     #endexcept
 
-    #für jeden tree muss hier sein edp eingefügt werden in den graph 
+    #für jeden tree muss hier sein edp eingefügt werden in den jeweiligen graph des trees 
     for i in range(0,len(all_edps)):
 
         current_edp = all_edps[i]
@@ -916,7 +916,7 @@ def multiple_trees_pre_breite_mod(graph):
 def multiple_trees_breite_mod(source, destination, graph, all_edps ,limitX):
     trees = [] #hier werden alle trees gespeichert 
 
-    #für jeden tree muss hier sein edp eingefügt werden in den graph 
+    #für jeden tree muss hier sein edp eingefügt werden in den jeweiligen graph des trees 
     for i in range(0,len(all_edps)):
 
         current_edp = all_edps[i]
@@ -1070,7 +1070,7 @@ def multiple_trees_parallel(source, destination, graph, all_edps):
     removed_edges = 0
     trees = []
     nodes_in_tree = []
-    #für jeden tree muss hier sein edp eingefügt werden in den graph 
+    #für jeden tree muss hier sein edp eingefügt werden in den jeweiligen graph des trees 
     for i in range(0,len(all_edps)):
 
         current_edp = all_edps[i]
@@ -1239,7 +1239,7 @@ def multiple_trees_recycling(source, destination, graph, all_edps):
     trees = []
     nodes_in_tree = []
     print("All Edps : ", all_edps)
-    #für jeden tree muss hier sein edp eingefügt werden in den graph 
+    #für jeden tree muss hier sein edp eingefügt werden in den jeweiligen graph des trees 
     for i in range(0,len(all_edps)):
 
         current_edp = all_edps[i]
@@ -1347,7 +1347,7 @@ def multiple_trees_recycling(source, destination, graph, all_edps):
 
         removed_edges = removed_edges + (old_edges - new_edges)
         
-        #man muss prüfen ob nur die source im baum ist , da man im nächsten schritt der destination einen Rang geben muss
+        
         i = i +1
     #endfor
     print("In parallel removed_edges : ", removed_edges)
@@ -1782,7 +1782,7 @@ def multiple_trees_parallel_and_inverse(source, destination, graph, all_edps):
         all_edps.sort(key=len, reverse=False)
         print("EDPs after inverting : ", all_edps)
 
-    #für jeden tree muss hier sein edp eingefügt werden in den graph 
+    #für jeden tree muss hier sein edp eingefügt werden in den jeweiligen graph des trees 
     for i in range(0,len(all_edps)):
 
         current_edp = all_edps[i]
@@ -1955,7 +1955,7 @@ def multiple_trees_breite_mod_and_inverse(source, destination, graph, all_edps ,
         all_edps.sort(key=len, reverse=False)
         print("EDPs after inverting : ", all_edps)
 
-    #für jeden tree muss hier sein edp eingefügt werden in den graph 
+    #für jeden tree muss hier sein edp eingefügt werden in den jeweiligen graph des trees 
     for i in range(0,len(all_edps)):
 
         current_edp = all_edps[i]
@@ -2150,7 +2150,7 @@ def multiple_trees_num_of_trees_mod_and_random_order(source, destination, graph,
     
         
 
-    #für jeden tree muss hier sein edp eingefügt werden in den graph 
+    #für jeden tree muss hier sein edp eingefügt werden in den jeweiligen graph des trees 
     for i in range(0,len(all_edps)):
 
         current_edp = all_edps[i]

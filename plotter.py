@@ -734,10 +734,10 @@ for i in range(1,25):
     #input("CLICK FOR NEXT FR ...")
     print("------------------------------------------------------------------")
 #endfor
-print(" Resilienz geteilt durch Count ohne Beachtung von Infs ")
-print(algorithm1 + "_Resilienz = ", alg1_resilience)
-print(algorithm2 + "_Resilienz = ", alg2_resilience)
-print(" ")
+# print(" Resilienz geteilt durch Count ohne Beachtung von Infs ")
+# print(algorithm1 + "_Resilienz = ", alg1_resilience)
+# print(algorithm2 + "_Resilienz = ", alg2_resilience)
+# print(" ")
 print(" Resilienz geteilt durch Count mit Beachtung von Infs (Summe von Resilienz geteilt durch Anzahl an Experimenten, beinhaltet auch die fehlgeschlagenen)")
 print(algorithm1 + "_mit_infs_Resilienz = ", alg1_real_resilience)
 print(algorithm2 + "_mit_infs_Resilienz = ", alg2_real_resilience)
@@ -749,12 +749,12 @@ print(algorithm1 + "_time = " , alg1_time)
 print(algorithm2 + "_time = " , alg2_time)
 
 print(" ")
-print(" NUR FÜR DEN DRITTEN PLOT WICHTIG ")
-print(algorithm1 + "_sum_hops = " , alg1_sum_hops)
-print(algorithm2 + "_sum_hops = " , alg2_sum_hops)
-print(" ")
-print(algorithm1 + "_count = " , alg1_counts)
-print(algorithm2 + "_count = " , alg2_counts)
+# print(" NUR FÜR DEN DRITTEN PLOT WICHTIG ")
+# print(algorithm1 + "_sum_hops = " , alg1_sum_hops)
+# print(algorithm2 + "_sum_hops = " , alg2_sum_hops)
+# print(" ")
+# print(algorithm1 + "_count = " , alg1_counts)
+# print(algorithm2 + "_count = " , alg2_counts)
 
 
 plotfig = True
@@ -1562,7 +1562,7 @@ if (plotfig):
     # oneTree_mit_infs_Resilienz =        [1.0, 1.0, 1.0, 1.0, 1.0, 0.9591837142857143, 1.0, 1.0, 1.0, 1.0, 1.0, 0.9714285714285714, 0.9142857142857143, 0.8571428571428571, 0.8571428571428571, 1.3142857142857143, 0.6, 0.5428571428571428,  0.5428571428571428,  0.2857142857142857, 0.19999999999999998, 0.19999999999999998, 0.19999999999999998, 0.17142857142857146]
     # multipleTreesInvers_mit_infs_Resilienz =  [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.9714285714285714, 0.9142857142857143, 0.8571428571428571, 0.8571428571428571, 1.6000000000000003, 0.7714285714285714, 0.7428571428571428, 0.7142857142857142, 0.48571428571428577, 0.48571428571428577, 0.42857142857142855, 0.3428571428571429, 0.2571428571428572]
     # squareOne_mit_infs_Resilienz =  [1.0, 1.0, 1.0, 1.0, 1.0, 0.9591837142857143, 1.0, 1.0, 0.9714285714285714, 0.9714285714285714, 0.9714285714285714, 0.9142857142857143, 0.8857142857142858, 0.7999999999999999, 0.7142857142857143, 1.1999999999999997, 0.4, 0.37142857142857144, 0.37142857142857144, 0.19999999999999998, 0.19999999999999998, 0.19999999999999998, 0.19999999999999998, 0.14285714285714285]
-    multipleTreesParallelInvers_mit_infs_Resilienz =  [1.0, 1.0, 1.0, 1.0, 1.0, 0.9591837142857143, 1.0, 1.0, 1.0, 1.0, 0.9714285714285714, 0.9714285714285714, 0.8857142857142858, 0.7999999999999999, 0.7428571428571428, 1.3714285714285712, 0.5714285714285714, 0.5428571428571429, 0.5428571428571429, 0.2571428571428571, 0.2285714285714286, 0.2285714285714286, 0.2285714285714286, 0.17142857142857146]
+    #multipleTreesParallelInvers_mit_infs_Resilienz =  [1.0, 1.0, 1.0, 1.0, 1.0, 0.9591837142857143, 1.0, 1.0, 1.0, 1.0, 0.9714285714285714, 0.9714285714285714, 0.8857142857142858, 0.7999999999999999, 0.7428571428571428, 1.3714285714285712, 0.5714285714285714, 0.5428571428571429, 0.5428571428571429, 0.2571428571428571, 0.2285714285714286, 0.2285714285714286, 0.2285714285714286, 0.17142857142857146]
     
 
     # #hier müssen die resilienzen nochmal geteilt werden weil fr16 doppelt in der liste stande
@@ -1573,8 +1573,8 @@ if (plotfig):
     # oneTree_mit_infs_Resilienz[15] =  oneTree_mit_infs_Resilienz[15]/2
     # multipleTreesInvers_mit_infs_Resilienz[15] =  multipleTreesInvers_mit_infs_Resilienz[15]/2
     # squareOne_mit_infs_Resilienz[15] =  squareOne_mit_infs_Resilienz[15]/2
-    multipleTreesParallelInvers_mit_infs_Resilienz[15] =  multipleTreesParallelInvers_mit_infs_Resilienz[15]/2
-    print("MultipleTrees Parallel & Invers Resilienz : " , ( sum(multipleTreesParallelInvers_mit_infs_Resilienz)/len(multipleTreesParallelInvers_mit_infs_Resilienz)  ))
+    #multipleTreesParallelInvers_mit_infs_Resilienz[15] =  multipleTreesParallelInvers_mit_infs_Resilienz[15]/2
+    #print("MultipleTrees Parallel & Invers Resilienz : " , ( sum(multipleTreesParallelInvers_mit_infs_Resilienz)/len(multipleTreesParallelInvers_mit_infs_Resilienz)  ))
     # print(multipleTrees_mit_infs_Resilienz)
     # plt.plot(X,  multipleTrees_mit_infs_Resilienz, color='r', label='MultipleTrees')
     # plt.plot(X, oneTreeInvers_mit_infs_Resilienz , color='g', label='OneTree Invers')
@@ -1621,12 +1621,12 @@ if (plotfig):
     oneTree_Hops =  [3.857142857142857, 4.0, 4.285714285714286, 11.857142857142858, 10.714285714285714, 12.142857142857142, 4.0, 4.714285714285714, 4.714285714285714, 9.571428571428571, 12.142857142857142, 12.142857142857142, 15.0, 12.571428571428571, 16.428571428571427, 13.285714285714286, 17.857142857142858, 16.571428571428573, 16.571428571428573, 8.0, 4.0, 4.0, 4.0, 3.5]
     multipleTreesInvers_Hops =  [3.857142857142857, 3.857142857142857, 3.857142857142857, 9.428571428571429, 9.428571428571429, 9.428571428571429, 3.857142857142857, 6.857142857142857, 6.857142857142857, 7.142857142857143, 8.857142857142858, 8.0, 16.142857142857142, 16.428571428571427, 18.571428571428573, 19.0, 19.571428571428573, 15.857142857142858, 15.142857142857142, 18.571428571428573, 19.142857142857142, 14.714285714285714, 8.0, 5.333333333333333]
     
-    for i in range(0,len(oneTree_Hops)):
-        if(oneTree_Hops[i] < oneTreeInvers_Hops[i]):
-            print(oneTree_Hops[i])
+    #for i in range(0,len(oneTree_Hops)):
+    #    if(oneTree_Hops[i] < oneTreeInvers_Hops[i]):
+    #        print(oneTree_Hops[i])
 
-    print("OneTree : ", (sum(oneTree_Hops)/len(oneTree_Hops)))
-    print("OneTreeInvers : ", (sum(oneTreeInvers_Hops)/len(oneTreeInvers_Hops)))
+    #print("OneTree : ", (sum(oneTree_Hops)/len(oneTree_Hops)))
+    #print("OneTreeInvers : ", (sum(oneTreeInvers_Hops)/len(oneTreeInvers_Hops)))
     
     # plt.plot(X,  multipleTrees_Hops, color='r', label='MultipleTrees')
     # plt.plot(X, oneTreeInvers_Hops , color='g', label='OneTree Invers')
@@ -1648,11 +1648,11 @@ if (plotfig):
     # squareOne_sum_hops =  [27, 27, 28, 85, 83, 91, 32, 40, 40, 62, 78, 73, 96, 91, 64, 71, 24, 24, 24, 13, 13, 13, 13, 11]
     # multipleTreesParallelInvers_sum_hops =  [27, 27, 28, 48, 48, 79, 28, 48, 52, 69, 76, 81, 106, 101, 68, 61, 41, 37, 37, 13, 13, 13, 13, 11]
     # oneTree_sum_hops =  [27, 28, 30, 83, 75, 85, 28, 33, 33, 67, 85, 85, 105, 88, 115, 93, 94, 86, 86, 16, 16, 16, 16, 14]
-    multipleTreesInvers_sum_hops =  [27, 27, 27, 66, 66, 66, 27, 48, 48, 50, 62, 56, 113, 115, 130, 133, 126, 100, 98, 57, 57, 36, 19, 11]
-    multipleTrees_sum_hops =  [44, 43, 44, 75, 66, 67, 46, 58, 66, 66, 77, 76, 133, 131, 132, 161, 118, 117, 111, 66, 66, 61, 62, 58]
+    #multipleTreesInvers_sum_hops =  [27, 27, 27, 66, 66, 66, 27, 48, 48, 50, 62, 56, 113, 115, 130, 133, 126, 100, 98, 57, 57, 36, 19, 11]
+    #multipleTrees_sum_hops =  [44, 43, 44, 75, 66, 67, 46, 58, 66, 66, 77, 76, 133, 131, 132, 161, 118, 117, 111, 66, 66, 61, 62, 58]
     # oneTreeInvers_sum_hops =  [27, 28, 30, 83, 75, 85, 28, 33, 33, 67, 85, 85, 99, 88, 90, 114, 97, 65, 65, 16, 16, 16, 16, 14]
-    print("MultipleTrees Sum : ", (sum(multipleTrees_sum_hops))/len(multipleTrees_sum_hops) )
-    print("MultipleTrees Invers Sum : ", (sum(multipleTreesInvers_sum_hops))/len(multipleTreesInvers_sum_hops) )
+    #print("MultipleTrees Sum : ", (sum(multipleTrees_sum_hops))/len(multipleTrees_sum_hops) )
+    #print("MultipleTrees Invers Sum : ", (sum(multipleTreesInvers_sum_hops))/len(multipleTreesInvers_sum_hops) )
     # oneTree_count =                      [7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 6, 6, 6, 4, 4, 4, 4, 4]
     # multipleTreesInvers_count =          [7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 6, 6, 6, 4, 4, 4, 4, 4]
     # squareOne_count =                    [7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 6, 6, 6, 4, 4, 4, 4, 4]
