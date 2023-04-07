@@ -16,7 +16,7 @@ pip install networkx numpy matplotlib pydot
 ## Überblick
 
 * trees.py : enthält alle Algorithmen für die Baumbildung und ihre Hilfsfunktionen
-* routing,.py : Routingalgorithmen
+* routing.py : Routingalgorithmen
 * benchmark_graphs: Ordner für genutzten Topologien
 * results: Ordner für Ausgaben und Ergebnisse der Algorithmen
 * ..._experiments.py : Experimente mit gesetzten Parametern für Ausführung bereit
